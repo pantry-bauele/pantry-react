@@ -1,0 +1,10 @@
+#parent {
+    display: flex;    
+
+}
+
+.Form-element {
+    display: flex;
+    font-size: 100%;
+    justify-content: space-between;
+  }

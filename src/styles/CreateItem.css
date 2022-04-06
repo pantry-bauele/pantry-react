@@ -1,0 +1,36 @@
+#parent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#details-prompt {
+    font-weight: normal;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-bottom: 5;
+
+    text-align: center;
+}
+
+#continue-button {
+    margin-top: 7%;
+    border: 2px solid deepskyblue;
+    background-color: skyblue;
+}
+
+#back-button {
+    margin-top: 7%;
+    border: 2px solid deepskyblue;
+    background-color: skyblue;
+}
+
+.item-details-button {
+    width: 50%;
+    height: 50px;
+    margin: 5px;
+}
+
+.item-details-button-selected {
+    border: 3px solid deepskyblue;
+}
