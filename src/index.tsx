@@ -8,17 +8,12 @@ import ViewItems from './routes/ViewItems';
 import Login from './routes/Login';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-const toRender =   <React.StrictMode>
-<BrowserRouter>
-  <Routes>
-    <Route path="/" element={<App />}>
-      <Route path="/login" element={<Login />} />
-      <Route path="createItem" element={<CreateItem />} />
-      <Route path="/viewItems" element={<ViewItems accountEmail="hello@y.com"/>} />
-    </Route>
-  </Routes>
-</BrowserRouter>
-</React.StrictMode>
+const toRender =     
+  <React.StrictMode>
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+  </React.StrictMode>
 
 
 const container = document.getElementById('root');
