@@ -1,4 +1,3 @@
-import React from 'react';
 import { useState } from 'react';
 import { useAuthentication } from '../components/Authentication'
 
@@ -11,7 +10,6 @@ export default function ViewItems(props: Props) {
     console.log(props.accountEmail);
 
     let email = useAuthentication();
-
     
     return (
         <>

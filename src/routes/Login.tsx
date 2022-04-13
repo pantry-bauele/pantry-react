@@ -10,7 +10,7 @@ import { startLoginUI } from '../api/AuthenticationService';
 export default function Login() {
 
     function loginUser() {
-        console.log('logging in');
+        //console.log('logging in');
     }
     
     useEffect(() => {

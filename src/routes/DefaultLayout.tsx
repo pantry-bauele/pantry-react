@@ -1,24 +1,27 @@
 import { Outlet, Link } from "react-router-dom"
-import { userEmail, signOut } from '../api/AuthenticationService';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
 
-function DefaultLayout() {
+interface Props {
+  loggedIn: boolean;
+}
+
+function DefaultLayout(props: Props) {
   let navigate = useNavigate();
 
-  function logout() {
-    console.log('Aha!');
-    signOut();
-    navigate('/');
-  }
+  const [logged, setLogged] = useState(props.loggedIn); 
+
+  useEffect(() => {
+    setLogged(props.loggedIn);
+  })
 
   function renderNav() {
-    if (userEmail != '') {
+    if (logged) {
       return (
         <nav>
-        <Link to="/login">Login</Link> | {" "}
         <Link to="/createItem">Create Item</Link> | {" "}
         <Link to="/viewItems">View Items</Link> | {" "}
-        <a onClick={logout}> Logout </a>
+        <Link to="/logout"> Logout </Link>
       </nav>
       )
     }
