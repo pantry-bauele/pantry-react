@@ -3,10 +3,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createRoot } from 'react-dom/client';
 import React from 'react';
-import CreateItem from './routes/CreateItem';
-import ViewItems from './routes/ViewItems';
-import Login from './routes/Login';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter} from 'react-router-dom';
 
 const toRender =     
   <React.StrictMode>
