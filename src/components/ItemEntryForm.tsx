@@ -26,7 +26,7 @@ export default function ItemEntryForm(props: Props) {
                 <>
                     <label className="Form-element">
                         Calories
-                        <input name="calories" type="text" value={calories} onChange={handleChange}/>
+                        <input name="calories" type="text" value={calories} onChange={handleChange} />
                     </label>
                 </>
             )
@@ -34,13 +34,13 @@ export default function ItemEntryForm(props: Props) {
     }
 
     function showTotalQuantityField() {
-        if (props.selectedItemDetails.get('supply-button') || 
-             props.selectedItemDetails.get('spending-button')) {
+        if (props.selectedItemDetails.get('supply-button') ||
+            props.selectedItemDetails.get('spending-button')) {
             return (
                 <>
                     <label className="Form-element">
                         Total Quantity
-                        <input name="quantity" type="text" value={quantity} onChange={handleChange}/>
+                        <input name="quantity" type="text" value={quantity} onChange={handleChange} />
                     </label>
 
                     <label className="Form-element">
@@ -99,10 +99,10 @@ export default function ItemEntryForm(props: Props) {
         console.log(target.value);
 
         switch (name) {
-            case 'name': 
+            case 'name':
                 setName(target.value);
-                break;            
-            
+                break;
+
             case 'brand':
                 setBrand(target.value);
                 break;
@@ -111,7 +111,7 @@ export default function ItemEntryForm(props: Props) {
                 console.log('trying');
                 setCalories(Number.parseInt(target.value));
                 break;
-            
+
             case 'quantity':
                 setQuantity(Number.parseInt(target.value));
                 break;
@@ -124,7 +124,7 @@ export default function ItemEntryForm(props: Props) {
                 <form onSubmit={doNothing}>
                     <label className="Form-element">
                         <div>Item Name</div>
-                        <input name="name" type="text" value={name} onChange={handleChange}/>
+                        <input name="name" type="text" value={name} onChange={handleChange} />
                     </label>
                     <label className="Form-element">
                         Brand

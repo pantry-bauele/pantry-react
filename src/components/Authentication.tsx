@@ -1,17 +1,16 @@
 import React from "react";
 
 interface IAuthentication {
-    emailAddress: string;
+    emailAddress: string | null;
 }
 
 let AuthenticationContext = React.createContext<IAuthentication>(null!);
 
-export function AuthenticationProvider({children}: {children: React.ReactNode}) {
-
-    let email = localStorage.getItem('user');
-    let value = {emailAddress: 'default' };
+export function AuthenticationProvider({ children }: { children: React.ReactNode }) {
+    let email = localStorage.getItem('loggedIn');
+    let value = { emailAddress: email };
     if (typeof email === 'string') {
-        value = {emailAddress: email};
+        value = { emailAddress: email };
     }
 
     return (
@@ -25,7 +24,7 @@ export function useAuthentication() {
     return React.useContext(AuthenticationContext);
 }
 
-export function RequireAuthentication({children}: {children: JSX.Element}) {
+export function RequireAuthentication({ children }: { children: JSX.Element }) {
     let auth = useAuthentication();
 
     let email = auth.emailAddress;

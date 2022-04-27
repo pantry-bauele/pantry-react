@@ -1,6 +1,8 @@
 import './App.css';
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom"
+import { Route, Routes, useNavigate } from "react-router-dom"
 import { useEffect, useState } from 'react';
+
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import CreateItem from './routes/CreateItem';
 import Login from './routes/Login';
@@ -10,42 +12,37 @@ import Logout from './routes/Logout';
 
 import { AuthenticationProvider, RequireAuthentication } from './components/Authentication';
 
-
 function App() {
-  const [user, setUser] = useState(false);
+  const [activeUser, setUser] = useState(localStorage.getItem('loggedIn'));
 
   let navigate = useNavigate();
-  let location = useLocation();
 
   useEffect(() => {
-    // If user is not logged in, direct them to login
-    // Otherwise, direct them to create an item
-    if (localStorage.getItem('user')) {
-      if (user === false) {
-        setUser(true);
-        if (location.pathname !== '/createItem') {
-          navigate('/createItem');
-        }
+    console.log('useEffect, [activeUser]');
+    console.log('Current user is ', activeUser);
+
+    onAuthStateChanged(getAuth(), (user) => {
+      console.log('Auth state chaged in App()');
+      if (user?.email !== null && user?.email !== undefined) {
+        setUser(user?.email);
+        localStorage.setItem('loggedIn', user?.email);
+      }
+      else {
+        setUser(null);
+        localStorage.removeItem('loggedIn');
       }
 
-
-    }
-    else {
-      if (user === true) {
-        setUser(false);
-      }
-
-      if (location.pathname !== '/login') {
+      if (activeUser === '' || activeUser === null) {
         navigate('/login');
       }
-    }
-  })
+    });
+  }, [activeUser, navigate]);
 
   return (
     <AuthenticationProvider>
       <div>
         <Routes>
-          <Route path="/" element={<DefaultLayout loggedIn={user} />}>
+          <Route path="/" element={<DefaultLayout loggedIn={activeUser} />}>
             <Route path="/login" element={<Login />} />
             <Route path="/createItem" element={
               <RequireAuthentication>
@@ -53,7 +50,7 @@ function App() {
               </RequireAuthentication>} />
             <Route path="/viewItems" element={
               <RequireAuthentication>
-                <ViewItems accountEmail="hello@y.com" />
+                <ViewItems accountEmail={activeUser} />
               </RequireAuthentication>} />
             <Route path="/logout" element={<Logout />} />
           </Route>

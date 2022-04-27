@@ -6,11 +6,11 @@ import React from 'react';
 import { BrowserRouter} from 'react-router-dom';
 
 const toRender =     
-  <React.StrictMode>
+  /* <React.StrictMode> */
   <BrowserRouter>
     <App />
   </BrowserRouter>
-  </React.StrictMode>
+  /* </React.StrictMode> */
 
 
 const container = document.getElementById('root');

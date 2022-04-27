@@ -1,28 +1,25 @@
 import { Outlet, Link } from "react-router-dom"
-import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
 
 interface Props {
-  loggedIn: boolean;
+  loggedIn: string | null
 }
 
 function DefaultLayout(props: Props) {
-  let navigate = useNavigate();
-
-  const [logged, setLogged] = useState(props.loggedIn); 
+  const [logged, setLogged] = useState(props.loggedIn);
 
   useEffect(() => {
     setLogged(props.loggedIn);
-  })
+  }, [props.loggedIn])
 
   function renderNav() {
     if (logged) {
       return (
         <nav>
-        <Link to="/createItem">Create Item</Link> | {" "}
-        <Link to="/viewItems">View Items</Link> | {" "}
-        <Link to="/logout"> Logout </Link>
-      </nav>
+          <Link to="/createItem">Create Item</Link> | {" "}
+          <Link to="/viewItems">View Items</Link> | {" "}
+          <Link to="/logout"> Logout </Link>
+        </nav>
       )
     }
   }
@@ -30,9 +27,9 @@ function DefaultLayout(props: Props) {
   return (
     <div>
       <h1>Pantry</h1>
-        { renderNav() }
+      {renderNav()}
       <Outlet />
-      </div>
+    </div>
   );
 }
 
