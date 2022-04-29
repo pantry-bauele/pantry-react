@@ -6,13 +6,13 @@ import { useEffect } from 'react';
 
 export default function Logout() {
     let navigate = useNavigate();
-    
+
     function redirect() {
         localStorage.removeItem("user");
         navigate("/");
     }
-    
-    {logoutUser()}
+
+    { logoutUser() }
 
     useEffect(() => {
         redirect();

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Item from '../components/Item';
 import axios from 'axios';
 
 interface Props {
@@ -26,7 +27,15 @@ export default function ViewItems(props: Props) {
         console.log(response.data);
 
         const elements = response.data.map((element: any) =>
-          <li key={element.name}>{element.name}</li>
+          <Item
+            key={element.name}
+            name={element.name}
+            brand={element.brand}
+            calories={element.calories}
+            vendorPrices={element.vendorPrices}
+            totalQuantity={element.totalQuantity}
+            servingSize={element.servingSize}
+          />
         )
 
         console.log(elements);
@@ -51,7 +60,7 @@ export default function ViewItems(props: Props) {
     <>
       <h1>View Items</h1>
       <h2>{accountEmail}</h2>
-      <ul> {listItems} </ul>
+      <div style={{"display": "flex"}}> {listItems} </div>
     </>
   )
 }
