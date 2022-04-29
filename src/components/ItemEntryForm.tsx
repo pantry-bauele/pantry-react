@@ -3,24 +3,19 @@ import React, { useState } from 'react';
 
 interface Props {
     selectedItemDetails: Map<string, boolean>;
+    submitForm: any;
 }
 
 export default function ItemEntryForm(props: Props) {
     const [name, setName] = useState('');
     const [brand, setBrand] = useState('');
-    const [calories, setCalories] = useState(-1);
-    const [quantity, setQuantity] = useState(-1);
+    const [calories, setCalories] = useState(0);
+    const [quantity, setQuantity] = useState(0);
     const [quantityUnit, setQuantityUnit] = useState('');
-    const [serving, setServing] = useState(-1);
+    const [serving, setServing] = useState(0);
     const [servingUnit, setServingUnit] = useState('');
 
-    function doNothing() {
-
-    }
-
     function showCaloriesField() {
-        console.log(props);
-
         if (props.selectedItemDetails.get('nutrition-button')) {
             return (
                 <>
@@ -62,12 +57,12 @@ export default function ItemEntryForm(props: Props) {
                 <>
                     <label className="Form-element">
                         Serving Size
-                        <input name="serving" type="text" />
+                        <input name="serving" type="text" value={serving} onChange={handleChange}/>
                     </label>
 
                     <label className="Form-element">
                         Unit
-                        <select name="servingUnit">
+                        <select name="servingUnit" value={servingUnit} onChange={handleChange}>
                             <option value="g">grams</option>
                             <option value="oz">ounces</option>
                             <option value="lb">pounds</option>
@@ -115,13 +110,38 @@ export default function ItemEntryForm(props: Props) {
             case 'quantity':
                 setQuantity(Number.parseInt(target.value));
                 break;
+
+            case 'quantityUnit':
+                setQuantityUnit(target.value);
+                break;
+            
+            case 'serving':
+                setServing(Number.parseInt(target.value));
+                break;  
+
+            case 'servingUnit':
+                setServingUnit(target.value);
+                break;
         }
+    }
+
+    function buildItemObject() {
+        let item = {
+            name: name,
+            brand: brand,
+            calories: calories,
+            vendorPrice: null,
+            totalQuantity: {amount: quantity, unit: quantityUnit},
+            servingSize: {amount: serving, unit: servingUnit}
+        }
+
+        return item;
     }
 
     return (
         <>
             <div id="parent">
-                <form onSubmit={doNothing}>
+                <form>
                     <label className="Form-element">
                         <div>Item Name</div>
                         <input name="name" type="text" value={name} onChange={handleChange} />
@@ -137,6 +157,8 @@ export default function ItemEntryForm(props: Props) {
                     {showVendorField()}
                 </form>
             </div>
+
+            <button id="submit-button" onClick={() => {props.submitForm(buildItemObject())}}>Add Item</button>
         </>
     )
 }

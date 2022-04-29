@@ -1,13 +1,18 @@
 import '../styles/CreateItem.css';
 import ItemEntryForm from '../components/ItemEntryForm';
 import { useState } from 'react';
+import { serverSingleton } from '../api/ServerAPI';
 
 let itemDetailsDefault = new Map<string, boolean>();
 itemDetailsDefault.set('nutrition-button', false);
 itemDetailsDefault.set('spending-button', false);
 itemDetailsDefault.set('supply-button', false);
 
-export default function CreateItem() {
+type Props = {
+    accountEmail: string | null;
+}
+
+export default function CreateItem({accountEmail}: Props) {
     const [selectedItemDetails,setSelectedItemDetails] = useState(new Map<string, boolean>(itemDetailsDefault));
     const [showItemDetailsButtons, setShowItemDetailsButtons] = useState(true);
     const [showItemForm, setShowItemForm] = useState(false);
@@ -32,6 +37,15 @@ export default function CreateItem() {
         setShowItemForm(!showItemForm);
     }
 
+    function submitForm(item: {}) {
+        alert("Submitted your item!");
+        console.log('Item = ', item);
+
+        if (typeof accountEmail === 'string') {
+            serverSingleton.createItem(accountEmail, item);
+        }
+    }
+
     function renderItemDetailsButtons() {
         if (showItemDetailsButtons) {
             return (
@@ -50,7 +64,7 @@ export default function CreateItem() {
         if (showItemForm) {
             return (
                 <>
-                    <ItemEntryForm selectedItemDetails={selectedItemDetails} />
+                    <ItemEntryForm selectedItemDetails={selectedItemDetails} submitForm={submitForm}/>
                     <button id="back-button" onClick={toggleFormPage}>Go Back</button>
                 </>
             )

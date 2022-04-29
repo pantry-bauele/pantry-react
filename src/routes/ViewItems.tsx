@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Item from '../components/Item';
-import axios from 'axios';
+
+import {serverSingleton} from '../api/ServerAPI';
 
 interface Props {
   accountEmail: string | null;
@@ -14,41 +15,29 @@ export default function ViewItems(props: Props) {
   async function loadItems(emailAddress: string | null) {
     console.log(`Loading items from ${emailAddress}`);
 
-    try {
-      let response = await axios({
-        method: 'get',
-        url: 'http://192.168.0.5:3001/get-items',
-        params: {
-          emailAddress: emailAddress,
-        }
-      })
+    let response;
+    if (typeof emailAddress === 'string') {
+      response = await serverSingleton.loadItems(emailAddress);
+    }
 
-      if (response.data) {
-        console.log(response.data);
+    console.log('response = ', response);
+    if (response) {
+      console.log(response);
 
-        const elements = response.data.map((element: any) =>
-          <Item
-            key={element.name}
-            name={element.name}
-            brand={element.brand}
-            calories={element.calories}
-            vendorPrices={element.vendorPrices}
-            totalQuantity={element.totalQuantity}
-            servingSize={element.servingSize}
-          />
-        )
+      const elements = response.map((element: any) =>
+        <Item
+          key={element.name}
+          name={element.name}
+          brand={element.brand}
+          calories={element.calories}
+          vendorPrices={element.vendorPrices}
+          totalQuantity={element.totalQuantity}
+          servingSize={element.servingSize}
+        />
+      )
 
-        console.log(elements);
-        setListItems(elements);
-
-      }
-      else {
-        console.log('No response');
-      }
-
-    } catch (error) {
-      console.log('loadItems() error');
-      console.log(error);
+      console.log(elements);
+      setListItems(elements);
     }
   }
 

@@ -8,3 +8,7 @@
     font-size: 100%;
     justify-content: space-between;
   }
+
+  #submit-button {
+      margin-top: 40px;
+  }

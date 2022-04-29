@@ -14,6 +14,7 @@ import { AuthenticationProvider, RequireAuthentication } from './components/Auth
 
 function App() {
   const [activeUser, setUser] = useState(localStorage.getItem('loggedIn'));
+  const [connectedToServer, setConnectedToServer] = useState(false);
 
   let navigate = useNavigate();
 
@@ -46,7 +47,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/createItem" element={
               <RequireAuthentication>
-                <CreateItem />
+                <CreateItem accountEmail={activeUser}/>
               </RequireAuthentication>} />
             <Route path="/viewItems" element={
               <RequireAuthentication>
