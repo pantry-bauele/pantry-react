@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Item from '../components/Item';
 
 import {serverSingleton} from '../api/ServerAPI';
+import '../styles/ViewItems.css';
 
 interface Props {
   accountEmail: string | null;
@@ -49,7 +50,7 @@ export default function ViewItems(props: Props) {
     <>
       <h1>View Items</h1>
       <h2>{accountEmail}</h2>
-      <div style={{"display": "flex"}}> {listItems} </div>
+      <div id="items"> {listItems} </div>
     </>
   )
 }

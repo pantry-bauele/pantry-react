@@ -1,3 +1,5 @@
+import '../styles/Item.css';
+
 interface Props {
     name: string;
     brand: string;
@@ -17,8 +19,8 @@ function Item({name, brand, calories, vendorPrices, totalQuantity, servingSize}:
     })
     
     return (
-        <div style={{"border": "2px solid black", "margin": "3px"}}>
-            <div style={{"backgroundColor": "blue", "padding": "5px", "color": "white", "borderBottom": "2px solid darkBlue"}}>{ name }</div>
+        <div className="item">
+            <div>{ name }</div>
             <div style={{"padding": "5px"}}>
                 <div>Brand: { brand }</div>
                 <div>Calories: { calories }</div>
