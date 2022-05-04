@@ -34,12 +34,28 @@ export default function ViewItems(props: Props) {
           vendorPrices={element.vendorPrices}
           totalQuantity={element.totalQuantity}
           servingSize={element.servingSize}
+          deleteItem={deleteItem}
         />
       )
 
       console.log(elements);
       setListItems(elements);
     }
+  }
+
+  async function deleteItem(item: {}) {
+    alert(`Let's delete ${item}`);
+    console.log(item);
+
+    if (typeof accountEmail === 'string') {
+      await serverSingleton.deleteItem(accountEmail, item);
+    }
+    else {
+      console.log('accountEmail is not a string!');
+    }
+
+    // Eventually, add support for removing that particular
+    // item from the array here
   }
 
   useEffect(() => {

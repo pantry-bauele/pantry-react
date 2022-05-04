@@ -6,13 +6,10 @@ interface Props {
     submitForm: any;
 }
 
-let vp = new Array<{vendor: string, price: string}>();
-vp.push({vendor: '', price: ''});
+let vp = new Array<{ vendor: string, price: string }>();
+vp.push({ vendor: '', price: '' });
 
 export default function ItemEntryForm(props: Props) {
-
-
-
     const [name, setName] = useState('');
     const [brand, setBrand] = useState('');
     const [calories, setCalories] = useState(0);
@@ -64,7 +61,7 @@ export default function ItemEntryForm(props: Props) {
                 <>
                     <label className="Form-element">
                         Serving Size
-                        <input name="serving" type="text" value={serving} onChange={handleChange}/>
+                        <input name="serving" type="text" value={serving} onChange={handleChange} />
                     </label>
 
                     <label className="Form-element">
@@ -84,11 +81,11 @@ export default function ItemEntryForm(props: Props) {
     function showVendorField() {
         if (props.selectedItemDetails.get('spending-button')) {
             let x = vendorPrices.map((v, index) => {
-                return ( 
+                return (
                     <div key={index}>
-                    <input name={`vendor${index}`} type="text" value={vendorPrices[index].vendor} onChange={onVendorPriceChange}/>
-                    <input name={`price${index}`} type="text" value={vendorPrices[index].price} onChange={onVendorPriceChange}/>
-                    <button name={`${index}`} onClick={(e) => deleteVendorPrice(e)}>X</button>
+                        <input name={`vendor${index}`} type="text" value={vendorPrices[index].vendor} onChange={onVendorPriceChange} />
+                        <input name={`price${index}`} type="text" value={vendorPrices[index].price} onChange={onVendorPriceChange} />
+                        <button name={`${index}`} onClick={(e) => deleteVendorPrice(e)}>X</button>
                     </div>
                 )
             })
@@ -96,10 +93,10 @@ export default function ItemEntryForm(props: Props) {
             return (
                 <>
                     <label className="">
-                        Vendors              
+                        Vendors
 
-                    {x}
-                    <button onClick={(e) => addVendorPrice(e)}>Add Vendor Price</button>
+                        {x}
+                        <button onClick={(e) => addVendorPrice(e)}>Add Vendor Price</button>
                     </label>
                 </>
             )
@@ -113,7 +110,7 @@ export default function ItemEntryForm(props: Props) {
         console.log(target.value);
 
         let currentVendorPrices = vendorPrices;
-        let newVendorPrices = [... currentVendorPrices];
+        let newVendorPrices = [...currentVendorPrices];
 
         if (name.includes("vendor")) {
             console.log("Updating vendor...");
@@ -128,7 +125,7 @@ export default function ItemEntryForm(props: Props) {
         }
         else if (name.includes("price")) {
             let index = Number.parseInt(name.substring(5));
-            
+
             newVendorPrices[index].price = (target.value);
             console.log('newVP = ', newVendorPrices);
 
@@ -141,14 +138,14 @@ export default function ItemEntryForm(props: Props) {
 
         let currentVendorPrices = vendorPrices;
         let newVendorPrices = [...currentVendorPrices];
-        newVendorPrices.push({vendor: "", price: ""});
-        
+        newVendorPrices.push({ vendor: "", price: "" });
+
         setVendorPrices(newVendorPrices);
     }
 
     function deleteVendorPrice(e: React.MouseEvent) {
         e.preventDefault();
-        let name = e.currentTarget.getAttribute('name');        
+        let name = e.currentTarget.getAttribute('name');
         console.log(e.currentTarget.getAttribute('name'));
 
         let currentVendorPrices = vendorPrices;
@@ -157,7 +154,7 @@ export default function ItemEntryForm(props: Props) {
         if (name !== null) {
             newVendorPrices.splice(Number.parseInt(name), 1);
         }
-        
+
         setVendorPrices(newVendorPrices);
     }
 
@@ -188,10 +185,10 @@ export default function ItemEntryForm(props: Props) {
             case 'quantityUnit':
                 setQuantityUnit(target.value);
                 break;
-            
+
             case 'serving':
                 setServing(Number.parseInt(target.value));
-                break;  
+                break;
 
             case 'servingUnit':
                 setServingUnit(target.value);
@@ -205,8 +202,8 @@ export default function ItemEntryForm(props: Props) {
             brand: brand,
             calories: calories,
             vendorPrice: null,
-            totalQuantity: {amount: quantity, unit: quantityUnit},
-            servingSize: {amount: serving, unit: servingUnit}
+            totalQuantity: { amount: quantity, unit: quantityUnit },
+            servingSize: { amount: serving, unit: servingUnit }
         }
 
         return item;
@@ -232,7 +229,7 @@ export default function ItemEntryForm(props: Props) {
                 </form>
             </div>
 
-            <button id="submit-button" onClick={() => {props.submitForm(buildItemObject())}}>Add Item</button>
+            <button id="submit-button" onClick={() => { props.submitForm(buildItemObject()) }}>Add Item</button>
         </>
     )
 }
