@@ -39,14 +39,18 @@ export default function CreateItem({ accountEmail }: Props) {
   }
 
   function toggleFormPage() {
+    // If item details buttons are not currently visible, they are
+    // about to be after the toggle completes, so they should all be
+    // reset to being unselected.
+    if (!showItemDetailsButtons) {
+      itemDetailsDefault.set("nutrition-button", false);
+      itemDetailsDefault.set("spending-button", false);
+      itemDetailsDefault.set("supply-button", false);
+      setSelectedItemDetails(itemDetailsDefault);
+    }
+
     setShowItemDetailsButtons(!showItemDetailsButtons);
     setShowItemForm(!showItemForm);
-
-    // Disable all of the item detail tracking
-    itemDetailsDefault.set("nutrition-button", false);
-    itemDetailsDefault.set("spending-button", false);
-    itemDetailsDefault.set("supply-button", false);
-    setSelectedItemDetails(itemDetailsDefault);
   }
 
   function submitForm(item: {}) {
