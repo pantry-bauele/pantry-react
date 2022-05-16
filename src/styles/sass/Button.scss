@@ -1,0 +1,8 @@
+@use "base";
+
+.brand-button {
+  background-color: base.$brand-color;
+  color: white;
+  border: none;
+  font-weight: 600;
+}
