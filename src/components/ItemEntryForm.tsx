@@ -1,4 +1,5 @@
 import "../styles/ItemEntryForm.css";
+import { ItemEntryFormValidator } from "../api/ItemEntryFormValidator";
 import React, { useState } from "react";
 
 interface Props {
@@ -26,10 +27,12 @@ export default function ItemEntryForm(props: Props) {
           <label className="Form-element">
             Calories
             <input
+              id="calories"
               name="calories"
               type="text"
-              value={calories}
-              onChange={handleChange}
+              //value={calories}
+              //onChange={handleChange}
+              onBlur={validateField}
             />
           </label>
         </>
@@ -203,8 +206,8 @@ export default function ItemEntryForm(props: Props) {
   ) {
     const target = event.target;
     const name = target.name;
-    console.log(name);
-    console.log(target.value);
+    //console.log(name);
+    //console.log(target.value);
 
     switch (name) {
       case "name":
@@ -216,8 +219,64 @@ export default function ItemEntryForm(props: Props) {
         break;
 
       case "calories":
-        console.log("trying");
         setCalories(target.value);
+        break;
+
+      case "quantity":
+        setQuantity(target.value);
+        break;
+
+      case "quantityUnit":
+        setQuantityUnit(target.value);
+        break;
+
+      case "serving":
+        setServing(target.value);
+        break;
+
+      case "servingUnit":
+        setServingUnit(target.value);
+        break;
+    }
+  }
+
+  function validateField(
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
+  ) {
+    const target = event.target;
+    const name = target.name;
+    console.log(name);
+    //console.log(target.value);
+    let itemEntryFormValidator = new ItemEntryFormValidator();
+
+    switch (name) {
+      case "name":
+        setName(target.value);
+        break;
+
+      case "brand":
+        setBrand(target.value);
+        break;
+
+      case "calories":
+        console.log("Validating calories");
+        let convertedValue;
+        try {
+          convertedValue = itemEntryFormValidator.validateCalories(
+            target.value
+          );
+          document.querySelector(`input#${name}`)?.classList.remove("error");
+        } catch (error) {
+          console.log(error);
+          document.querySelector(`input#${name}`)?.classList.add("error");
+        }
+
+        // Consider setting the form equal to the converted value to
+        // remove any trailing characters after int conversion
+        console.log("cv = ", convertedValue);
+        //setCalories(target.value);
         break;
 
       case "quantity":
