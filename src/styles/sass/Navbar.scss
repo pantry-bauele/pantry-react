@@ -14,6 +14,11 @@
   display: flex;
 }
 
+#navbar-logo-link {
+  display: flex;
+  text-decoration: none;
+}
+
 #navbar-logo {
   background-image: url("../../assets/pantry-logo.png");
   background-size: cover;

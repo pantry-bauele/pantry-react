@@ -32,8 +32,10 @@ export const Navbar = ({ siteName, loggedIn }: Props) => {
   return (
     <div id="navbar-container">
       <div id="navbar-site-details">
-        <div id="navbar-logo"></div>
-        <div id="navbar-site-name">{siteName}</div>
+        <Link id="navbar-logo-link" to="/">
+          <div id="navbar-logo"></div>
+          <div id="navbar-site-name">{siteName}</div>
+        </Link>
       </div>
       <div id="navbar-navigation">{renderLogButton()}</div>
     </div>
