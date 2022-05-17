@@ -1,0 +1,23 @@
+#form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#form-label {
+  font-weight: 500;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+#form-text {
+  display: flex;
+  background-color: #d0d1dd;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  height: 45px;
+  width: 235px;
+  padding-left: 10px;
+  justify-content: left;
+  align-items: center;
+}
