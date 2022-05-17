@@ -5,7 +5,6 @@ import "../api/AuthenticationService";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
-import { Navbar } from "../components/Navbar";
 import { FormField } from "../components/FormField";
 import { Button } from "../components/Button";
 
@@ -58,7 +57,6 @@ export default function Login() {
 
   return (
     <div id="login-container">
-      <Navbar siteName="Pantry" />
       <div id="login-form-container">
         {renderLoginError()}
         <FormField name="email" label="Email Address" onChange={handleChange} />

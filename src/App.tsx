@@ -7,7 +7,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import CreateItem from "./routes/CreateItem";
 import Login from "./routes/Login";
 import ViewItems from "./routes/ViewItems";
-import DefaultLayout from "./routes/DefaultLayout";
+import { Header } from "./routes/Header";
 import { Home } from "./routes/Home";
 import Logout from "./routes/Logout";
 
@@ -46,25 +46,27 @@ function App() {
     <AuthenticationProvider>
       <div>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route
-            path="/createItem"
-            element={
-              <RequireAuthentication>
-                <CreateItem accountEmail={activeUser} />
-              </RequireAuthentication>
-            }
-          />
-          <Route
-            path="/viewItems"
-            element={
-              <RequireAuthentication>
-                <ViewItems accountEmail={activeUser} />
-              </RequireAuthentication>
-            }
-          />
-          <Route path="/logout" element={<Logout />} />
+          <Route path="/" element={<Header />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/createItem"
+              element={
+                <RequireAuthentication>
+                  <CreateItem accountEmail={activeUser} />
+                </RequireAuthentication>
+              }
+            />
+            <Route
+              path="/viewItems"
+              element={
+                <RequireAuthentication>
+                  <ViewItems accountEmail={activeUser} />
+                </RequireAuthentication>
+              }
+            />
+            <Route path="/logout" element={<Logout />} />
+          </Route>
         </Routes>
       </div>
     </AuthenticationProvider>

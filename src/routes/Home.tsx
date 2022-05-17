@@ -1,6 +1,5 @@
 import "../styles/sass/Home.css";
 
-import { Navbar } from "../components/Navbar";
 import { Button } from "../components/Button";
 
 interface Props {}
@@ -8,7 +7,6 @@ interface Props {}
 export const Home = ({}: Props) => {
   return (
     <div id="home-container">
-      <Navbar siteName="Pantry" />
       <div id="action-banner-container">
         <div id="action-banner-info-container">
           <div id="action-banner-info-headings">
