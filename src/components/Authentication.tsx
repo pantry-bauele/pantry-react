@@ -1,42 +1,43 @@
 import React from "react";
 
 interface IAuthentication {
-    emailAddress: string | null;
+  emailAddress: string | null;
 }
 
 let AuthenticationContext = React.createContext<IAuthentication>(null!);
 
-export function AuthenticationProvider({ children }: { children: React.ReactNode }) {
-    let email = localStorage.getItem('loggedIn');
-    let value = { emailAddress: email };
-    if (typeof email === 'string') {
-        value = { emailAddress: email };
-    }
+export function AuthenticationProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  let email = localStorage.getItem("loggedIn");
+  console.log("AuthService email = ", email);
+  let value = { emailAddress: email };
+  if (typeof email === "string") {
+    value = { emailAddress: email };
+  }
 
-    return (
-        <AuthenticationContext.Provider value={value}>
-            {children}
-        </AuthenticationContext.Provider>
-    )
+  return (
+    <AuthenticationContext.Provider value={value}>
+      {children}
+    </AuthenticationContext.Provider>
+  );
 }
 
 export function useAuthentication() {
-    return React.useContext(AuthenticationContext);
+  return React.useContext(AuthenticationContext);
 }
 
 export function RequireAuthentication({ children }: { children: JSX.Element }) {
-    let auth = useAuthentication();
+  let auth = useAuthentication();
 
-    let email = auth.emailAddress;
-    if (email === "" || (email === undefined)) {
-        return (
-            <div>
-                You must log in before you can access this page.
-            </div>
-        )
-    }
+  let email = auth.emailAddress;
+  if (email === "" || email === undefined || email === null) {
+    return <div>You must log in before you can access this page.</div>;
+  }
 
-    return children;
+  return children;
 }
 
-export default {}
+export default {};
