@@ -4,13 +4,22 @@
   justify-content: center;
 }
 
+#form-container-horizontal {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
 #form-label {
   font-weight: 500;
   font-size: 18px;
   margin-bottom: 10px;
+  text-align: center;
+  width: 50%;
 }
 
-#form-text {
+.form-text {
   border: none;
   font-size: 16px;
   display: flex;
@@ -18,10 +27,14 @@
   border-radius: 15px;
   margin-bottom: 10px;
   height: 45px;
-  width: 235px;
+  width: 50%;
   padding-left: 10px;
   justify-content: left;
   align-items: center;
+}
+
+.field-error {
+  border: 3px solid #ff4646;
 }
 
 /*# sourceMappingURL=FormField.css.map */

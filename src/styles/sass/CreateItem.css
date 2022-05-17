@@ -49,4 +49,8 @@
   background: #82bd42;
 }
 
+.error {
+  border: 10px solid red;
+}
+
 /*# sourceMappingURL=CreateItem.css.map */

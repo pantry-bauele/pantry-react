@@ -59,8 +59,14 @@ export default function Login() {
     <div id="login-container">
       <div id="login-form-container">
         {renderLoginError()}
-        <FormField name="email" label="Email Address" onChange={handleChange} />
         <FormField
+          name="email"
+          orientation="vertical"
+          label="Email Address"
+          onChange={handleChange}
+        />
+        <FormField
+          orientation="vertical"
           name="password"
           label="Password"
           onChange={handleChange}

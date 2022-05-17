@@ -1,5 +1,7 @@
 import "../styles/ItemEntryForm.css";
 import { ItemEntryFormValidator } from "../api/ItemEntryFormValidator";
+import { FormField } from "./FormField";
+import { FormSelectField } from "./FormSelectField";
 import React, { useState } from "react";
 
 interface Props {
@@ -24,17 +26,12 @@ export default function ItemEntryForm(props: Props) {
     if (props.selectedItemDetails.get("nutrition-button")) {
       return (
         <>
-          <label className="Form-element">
-            Calories
-            <input
-              id="calories"
-              name="calories"
-              type="text"
-              //value={calories}
-              //onChange={handleChange}
-              onBlur={validateField}
-            />
-          </label>
+          <FormField
+            orientation="horizontal"
+            name="calories"
+            label="Calories"
+            onBlur={validateField}
+          ></FormField>
         </>
       );
     }
@@ -46,30 +43,15 @@ export default function ItemEntryForm(props: Props) {
       props.selectedItemDetails.get("spending-button")
     ) {
       return (
-        <>
-          <label className="Form-element">
-            Total Quantity
-            <input
-              name="quantity"
-              type="text"
-              value={quantity}
-              onChange={handleChange}
-            />
-          </label>
-
-          <label className="Form-element">
-            Unit
-            <select
-              name="quantityUnit"
-              value={quantityUnit}
-              onChange={handleChange}
-            >
-              <option value="g">grams</option>
-              <option value="oz">ounces</option>
-              <option value="lb">pounds</option>
-            </select>
-          </label>
-        </>
+        <div id="quantity-field">
+          <FormField
+            orientation="horizontal"
+            name="quantity"
+            label="Quantity"
+            onChange={handleChange}
+          ></FormField>
+          <FormSelectField label="quantityUnit" options={["g", "oz", "lb"]} />
+        </div>
       );
     }
   }
@@ -77,30 +59,15 @@ export default function ItemEntryForm(props: Props) {
   function showServingSizeField() {
     if (props.selectedItemDetails.get("nutrition-button")) {
       return (
-        <>
-          <label className="Form-element">
-            Serving Size
-            <input
-              name="serving"
-              type="text"
-              value={serving}
-              onChange={handleChange}
-            />
-          </label>
-
-          <label className="Form-element">
-            Unit
-            <select
-              name="servingUnit"
-              value={servingUnit}
-              onChange={handleChange}
-            >
-              <option value="g">grams</option>
-              <option value="oz">ounces</option>
-              <option value="lb">pounds</option>
-            </select>
-          </label>
-        </>
+        <div id="serving-field">
+          <FormField
+            orientation="horizontal"
+            name="serving"
+            label="Serving"
+            onChange={handleChange}
+          ></FormField>
+          <FormSelectField label="servingUnit" options={["g", "oz", "lb"]} />
+        </div>
       );
     }
   }
@@ -247,8 +214,8 @@ export default function ItemEntryForm(props: Props) {
   ) {
     const target = event.target;
     const name = target.name;
-    console.log(name);
-    //console.log(target.value);
+    //console.log(name);
+    console.log(target);
     let itemEntryFormValidator = new ItemEntryFormValidator();
 
     switch (name) {
@@ -267,10 +234,30 @@ export default function ItemEntryForm(props: Props) {
           convertedValue = itemEntryFormValidator.validateCalories(
             target.value
           );
-          document.querySelector(`input#${name}`)?.classList.remove("error");
+          document
+            .querySelector(`input#form-text-calories`)
+            ?.classList.remove("field-error");
         } catch (error) {
           console.log(error);
-          document.querySelector(`input#${name}`)?.classList.add("error");
+
+          /*
+          const classes = document.querySelector(
+            "input#form-text-calories"
+          )?.classList;
+          console.log("classes = ", classes);
+
+
+          if (classes !== undefined) {
+            let classArray = Array.from(classes);
+            document
+              .querySelector(`input#form-text-calories`)
+              ?.classList.remove(...classArray);
+
+              */
+
+          document
+            .querySelector(`input#form-text-calories`)
+            ?.classList.add("field-error");
         }
 
         // Consider setting the form equal to the converted value to
@@ -311,27 +298,22 @@ export default function ItemEntryForm(props: Props) {
   }
 
   return (
-    <>
+    <div id="container">
       <div id="parent">
-        <form>
-          <label className="Form-element">
-            <div>Item Name</div>
-            <input
-              name="name"
-              type="text"
-              value={name}
-              onChange={handleChange}
-            />
-          </label>
-          <label className="Form-element">
-            Brand
-            <input
-              name="brand"
-              type="text"
-              value={brand}
-              onChange={handleChange}
-            />
-          </label>
+        <form id="form">
+          <FormField
+            orientation="horizontal"
+            name="name"
+            label="Name"
+            onChange={handleChange}
+          ></FormField>
+
+          <FormField
+            orientation="horizontal"
+            name="brand"
+            label="Brand"
+            onChange={handleChange}
+          ></FormField>
 
           {showCaloriesField()}
           {showTotalQuantityField()}
@@ -348,6 +330,6 @@ export default function ItemEntryForm(props: Props) {
       >
         Add Item
       </button>
-    </>
+    </div>
   );
 }
