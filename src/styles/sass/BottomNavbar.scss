@@ -1,0 +1,73 @@
+@use "base";
+
+#bottom-navbar-container {
+  background-color: #fffde4;
+
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+}
+
+#nav-pantry {
+  width: 35px;
+  height: 35px;
+  background-image: url("../../assets/cupboard.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#nav-items {
+  width: 35px;
+  height: 35px;
+  background-image: url("../../assets/dinner.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#nav-timeline {
+  width: 35px;
+  height: 35px;
+  background-image: url("../../assets/wall-clock.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#nav-cart {
+  width: 35px;
+  height: 35px;
+  background-image: url("../../assets/shopping-trolley.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#nav-add {
+  width: 40px;
+  height: 40px;
+
+  background: base.$brand-color;
+  border: 2px solid base.$brand-color;
+  border-radius: 360px;
+  color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 40px;
+}

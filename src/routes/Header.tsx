@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
+import { BottomNavbar } from "../components/BottomNavbar";
 import "../styles/sass/Header.css";
 
 interface Props {
@@ -14,10 +15,7 @@ export const Header = ({ loggedIn }: Props) => {
         <Outlet />
       </div>
       <div id="bottomNav">
-        <div className="nav-item"></div>
-        <div className="nav-item"></div>
-        <div className="nav-item"></div>
-        <div className="nav-item"></div>
+        <BottomNavbar />
       </div>
     </div>
   );
