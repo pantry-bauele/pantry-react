@@ -1,0 +1,53 @@
+@use "base";
+
+#create-item-container {
+  height: 100vh;
+  background-color: base.$background-color;
+}
+
+#create-item-form-container {
+  margin-top: 3px;
+  display: flex;
+  height: 90vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#item-details-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#item-details-prompt {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+
+  margin-bottom: 40px;
+  width: 90vw;
+}
+
+.item-details-button {
+  margin-top: 10px;
+  border: none;
+  width: 215px;
+  height: 50px;
+  border-radius: 10px;
+  color: white;
+  font-weight: 700;
+  font-size: 20px;
+  background-color: base.$brand-color;
+}
+
+.item-details-button-selected {
+  border: 6px solid #46ffff;
+}
+
+#continue-button {
+  margin-top: 60px;
+  background: base.$accent-color;
+}

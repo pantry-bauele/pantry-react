@@ -1,4 +1,4 @@
-import "../styles/CreateItem.css";
+import "../styles/sass/CreateItem.css";
 import ItemEntryForm from "../components/ItemEntryForm";
 import { useState } from "react";
 import { serverSingleton } from "../api/ServerAPI";
@@ -65,8 +65,8 @@ export default function CreateItem({ accountEmail }: Props) {
   function renderItemDetailsButtons() {
     if (showItemDetailsButtons) {
       return (
-        <>
-          <h2 id="details-prompt">
+        <div id="item-details-form-container">
+          <h2 id="item-details-prompt">
             What details do you want to track about this item?
           </h2>
           <button
@@ -97,7 +97,7 @@ export default function CreateItem({ accountEmail }: Props) {
           >
             Continue
           </button>
-        </>
+        </div>
       );
     }
   }
@@ -118,11 +118,13 @@ export default function CreateItem({ accountEmail }: Props) {
     }
   }
   return (
-    <div id="parent">
-      <h1>Create Item</h1>
+    <div id="create-item-container">
+      <div id="create-item-form-container">
+        <h1>Create Item</h1>
 
-      {renderItemDetailsButtons()}
-      {renderItemForm()}
+        {renderItemDetailsButtons()}
+        {renderItemForm()}
+      </div>
     </div>
   );
 }
