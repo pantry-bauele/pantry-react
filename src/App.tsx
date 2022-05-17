@@ -46,7 +46,10 @@ function App() {
     <AuthenticationProvider>
       <div>
         <Routes>
-          <Route path="/" element={<Header />}>
+          <Route
+            path="/"
+            element={<Header loggedIn={activeUser ? true : false} />}
+          >
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route

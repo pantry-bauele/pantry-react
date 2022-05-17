@@ -5,22 +5,37 @@ import { Link } from "react-router-dom";
 
 interface Props {
   siteName: string;
+  loggedIn: boolean;
 }
 
-export const Navbar = ({ siteName }: Props) => {
+export const Navbar = ({ siteName, loggedIn }: Props) => {
+  const renderLogButton = () => {
+    if (loggedIn) {
+      return (
+        <nav>
+          <Link to="/logout">
+            <Button id="navbar-log-button" text="Log Out"></Button>
+          </Link>
+        </nav>
+      );
+    } else {
+      return (
+        <nav>
+          <Link to="/login">
+            <Button id="navbar-log-button" text="Log In"></Button>
+          </Link>
+        </nav>
+      );
+    }
+  };
+
   return (
     <div id="navbar-container">
       <div id="navbar-site-details">
         <div id="navbar-logo"></div>
         <div id="navbar-site-name">{siteName}</div>
       </div>
-      <div id="navbar-navigation">
-        <nav>
-          <Link to="/login">
-            <Button id="navbar-log-in-button" text="Log In"></Button>
-          </Link>
-        </nav>
-      </div>
+      <div id="navbar-navigation">{renderLogButton()}</div>
     </div>
   );
 };
