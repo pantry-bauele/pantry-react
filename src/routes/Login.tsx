@@ -1,33 +1,74 @@
 import "../styles/sass/Login.css";
 
-import { useEffect } from "react";
+import { useState } from "react";
 import "../api/AuthenticationService";
-import { startLoginUI } from "../api/AuthenticationService";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 import { Navbar } from "../components/Navbar";
 import { FormField } from "../components/FormField";
 import { Button } from "../components/Button";
 
 export default function Login() {
-  /*
-    useEffect(() => {
-        startLoginUI();
-    }, [])
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState(false);
 
-    return (
-        <div id="parent">
-            <div id="firebaseui-auth-container"></div>
+  const navigate = useNavigate();
+
+  const authenticate = () => {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        navigate("/");
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setLoginError(true);
+      });
+  };
+
+  const renderLoginError = () => {
+    if (loginError) {
+      console.log("show");
+      return (
+        <div id="login-error-message">
+          Your log in attempt was not successful. Please try again.
         </div>
-    )
-    */
+      );
+    }
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const target = event.target;
+    const name = target.name;
+
+    if (name === "email") {
+      setEmail(target.value);
+      console.log(target.value);
+    } else if (name === "password") {
+      setPassword(target.value);
+      console.log(target.value);
+    }
+  };
 
   return (
     <div id="login-container">
       <Navbar siteName="Pantry" />
       <div id="login-form-container">
-        <FormField label="Email Address" />
-        <FormField label="Password" />
-        <Button id="login-button" text="Log In" />
+        {renderLoginError()}
+        <FormField name="email" label="Email Address" onChange={handleChange} />
+        <FormField
+          name="password"
+          label="Password"
+          onChange={handleChange}
+          hideInput={true}
+        />
+        <Button id="login-button" text="Log In" click={authenticate} />
         <p>Forgot password</p>
       </div>
     </div>
