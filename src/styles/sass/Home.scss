@@ -1,7 +1,6 @@
 @use "base";
 
 #home-container {
-  height: 100vh;
   background-color: base.$background-color;
 }
 
@@ -86,11 +85,21 @@
 }
 
 #last-action-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background-color: base.$background-color;
   padding-top: 30px;
   padding-left: 60px;
   padding-right: 60px;
   text-align: center;
+}
+
+#last-action-contents {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #last-action-container h2 {

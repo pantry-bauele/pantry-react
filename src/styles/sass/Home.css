@@ -1,5 +1,4 @@
 #home-container {
-  height: 100vh;
   background-color: #fffde4;
 }
 
@@ -81,11 +80,21 @@
 }
 
 #last-action-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background-color: #fffde4;
   padding-top: 30px;
   padding-left: 60px;
   padding-right: 60px;
   text-align: center;
+}
+
+#last-action-contents {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #last-action-container h2 {

@@ -27,12 +27,14 @@ export const Home = ({}: Props) => {
       </div>
 
       <div id="last-action-container">
-        <h2>Tired of forgetting what you have at home?</h2>
-        <h3>
-          Never lose track of your food supply again with our detailed tracking
-          software
-        </h3>
-        <Button id="last-action-button" text="Get Started"></Button>
+        <div id="last-action-contents">
+          <h2>Tired of forgetting what you have at home?</h2>
+          <h3>
+            Never lose track of your food supply again with our detailed
+            tracking software
+          </h3>
+          <Button id="last-action-button" text="Get Started"></Button>
+        </div>
       </div>
     </div>
   );
