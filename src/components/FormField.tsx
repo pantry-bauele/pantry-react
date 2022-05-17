@@ -22,10 +22,10 @@ export const FormField = ({
 }: Props) => {
   if (orientation === "vertical") {
     return (
-      <div id="form-container">
-        <div id="form-label">{label}</div>
+      <div id="form-container-vertical">
+        <div id="form-label-vertical">{label}</div>
         <input
-          className="form-text"
+          className="form-text-vertical"
           id={`form-text-${name}`}
           name={name}
           onChange={onChange}
@@ -39,9 +39,9 @@ export const FormField = ({
   if (orientation === "horizontal") {
     return (
       <div id="form-container-horizontal">
-        <div id="form-label">{label}</div>
+        <div id="form-label-horizontal">{label}</div>
         <input
-          className="form-text"
+          className="form-text-horizontal"
           id={`form-text-${name}`}
           name={name}
           onChange={onChange}

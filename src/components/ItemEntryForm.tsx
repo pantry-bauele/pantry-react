@@ -81,20 +81,26 @@ export default function ItemEntryForm(props: Props) {
     if (props.selectedItemDetails.get("spending-button")) {
       let x = vendorPrices.map((v, index) => {
         return (
-          <div key={index}>
+          <div className="vendorListing" key={index}>
             <input
+              className="vendorName"
               name={`vendor${index}`}
               type="text"
               value={vendorPrices[index].vendor}
               onChange={onVendorPriceChange}
             />
             <input
+              className="vendorPrice"
               name={`price${index}`}
               type="text"
               value={vendorPrices[index].price}
               onChange={onVendorPriceChange}
             />
-            <button name={`${index}`} onClick={(e) => deleteVendorPrice(e)}>
+            <button
+              className="vendorDelete"
+              name={`${index}`}
+              onClick={(e) => deleteVendorPrice(e)}
+            >
               X
             </button>
           </div>
@@ -103,10 +109,13 @@ export default function ItemEntryForm(props: Props) {
 
       return (
         <>
-          <label className="">
-            Vendors
+          <label id="vendorHeading">
+            <p>Vendors</p>
             {x}
-            <button onClick={(e) => addVendorPrice(e)}>Add Vendor Price</button>
+            <button className="roundButton" onClick={(e) => addVendorPrice(e)}>
+              {" "}
+              +{" "}
+            </button>
           </label>
         </>
       );

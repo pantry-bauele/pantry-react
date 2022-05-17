@@ -1,9 +1,31 @@
 @use "base";
 
-#form-container {
+#form-container-vertical {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+#form-label-vertical {
+  font-weight: 500;
+  font-size: 18px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.form-text-vertical {
+  border: none;
+  font-size: 16px;
+
+  display: flex;
+  background-color: #d0d1dd;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  height: 45px;
+
+  padding-left: 10px;
+  justify-content: left;
+  align-items: center;
 }
 
 #form-container-horizontal {
@@ -15,16 +37,16 @@
   width: 100%;
 }
 
-#form-label {
+#form-label-horizontal {
   font-weight: 500;
   font-size: 18px;
   margin-bottom: 10px;
   text-align: center;
 
-  width: 50%;
+  width: 35%;
 }
 
-.form-text {
+.form-text-horizontal {
   border: none;
   font-size: 16px;
 
@@ -33,7 +55,7 @@
   border-radius: 15px;
   margin-bottom: 10px;
   height: 45px;
-  width: 50%;
+  width: 65%;
 
   padding-left: 10px;
   justify-content: left;
