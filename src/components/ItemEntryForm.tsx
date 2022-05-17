@@ -1,8 +1,11 @@
-import "../styles/ItemEntryForm.css";
+import "../styles/sass/ItemEntryForm.css";
 import { ItemEntryFormValidator } from "../api/ItemEntryFormValidator";
 import { FormField } from "./FormField";
 import { FormSelectField } from "./FormSelectField";
+import { Button } from "./Button";
 import React, { useState } from "react";
+
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   selectedItemDetails: Map<string, boolean>;
@@ -21,6 +24,8 @@ export default function ItemEntryForm(props: Props) {
   const [serving, setServing] = useState("");
   const [servingUnit, setServingUnit] = useState("");
   const [vendorPrices, setVendorPrices] = useState(vendorPricesDefault);
+
+  let navigate = useNavigate();
 
   function showCaloriesField() {
     if (props.selectedItemDetails.get("nutrition-button")) {
@@ -322,14 +327,24 @@ export default function ItemEntryForm(props: Props) {
         </form>
       </div>
 
-      <button
-        id="submit-button"
-        onClick={() => {
-          props.submitForm(buildItemObject());
-        }}
-      >
-        Add Item
-      </button>
+      <div id="form-buttons">
+        <Button
+          id="submit"
+          text="Submit"
+          click={() => {
+            props.submitForm(buildItemObject());
+          }}
+        ></Button>
+
+        <button
+          id="back"
+          onClick={() => {
+            navigate(0);
+          }}
+        >
+          Back
+        </button>
+      </div>
     </div>
   );
 }

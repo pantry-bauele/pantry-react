@@ -49,3 +49,16 @@
   margin-top: 2px;
   width: 10%;
 }
+
+#form-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+#submit {
+}
+
+#back {
+}

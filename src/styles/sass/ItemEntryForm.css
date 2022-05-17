@@ -1,0 +1,83 @@
+#container {
+  overflow-y: auto;
+  background-color: #fffde4;
+}
+
+#parent {
+  display: flex;
+  width: 90vw;
+  padding: 5px;
+}
+
+#submit-button {
+  margin-top: 40px;
+}
+
+#quantity-field {
+  display: flex;
+  align-items: flex-start;
+}
+
+#quantity-field #form-label {
+  width: 54%;
+}
+
+#quantity-field #form-text-quantity {
+  width: 35%;
+}
+
+#quantity-field #form-select-container {
+  margin-top: 2px;
+  width: 10%;
+}
+
+#serving-field {
+  display: flex;
+  align-items: flex-start;
+}
+
+#serving-field #form-label {
+  width: 54%;
+}
+
+#serving-field #form-text-serving {
+  width: 35%;
+}
+
+#serving-field #form-select-container {
+  margin-top: 2px;
+  width: 10%;
+}
+
+#form-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#submit {
+  margin-top: 10px;
+  border: none;
+  height: 50px;
+  width: 100px;
+  border-radius: 10px;
+  color: white;
+  font-weight: 700;
+  font-size: 20px;
+  background-color: #ff4646;
+}
+
+#back {
+  margin-top: 10px;
+  border: none;
+  height: 50px;
+  width: 100px;
+  border-radius: 10px;
+  color: white;
+  font-weight: 700;
+  font-size: 20px;
+  background-color: #82bd42;
+}
+
+/*# sourceMappingURL=ItemEntryForm.css.map */

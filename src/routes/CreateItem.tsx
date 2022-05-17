@@ -110,9 +110,6 @@ export default function CreateItem({ accountEmail }: Props) {
             selectedItemDetails={selectedItemDetails}
             submitForm={submitForm}
           />
-          <button id="back-button" onClick={toggleFormPage}>
-            Go Back
-          </button>
         </>
       );
     }
