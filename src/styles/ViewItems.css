@@ -1,3 +1,12 @@
+#view-items-container {
+  background-color: #fffde4;
+  height: 100vh;
+}
+
 #items {
-    display: grid;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #fffde4;
+  gap: 5px;
 }

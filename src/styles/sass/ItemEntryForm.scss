@@ -2,6 +2,7 @@
 
 #container {
   overflow-y: auto;
+  overflow-x: hidden;
   background-color: base.$background-color;
 }
 

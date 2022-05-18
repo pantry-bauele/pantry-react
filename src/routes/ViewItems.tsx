@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import Item from '../components/Item';
+import { useEffect, useState } from "react";
+import Item from "../components/Item";
 
-import {serverSingleton} from '../api/ServerAPI';
-import '../styles/ViewItems.css';
+import { serverSingleton } from "../api/ServerAPI";
+import "../styles/ViewItems.css";
 
 interface Props {
   accountEmail: string | null;
@@ -17,15 +17,15 @@ export default function ViewItems(props: Props) {
     console.log(`Loading items from ${emailAddress}`);
 
     let response;
-    if (typeof emailAddress === 'string') {
+    if (typeof emailAddress === "string") {
       response = await serverSingleton.loadItems(emailAddress);
     }
 
-    console.log('response = ', response);
+    console.log("response = ", response);
     if (response) {
       console.log(response);
 
-      const elements = response.map((element: any) =>
+      const elements = response.map((element: any) => (
         <Item
           key={element.name}
           name={element.name}
@@ -36,7 +36,7 @@ export default function ViewItems(props: Props) {
           servingSize={element.servingSize}
           deleteItem={deleteItem}
         />
-      )
+      ));
 
       console.log(elements);
       setListItems(elements);
@@ -47,11 +47,10 @@ export default function ViewItems(props: Props) {
     alert(`Let's delete ${item}`);
     console.log(item);
 
-    if (typeof accountEmail === 'string') {
+    if (typeof accountEmail === "string") {
       await serverSingleton.deleteItem(accountEmail, item);
-    }
-    else {
-      console.log('accountEmail is not a string!');
+    } else {
+      console.log("accountEmail is not a string!");
     }
 
     // Eventually, add support for removing that particular
@@ -60,13 +59,11 @@ export default function ViewItems(props: Props) {
 
   useEffect(() => {
     loadItems(accountEmail);
-  }, [accountEmail])
+  }, [accountEmail]);
 
   return (
-    <>
-      <h1>View Items</h1>
-      <h2>{accountEmail}</h2>
+    <div id="view-items-container">
       <div id="items"> {listItems} </div>
-    </>
-  )
+    </div>
+  );
 }

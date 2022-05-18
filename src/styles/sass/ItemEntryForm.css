@@ -1,5 +1,6 @@
 #container {
   overflow-y: auto;
+  overflow-x: hidden;
   background-color: #fffde4;
 }
 
