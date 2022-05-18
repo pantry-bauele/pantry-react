@@ -378,14 +378,6 @@ export default function ItemEntryForm(props: Props) {
       </div>
 
       <div id="form-buttons">
-        <Button
-          id="submit"
-          text="Submit"
-          click={() => {
-            props.submitForm(buildItemObject());
-          }}
-        ></Button>
-
         <button
           id="back"
           onClick={() => {
@@ -394,6 +386,14 @@ export default function ItemEntryForm(props: Props) {
         >
           Back
         </button>
+
+        <Button
+          id="submit"
+          text="Submit"
+          click={() => {
+            props.submitForm(buildItemObject());
+          }}
+        ></Button>
       </div>
     </div>
   );
