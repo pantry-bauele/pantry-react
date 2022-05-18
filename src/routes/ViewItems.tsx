@@ -44,7 +44,7 @@ export default function ViewItems(props: Props) {
   }
 
   async function deleteItem(item: {}) {
-    alert(`Let's delete ${item}`);
+    alert(`Deleted item`);
     console.log(item);
 
     if (typeof accountEmail === "string") {
@@ -52,6 +52,8 @@ export default function ViewItems(props: Props) {
     } else {
       console.log("accountEmail is not a string!");
     }
+
+    await loadItems(accountEmail);
 
     // Eventually, add support for removing that particular
     // item from the array here

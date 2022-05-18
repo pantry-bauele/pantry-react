@@ -68,7 +68,7 @@ function Item({
           <div id="more-buttons">
             <Button id="edit" text="Edit"></Button>
             <Button id="stats" text="Statistics"></Button>
-            <Button id="delete" text="Delete"></Button>
+            <Button id="delete" text="Delete" click={sendDelete}></Button>
           </div>
         </div>
       );
