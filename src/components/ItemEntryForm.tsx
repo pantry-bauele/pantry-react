@@ -12,17 +12,17 @@ interface Props {
   submitForm: any;
 }
 
-let vendorPricesDefault = new Array<{ vendor: string; price: string }>();
-vendorPricesDefault.push({ vendor: "", price: "" });
+let vendorPricesDefault = new Array<{ name: string; price: string }>();
+vendorPricesDefault.push({ name: "", price: "" });
 
 export default function ItemEntryForm(props: Props) {
   const [name, setName] = useState("");
   const [brand, setBrand] = useState("");
   const [calories, setCalories] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [quantityUnit, setQuantityUnit] = useState("");
+  const [quantityUnit, setQuantityUnit] = useState("g");
   const [serving, setServing] = useState("");
-  const [servingUnit, setServingUnit] = useState("");
+  const [servingUnit, setServingUnit] = useState("g");
   const [vendorPrices, setVendorPrices] = useState(vendorPricesDefault);
 
   let navigate = useNavigate();
@@ -53,9 +53,14 @@ export default function ItemEntryForm(props: Props) {
             orientation="horizontal"
             name="quantity"
             label="Quantity"
-            onChange={handleChange}
+            onBlur={validateField}
           ></FormField>
-          <FormSelectField label="quantityUnit" options={["g", "oz", "lb"]} />
+          <FormSelectField
+            name="quantityUnit"
+            label="quantityUnit"
+            options={["g", "oz", "lb"]}
+            onChange={handleChange}
+          />
         </div>
       );
     }
@@ -69,9 +74,14 @@ export default function ItemEntryForm(props: Props) {
             orientation="horizontal"
             name="serving"
             label="Serving"
-            onChange={handleChange}
+            onBlur={validateField}
           ></FormField>
-          <FormSelectField label="servingUnit" options={["g", "oz", "lb"]} />
+          <FormSelectField
+            name="servingUnit"
+            label="servingUnit"
+            options={["g", "oz", "lb"]}
+            onChange={handleChange}
+          />
         </div>
       );
     }
@@ -86,7 +96,7 @@ export default function ItemEntryForm(props: Props) {
               className="vendorName"
               name={`vendor${index}`}
               type="text"
-              value={vendorPrices[index].vendor}
+              value={vendorPrices[index].name}
               onChange={onVendorPriceChange}
             />
             <input
@@ -141,7 +151,7 @@ export default function ItemEntryForm(props: Props) {
       console.log("index = ", index);
       console.log("newVP = ", newVendorPrices);
 
-      newVendorPrices[index].vendor = target.value;
+      newVendorPrices[index].name = target.value;
       console.log("newVP = ", newVendorPrices);
 
       setVendorPrices(newVendorPrices);
@@ -160,7 +170,7 @@ export default function ItemEntryForm(props: Props) {
 
     let currentVendorPrices = vendorPrices;
     let newVendorPrices = [...currentVendorPrices];
-    newVendorPrices.push({ vendor: "", price: "" });
+    newVendorPrices.push({ name: "", price: "" });
 
     setVendorPrices(newVendorPrices);
   }
@@ -187,8 +197,8 @@ export default function ItemEntryForm(props: Props) {
   ) {
     const target = event.target;
     const name = target.name;
-    //console.log(name);
-    //console.log(target.value);
+    console.log(name);
+    console.log(target.value);
 
     switch (name) {
       case "name":
@@ -243,9 +253,9 @@ export default function ItemEntryForm(props: Props) {
 
       case "calories":
         console.log("Validating calories");
-        let convertedValue;
+        let convertedCalories;
         try {
-          convertedValue = itemEntryFormValidator.validateCalories(
+          convertedCalories = itemEntryFormValidator.validateCalories(
             target.value
           );
           document
@@ -254,21 +264,6 @@ export default function ItemEntryForm(props: Props) {
         } catch (error) {
           console.log(error);
 
-          /*
-          const classes = document.querySelector(
-            "input#form-text-calories"
-          )?.classList;
-          console.log("classes = ", classes);
-
-
-          if (classes !== undefined) {
-            let classArray = Array.from(classes);
-            document
-              .querySelector(`input#form-text-calories`)
-              ?.classList.remove(...classArray);
-
-              */
-
           document
             .querySelector(`input#form-text-calories`)
             ?.classList.add("field-error");
@@ -276,12 +271,36 @@ export default function ItemEntryForm(props: Props) {
 
         // Consider setting the form equal to the converted value to
         // remove any trailing characters after int conversion
-        console.log("cv = ", convertedValue);
-        //setCalories(target.value);
+        //console.log("cv = ", convertedValue);
+        if (convertedCalories) {
+          setCalories(convertedCalories.toString());
+        }
         break;
 
       case "quantity":
-        setQuantity(target.value);
+        console.log("Validating quantity");
+        let convertedQuantity;
+        try {
+          convertedQuantity = itemEntryFormValidator.validateQuantity(
+            target.value
+          );
+          document
+            .querySelector(`input#form-text-quantity`)
+            ?.classList.remove("field-error");
+        } catch (error) {
+          console.log(error);
+
+          document
+            .querySelector(`input#form-text-quantity`)
+            ?.classList.add("field-error");
+        }
+
+        // Consider setting the form equal to the converted value to
+        // remove any trailing characters after int conversion
+        console.log("convertedQuantity = ", convertedQuantity);
+        if (convertedQuantity) {
+          setQuantity(convertedQuantity.toString());
+        }
         break;
 
       case "quantityUnit":
@@ -289,7 +308,29 @@ export default function ItemEntryForm(props: Props) {
         break;
 
       case "serving":
-        setServing(target.value);
+        console.log("Validating serving");
+        let convertedServing;
+        try {
+          convertedServing = itemEntryFormValidator.validateQuantity(
+            target.value
+          );
+          document
+            .querySelector(`input#form-text-serving`)
+            ?.classList.remove("field-error");
+        } catch (error) {
+          console.log(error);
+
+          document
+            .querySelector(`input#form-text-serving`)
+            ?.classList.add("field-error");
+        }
+
+        // Consider setting the form equal to the converted value to
+        // remove any trailing characters after int conversion
+        console.log("convertedServing = ", convertedServing);
+        if (convertedServing) {
+          setServing(convertedServing.toString());
+        }
         break;
 
       case "servingUnit":
@@ -303,7 +344,7 @@ export default function ItemEntryForm(props: Props) {
       name: name,
       brand: brand,
       calories: calories,
-      vendorPrice: null,
+      vendorPrices: vendorPrices,
       totalQuantity: { amount: quantity, unit: quantityUnit },
       servingSize: { amount: serving, unit: servingUnit },
     };

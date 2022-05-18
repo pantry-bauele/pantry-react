@@ -1,9 +1,14 @@
-import { ChangeEventHandler, FocusEventHandler } from "react";
+import {
+  ChangeEvent,
+  ChangeEventHandler,
+  FocusEventHandler,
+  FormEventHandler,
+} from "react";
 import "../styles/sass/FormSelectField.css";
 
 interface Props {
   label: string;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onChange?: ChangeEventHandler<HTMLSelectElement>;
   onBlur?: FocusEventHandler<HTMLInputElement>;
   id?: string;
   name?: string;
@@ -33,7 +38,12 @@ export const FormSelectField = ({
   console.log(selectElements);
   return (
     <div id="form-select-container">
-      <select className="form-select" id={`form-select-${name}`} name={name}>
+      <select
+        className="form-select"
+        id={`form-select-${name}`}
+        name={name}
+        onChange={onChange}
+      >
         {selectElements}
       </select>
     </div>

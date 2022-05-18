@@ -22,28 +22,10 @@ export class ItemEntryFormValidator {
   }
 
   validateServing(serving: string | number) {
-    switch (this._validateNumber(serving, "Serving")) {
-      case 1:
-        throw new Error("Unknown failure");
-
-      case 2:
-        throw new Error("Serving must be an integer value");
-
-      case 3:
-        throw new Error("Serving must not be less than 0");
-    }
+    return this._validateNumber(serving, "Serving");
   }
 
   validateQuantity(quantity: string | number) {
-    switch (this._validateNumber(quantity, "Quantity")) {
-      case 1:
-        throw new Error("Unknown failure");
-
-      case 2:
-        throw new Error("Quantity must be an integer value");
-
-      case 3:
-        throw new Error("Quantity must not be less than 0");
-    }
+    return this._validateNumber(quantity, "Quantity");
   }
 }
