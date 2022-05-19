@@ -96,7 +96,7 @@ export default function CreateAccount() {
     const name = target.name;
 
     if (name === "firstname") {
-      setFirstName("target.value");
+      setFirstName(target.value);
       console.log(target.value);
     } else if (name === "email") {
       setEmail(target.value);
