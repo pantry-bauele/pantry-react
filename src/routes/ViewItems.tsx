@@ -63,8 +63,15 @@ export default function ViewItems(props: Props) {
     loadItems(accountEmail);
   }, [accountEmail]);
 
+  function renderNoItems() {
+    if (listItems.length === 0) {
+      return <div>You haven't added any items yet!</div>;
+    }
+  }
+
   return (
     <div id="view-items-container">
+      {renderNoItems()}
       <div id="items"> {listItems} </div>
     </div>
   );
