@@ -73,7 +73,9 @@ export default function Login() {
           hideInput={true}
         />
         <Button id="login-button" text="Log In" click={authenticate} />
-        <p>Forgot password</p>
+        <a id="create-account" href="/createAccount">
+          I don't have an account
+        </a>
       </div>
     </div>
   );

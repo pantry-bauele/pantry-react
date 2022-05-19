@@ -1,10 +1,16 @@
 import "../styles/sass/Home.css";
 
 import { Button } from "../components/Button";
+import { useNavigate } from "react-router-dom";
 
 interface Props {}
 
 export const Home = () => {
+  let navigate = useNavigate();
+  const signUp = () => {
+    navigate("/createAccount");
+  };
+
   return (
     <div id="home-page-container">
       <div id="hero-container">
@@ -15,7 +21,11 @@ export const Home = () => {
           </div>
 
           <div id="hero-button-container">
-            <Button id="hero-sign-up-button" text="Sign Up"></Button>
+            <Button
+              id="hero-sign-up-button"
+              text="Sign Up"
+              click={signUp}
+            ></Button>
           </div>
         </div>
 
@@ -35,7 +45,11 @@ export const Home = () => {
             Never lose track of your food supply again with our detailed
             tracking software
           </h3>
-          <Button id="bottom-action-button" text="Get Started"></Button>
+          <Button
+            id="bottom-action-button"
+            text="Get Started"
+            click={signUp}
+          ></Button>
         </div>
       </div>
     </div>
