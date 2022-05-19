@@ -1,4 +1,11 @@
 /* Buttons */
+
+/* Use large brand button for
+Home - "Get Started"
+Login - "Log In"
+Create Item - "Nutrition / Spending / At Home Supply"
+                "Submit"
+                
 .large-brand-button {
   border: none;
   border-radius: 10px;
@@ -8,3 +15,5 @@
   height: 50px;
   width: 215px;
 }
+
+

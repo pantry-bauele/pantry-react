@@ -6,6 +6,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import CreateItem from "./routes/CreateItem";
 import Login from "./routes/Login";
+import CreateAccount from "./routes/CreateAccount";
 import ViewItems from "./routes/ViewItems";
 import { Header } from "./routes/Header";
 import { Home } from "./routes/Home";
@@ -52,6 +53,7 @@ function App() {
           >
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/createAccount" element={<CreateAccount />} />
             <Route
               path="/createItem"
               element={

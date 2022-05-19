@@ -1,0 +1,36 @@
+@use "base";
+
+#login-container {
+  height: 100vh;
+  background-color: base.$background-color;
+}
+
+#login-form-container {
+  margin-top: 3px;
+  display: flex;
+  height: 90vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#login-button {
+  margin-top: 10px;
+  border: none;
+  width: 215px;
+  height: 50px;
+  border-radius: 10px;
+  color: white;
+  font-weight: 400;
+  font-size: 20px;
+  background-color: base.$brand-color;
+}
+
+#login-error-message {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+
+  margin-bottom: 40px;
+  width: 90vw;
+}
