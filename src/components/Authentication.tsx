@@ -34,7 +34,11 @@ export function RequireAuthentication({ children }: { children: JSX.Element }) {
 
   let email = auth.emailAddress;
   if (email === "" || email === undefined || email === null) {
-    return <div>You must log in before you can access this page.</div>;
+    return (
+      <div style={{ height: "100vh", padding: "20px" }}>
+        <div>You must log in before you can access this page.</div>
+      </div>
+    );
   }
 
   return children;

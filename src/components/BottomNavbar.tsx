@@ -11,7 +11,7 @@ export const BottomNavbar = ({}: Props) => {
   let navigate = useNavigate();
 
   const navigatePantry = () => {
-    navigate("/pantry");
+    navigate("/placeHolder");
   };
 
   const navigateItems = () => {
@@ -22,6 +22,13 @@ export const BottomNavbar = ({}: Props) => {
     navigate("/createItem");
   };
 
+  const navigateTimeline = () => {
+    navigate("/placeHolder");
+  };
+
+  const navigateCart = () => {
+    navigate("/placeHolder");
+  };
   return (
     <div id="bottom-navbar-container">
       <div className="nav-item" onClick={navigatePantry}>
@@ -37,12 +44,12 @@ export const BottomNavbar = ({}: Props) => {
         <div id="nav-add">+</div>
       </div>
 
-      <div className="nav-item">
+      <div className="nav-item" onClick={navigateTimeline}>
         <div id="nav-timeline"></div>
         <div>Timeline</div>
       </div>
 
-      <div className="nav-item">
+      <div className="nav-item" onClick={navigateCart}>
         <div id="nav-cart"></div>
         <div>Cart</div>
       </div>

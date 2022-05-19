@@ -11,6 +11,7 @@ import ViewItems from "./routes/ViewItems";
 import { Header } from "./routes/Header";
 import { Home } from "./routes/Home";
 import Logout from "./routes/Logout";
+import { Placeholder } from "./routes/Placeholder";
 
 import {
   AuthenticationProvider,
@@ -52,6 +53,7 @@ function App() {
             element={<Header loggedIn={activeUser ? true : false} />}
           >
             <Route path="/" element={<Home />} />
+            <Route path="/placeHolder" element={<Placeholder />} />
             <Route path="/login" element={<Login />} />
             <Route path="/createAccount" element={<CreateAccount />} />
             <Route
