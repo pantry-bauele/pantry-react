@@ -4,36 +4,38 @@ import { Button } from "../components/Button";
 
 interface Props {}
 
-export const Home = ({}: Props) => {
+export const Home = () => {
   return (
-    <div id="home-container">
-      <div id="action-banner-container">
-        <div id="action-banner-info-container">
-          <div id="action-banner-info-headings">
+    <div id="home-page-container">
+      <div id="hero-container">
+        <div id="hero-info-container">
+          <div>
             <h2>Take control of your food</h2>
             <h3>Discover the power behind grocery analytics</h3>
           </div>
 
-          <div id="action-banner-button-container">
-            <Button id="action-banner-info-button" text="Sign Up"></Button>
+          <div id="hero-button-container">
+            <Button id="hero-sign-up-button" text="Sign Up"></Button>
           </div>
         </div>
-        <div id="action-banner-logo-container">
-          <div id="action-banner-logo"></div>
+
+        <div id="hero-logo-container">
+          <div id="hero-logo"></div>
         </div>
       </div>
+
       <div id="promo-banner-container">
         <div id="promo-banner-image"></div>
       </div>
 
-      <div id="last-action-container">
-        <div id="last-action-contents">
+      <div id="bottom-action-container">
+        <div id="bottom-action-contents">
           <h2>Tired of forgetting what you have at home?</h2>
           <h3>
             Never lose track of your food supply again with our detailed
             tracking software
           </h3>
-          <Button id="last-action-button" text="Get Started"></Button>
+          <Button id="bottom-action-button" text="Get Started"></Button>
         </div>
       </div>
     </div>

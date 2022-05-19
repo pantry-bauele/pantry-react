@@ -1,0 +1,10 @@
+/* Buttons */
+.large-brand-button {
+  border: none;
+  border-radius: 10px;
+  background-color: #ff4646;
+  color: white;
+  font-size: 24px;
+  height: 50px;
+  width: 215px;
+}

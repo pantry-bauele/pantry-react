@@ -1,69 +1,75 @@
 @use "base";
 
-#home-container {
+#home-page-container {
   background-color: base.$background-color;
 }
 
-#action-banner-container {
-  background-color: base.$brand-color;
-  margin-top: 3px;
+#hero-container {
   display: flex;
   justify-content: center;
+
   height: 225px;
+  margin-top: 3px;
+
+  background-color: base.$brand-color;
+  color: white;
 }
 
-#action-banner-info-container {
-  color: white;
-  padding-left: 20px;
-  padding-right: 20px;
-
+#hero-info-container {
   display: flex;
   flex-direction: column;
 
   min-width: 185px;
   max-width: 185px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
-#action-banner-info-container h2 {
+#hero-info-container h2 {
+  margin-bottom: -5px;
+
   font-size: 24px;
   font-weight: 700;
-  margin-bottom: -5px;
 }
 
-#action-banner-info-container h3 {
-  font-size: 12px;
+#hero-info-container h3 {
+  font-size: 14px;
   font-weight: 400;
 }
 
-#action-banner-button-container {
+#hero-button-container {
   display: flex;
-  justify-content: center;
-  height: 100%;
   align-items: center;
+  justify-content: center;
+
+  height: 100%;
 }
 
-#action-banner-info-button {
-  border: none;
+#hero-sign-up-button {
   height: 30px;
-  border-radius: 10px;
   width: 130px;
+
   background-color: base.$accent-color;
-  font-size: 14px;
+  border: none;
+  border-radius: 10px;
   color: white;
+  font-size: 14px;
+  font-weight: 400;
 }
 
-#action-banner-logo-container {
+#hero-logo-container {
   display: flex;
+  align-items: center;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 
   min-width: 150px;
 }
 
-#action-banner-logo {
+#hero-logo {
   width: 100%;
   height: 100%;
+
   background-image: url("../../assets/money.png");
   background-position: center;
   background-size: contain;
@@ -78,50 +84,57 @@
 #promo-banner-image {
   width: 100%;
   height: 100%;
+
   background-image: url("../../assets/promo.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
 
-#last-action-container {
+#bottom-action-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: base.$background-color;
+
   padding-top: 30px;
+  padding-bottom: 30px;
   padding-left: 60px;
   padding-right: 60px;
+
+  background-color: base.$background-color;
   text-align: center;
 }
 
-#last-action-contents {
+#bottom-action-contents {
   display: flex;
+  align-items: center;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
 
-#last-action-container h2 {
+#bottom-action-container h2 {
   font-size: 24px;
   font-weight: 700;
 }
 
-#last-action-container h3 {
-  font-size: 12px;
-  font-weight: 400;
+#bottom-action-container h3 {
   padding-left: 20px;
   padding-right: 20px;
+
+  font-size: 14px;
+  font-weight: 400;
 }
 
-#last-action-button {
-  border: none;
+#bottom-action-button {
+  height: 50px;
+  width: 215px;
   margin-top: 10px;
   margin-bottom: 10px;
-  height: 50px;
+
+  border: none;
   border-radius: 10px;
   background-color: base.$brand-color;
-  width: 215px;
   color: white;
-  font-size: 20px;
+  font-size: 24px;
+  font-weight: 400;
 }
