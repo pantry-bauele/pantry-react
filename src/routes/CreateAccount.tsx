@@ -24,36 +24,44 @@ export default function CreateAccount() {
   const navigate = useNavigate();
 
   const createAccount = async () => {
+    let error = 0;
+
     if (firstName.length === 0) {
-      setAccountError(1);
+      error = 1;
     } else if (email.length === 0) {
-      setAccountError(2);
+      error = 2;
     } else if (password.length === 0) {
-      setAccountError(3);
+      error = 3;
     } else if (confirmPassword.length === 0) {
-      setAccountError(4);
+      error = 4;
     } else if (password !== confirmPassword) {
-      setAccountError(5);
-    } else {
-      setAccountError(0);
+      error = 5;
     }
 
-    if (accountError === 0) {
-      let accountCreator = new AccountCreator();
-      let errorCode = await accountCreator.createAccount(
-        firstName,
-        "NULL",
-        email,
-        password
-      );
+    setAccountError(error);
+    if (error !== 0) {
+      return;
+    }
 
-      if (errorCode === 1) {
-        setAccountError(6);
-      } else if (errorCode === 2) {
-        setAccountError(7);
-      } else if (errorCode === 3) {
-        setAccountError(8);
-      }
+    let accountCreator = new AccountCreator();
+    let errorCode = await accountCreator.createAccount(
+      firstName,
+      "NULL",
+      email,
+      password
+    );
+
+    if (errorCode === 0) {
+      // Account creation was successful, direct to new screen
+      navigate("/viewItems");
+    } else if (errorCode === 1) {
+      setAccountError(6);
+    } else if (errorCode === 2) {
+      setAccountError(7);
+    } else if (errorCode === 3) {
+      setAccountError(8);
+    } else if (errorCode === -1) {
+      setAccountError(9);
     }
   };
 
@@ -86,7 +94,7 @@ export default function CreateAccount() {
         errorMessage = "Please enter a password with at least 6 characters.";
         break;
       case 9:
-        errorMessage = "Unknown error. Please try again later.";
+        errorMessage = "That email address is already registered.";
         break;
     }
 
