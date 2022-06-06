@@ -2,6 +2,7 @@ import "../styles/sass/Login.css";
 
 import { useState } from "react";
 import "../api/AuthenticationService";
+import { AccountCreator } from "../api/AccountCreator";
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -22,7 +23,7 @@ export default function CreateAccount() {
 
   const navigate = useNavigate();
 
-  const createAccount = () => {
+  const createAccount = async () => {
     if (firstName.length === 0) {
       setAccountError(1);
     } else if (email.length === 0) {
@@ -37,28 +38,23 @@ export default function CreateAccount() {
       setAccountError(0);
     }
 
-    const auth = getAuth();
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        alert("contracint server");
-        // Signed in
-        serverSingleton
-          .createAccount(email, firstName)
-          .then(() => {
-            const user = userCredential.user;
-            navigate("/");
-          })
-          .catch(() => {
-            alert("Account API error");
-          });
+    if (accountError === 0) {
+      let accountCreator = new AccountCreator();
+      let errorCode = await accountCreator.createAccount(
+        firstName,
+        "NULL",
+        email,
+        password
+      );
 
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+      if (errorCode === 1) {
         setAccountError(6);
-      });
+      } else if (errorCode === 2) {
+        setAccountError(7);
+      } else if (errorCode === 3) {
+        setAccountError(8);
+      }
+    }
   };
 
   const renderLoginError = () => {
@@ -81,7 +77,16 @@ export default function CreateAccount() {
         errorMessage = "Your passwords do not match.";
         break;
       case 6:
-        errorMessage = "Authentication provider error.";
+        errorMessage = "Authentication provider error. Please try again later.";
+        break;
+      case 7:
+        errorMessage = "Please enter a valid email address.";
+        break;
+      case 8:
+        errorMessage = "Please enter a password with at least 6 characters.";
+        break;
+      case 9:
+        errorMessage = "Unknown error. Please try again later.";
         break;
     }
 

@@ -12,11 +12,41 @@ class ServerAPI {
     this.serverURL = ipAddress + ":" + port;
   }
 
-  async createAccount(emailAddress: string, firstName: string) {
+  async getAccount(emailAddress: string) {
+    let account = {
+      emailAddress: emailAddress,
+    };
+
+    try {
+      let response = await axios({
+        method: "get",
+        url: `${this.serverURL}/get-account`,
+        params: {
+          emailAddress: emailAddress,
+        },
+      });
+
+      if (response.data) {
+        console.log(response.data);
+        return response.data;
+      } else {
+        console.log("No response");
+      }
+    } catch (error) {
+      console.log("getAccount() error");
+      console.log(error);
+    }
+  }
+
+  async createAccount(
+    emailAddress: string,
+    firstName: string,
+    lastName: string
+  ) {
     let account = {
       emailAddress: emailAddress,
       firstName: firstName,
-      lastName: "Null",
+      lastName: lastName,
     };
 
     try {
@@ -35,7 +65,7 @@ class ServerAPI {
         console.log("No response");
       }
     } catch (error) {
-      console.log("loadItems() error");
+      console.log("createAccount() error");
       console.log(error);
     }
   }

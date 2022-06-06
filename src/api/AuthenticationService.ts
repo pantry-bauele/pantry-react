@@ -1,6 +1,10 @@
-import { getAuth, signOut } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signOut,
+} from "firebase/auth";
 import firebase from "firebase/compat/app";
-import * as firebaseui from "firebaseui";
+import { stringify } from "querystring";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAXAhW8XBVJ4mmuUi_2NaDRpMY_MYDCwn8",
@@ -13,28 +17,41 @@ const firebaseConfig = {
 };
 
 const app = firebase.initializeApp(firebaseConfig);
-var ui = new firebaseui.auth.AuthUI(firebase.auth());
 
-export function startLoginUI() {
-  var uiConfig = {
-    signInOptions: [
-      {
-        provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        requireDisplayName: false,
-      },
-    ],
-    callbacks: {
-      signInSuccessWithAuthResult: function (
-        authResult: any,
-        redirectUrl: any
-      ) {
-        return true;
-      },
-    },
-    signInSuccessUrl: "/createItem",
-  };
+// Function will return an object containing both an
+// error code and an error message. The reason it returns
+// both is to enable future changes in the specific error
+// message without affecting the code that makes decisions
+// based on the specific error number.
+// -1 - Unknown error
+// 0 - Successful account creation
+// 1 - Internal error
+// 2 - Invalid email address
+// 3 - Weak password
+export async function createAuthenticationAccount(
+  emailAddress: string,
+  password: string
+) {
+  let errorCode;
 
-  ui.start("#firebaseui-auth-container", uiConfig);
+  await createUserWithEmailAndPassword(getAuth(), emailAddress, password)
+    .then((userCredential) => {
+      // Signed in
+      errorCode = 0;
+    })
+    .catch((error) => {
+      if (error.message.includes("auth/internal-error")) {
+        errorCode = 1;
+      } else if (error.message.includes("auth/invalid-email")) {
+        errorCode = 2;
+      } else if (error.message.includes("auth/weak-password")) {
+        errorCode = 3;
+      } else {
+        errorCode = -1;
+      }
+    });
+
+  return errorCode;
 }
 
 export function logoutUser() {
