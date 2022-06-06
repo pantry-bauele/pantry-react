@@ -91,7 +91,6 @@ export default function CreateAccount() {
     }
 
     if (accountError) {
-      console.log("show");
       return <div id="login-error-message">{errorMessage}</div>;
     }
   };
@@ -102,13 +101,10 @@ export default function CreateAccount() {
 
     if (name === "firstname") {
       setFirstName(target.value);
-      console.log(target.value);
     } else if (name === "email") {
       setEmail(target.value);
-      console.log(target.value);
     } else if (name === "password") {
       setPassword(target.value);
-      console.log(target.value);
     } else if (name === "cofirmPassword") {
       setConfirmPassword(target.value);
     }
