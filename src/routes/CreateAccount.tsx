@@ -16,6 +16,7 @@ import { serverSingleton } from "../api/ServerAPI";
 
 export default function CreateAccount() {
   const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -26,7 +27,7 @@ export default function CreateAccount() {
   const createAccount = async () => {
     let error = 0;
 
-    if (firstName.length === 0) {
+    if (firstName.length === 0 || lastName.length === 0) {
       error = 1;
     } else if (email.length === 0) {
       error = 2;
@@ -46,7 +47,7 @@ export default function CreateAccount() {
     let accountCreator = new AccountCreator();
     let errorCode = await accountCreator.createAccount(
       firstName,
-      "NULL",
+      lastName,
       email,
       password
     );
@@ -70,7 +71,7 @@ export default function CreateAccount() {
 
     switch (accountError) {
       case 1:
-        errorMessage = "Please enter a name.";
+        errorMessage = "Please enter your first and last name.";
         break;
       case 2:
         errorMessage = "Please enter an email address.";
@@ -109,6 +110,9 @@ export default function CreateAccount() {
 
     if (name === "firstname") {
       setFirstName(target.value);
+    }
+    if (name === "lastname") {
+      setLastName(target.value);
     } else if (name === "email") {
       setEmail(target.value);
     } else if (name === "password") {
@@ -126,6 +130,12 @@ export default function CreateAccount() {
           name="firstname"
           orientation="vertical"
           label="First Name"
+          onChange={handleChange}
+        />
+        <FormField
+          name="lastname"
+          orientation="vertical"
+          label="Last Name"
           onChange={handleChange}
         />
         <FormField
