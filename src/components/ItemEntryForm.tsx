@@ -421,6 +421,7 @@ export default function ItemEntryForm(props: Props) {
 
   function buildItemObject() {
     let item = {
+      id: "",
       name: name,
       brand: brand,
       calories: calories,

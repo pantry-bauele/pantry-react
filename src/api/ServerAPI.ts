@@ -166,6 +166,29 @@ class ServerAPI {
       console.log(error);
     }
   }
+
+  async editItem(emailAddress: string, item: any) {
+    try {
+      let response = await axios({
+        method: "post",
+        url: `${this.serverURL}/edit-item`,
+        params: {
+          emailAddress: emailAddress,
+          itemObject: item,
+        },
+      });
+
+      if (response.data) {
+        console.log(response.data);
+        return response.data;
+      } else {
+        console.log("No response");
+      }
+    } catch (error) {
+      console.log("editItem() error");
+      console.log(error);
+    }
+  }
 }
 
 let serverSingleton = new ServerAPI("http://192.168.0.5", "3001");

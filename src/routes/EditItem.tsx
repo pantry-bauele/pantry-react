@@ -19,12 +19,14 @@ export default function EditItem(props: Props) {
 
   const [iDetails, setItemDetails] = useState(blank);
 
-  function submitForm(item: {}) {
+  function submitForm(item: any) {
     alert("Submitted your item!");
+    item.id = id;
+
     console.log("Item = ", item);
 
     if (typeof props.accountEmail === "string") {
-      //serverSingleton.editItem(accountEmail, item);
+      serverSingleton.editItem(props.accountEmail, item);
     }
   }
 
