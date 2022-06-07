@@ -1,10 +1,13 @@
 import "../styles/sass/Item.css";
 import ItemBuilder from "../api/ItemBuilder";
 
+import { useNavigate } from "react-router-dom";
+
 import { Button } from "./Button";
 import { useState } from "react";
 
 interface Props {
+  id: string;
   name: string;
   brand: string;
   calories: number;
@@ -15,6 +18,7 @@ interface Props {
 }
 
 function Item({
+  id,
   name,
   brand,
   calories,
@@ -23,6 +27,7 @@ function Item({
   servingSize,
   deleteItem,
 }: Props) {
+  let navigate = useNavigate();
   const [showMore, setShowMore] = useState(false);
 
   let vp = vendorPrices.map((v: any) => {
@@ -37,6 +42,7 @@ function Item({
   function sendDelete() {
     let itemBuilder = new ItemBuilder();
     let item = itemBuilder.buildItem(
+      id,
       name,
       brand,
       calories,
@@ -46,6 +52,10 @@ function Item({
     );
 
     deleteItem(item);
+  }
+
+  function editItem() {
+    navigate(`/editItem/${id}`);
   }
 
   function toggleMore() {
@@ -66,7 +76,7 @@ function Item({
           </div>
           <div id="pricing">{vp}</div>
           <div id="more-buttons">
-            <Button id="edit" text="Edit"></Button>
+            <Button id="edit" text="Edit" click={editItem}></Button>
             <Button id="stats" text="Statistics"></Button>
             <Button id="delete" text="Delete" click={sendDelete}></Button>
           </div>

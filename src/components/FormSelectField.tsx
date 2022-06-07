@@ -14,6 +14,7 @@ interface Props {
   name?: string;
   hideInput?: boolean;
   options: string[];
+  value?: string;
 }
 
 export const FormSelectField = ({
@@ -24,6 +25,7 @@ export const FormSelectField = ({
   options,
   name,
   hideInput,
+  value,
 }: Props) => {
   console.log(options);
 
@@ -39,6 +41,7 @@ export const FormSelectField = ({
   return (
     <div id="form-select-container">
       <select
+        value={value}
         className="form-select"
         id={`form-select-${name}`}
         name={name}

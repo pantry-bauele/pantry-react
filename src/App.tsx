@@ -8,6 +8,7 @@ import CreateItem from "./routes/CreateItem";
 import Login from "./routes/Login";
 import CreateAccount from "./routes/CreateAccount";
 import ViewItems from "./routes/ViewItems";
+import EditItem from "./routes/EditItem";
 import { Header } from "./routes/Header";
 import { Home } from "./routes/Home";
 import Logout from "./routes/Logout";
@@ -69,6 +70,14 @@ function App() {
               element={
                 <RequireAuthentication>
                   <ViewItems accountEmail={activeUser} />
+                </RequireAuthentication>
+              }
+            />
+            <Route
+              path="/editItem/:id"
+              element={
+                <RequireAuthentication>
+                  <EditItem accountEmail={activeUser} />
                 </RequireAuthentication>
               }
             />

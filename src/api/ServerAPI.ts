@@ -77,7 +77,7 @@ class ServerAPI {
     try {
       let response = await axios({
         method: "get",
-        url: `${this.serverURL}/get-items`,
+        url: `${this.serverURL}/get-all-items`,
         params: {
           emailAddress: emailAddress,
         },
@@ -91,6 +91,32 @@ class ServerAPI {
       }
     } catch (error) {
       console.log("loadItems() error");
+      console.log(error);
+    }
+  }
+
+  async getItem(emailAddress: string, itemId: string) {
+    console.log(`Loading items from ${emailAddress}`);
+    console.log(`Server URL = ${this.serverURL}`);
+
+    try {
+      let response = await axios({
+        method: "get",
+        url: `${this.serverURL}/get-item`,
+        params: {
+          emailAddress: emailAddress,
+          itemId: itemId,
+        },
+      });
+
+      if (response.data) {
+        console.log(response.data);
+        return response.data;
+      } else {
+        console.log("No response");
+      }
+    } catch (error) {
+      console.log("getItem() error");
       console.log(error);
     }
   }

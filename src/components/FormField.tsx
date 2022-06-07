@@ -9,6 +9,7 @@ interface Props {
   id?: string;
   name?: string;
   hideInput?: boolean;
+  value?: string;
 }
 
 export const FormField = ({
@@ -19,6 +20,7 @@ export const FormField = ({
   id,
   name,
   hideInput,
+  value,
 }: Props) => {
   if (orientation === "vertical") {
     return (
@@ -47,6 +49,7 @@ export const FormField = ({
           onChange={onChange}
           onBlur={onBlur}
           type={hideInput ? "password" : "text"}
+          value={value}
         />
       </div>
     );

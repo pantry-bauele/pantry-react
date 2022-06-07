@@ -28,6 +28,7 @@ export default function ViewItems(props: Props) {
       const elements = response.map((element: any) => (
         <Item
           key={element.name}
+          id={element._id}
           name={element.name}
           brand={element.brand}
           calories={element.calories}

@@ -1,18 +1,25 @@
 class ItemBuilder {
-    buildItem(name: string, brand: string, calories: number,
-        vendorPrices: {}, totalQuantity: {}, servingSize: {}) {
+  buildItem(
+    id: string,
+    name: string,
+    brand: string,
+    calories: number,
+    vendorPrices: {},
+    totalQuantity: {},
+    servingSize: {}
+  ) {
+    let item = {
+      id: id,
+      name: name,
+      brand: brand,
+      calories: calories,
+      vendorPrices: vendorPrices,
+      totalQuantity: totalQuantity,
+      servingSize: servingSize,
+    };
 
-        let item = {
-            name: name,
-            brand: brand,
-            calories: calories,
-            vendorPrices: vendorPrices,
-            totalQuantity: totalQuantity,
-            servingSize: servingSize
-        }
-
-        return item;
-    }
+    return item;
+  }
 }
 
 export default ItemBuilder;

@@ -3,13 +3,14 @@ import { ItemEntryFormValidator } from "../api/ItemEntryFormValidator";
 import { FormField } from "./FormField";
 import { FormSelectField } from "./FormSelectField";
 import { Button } from "./Button";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
 interface Props {
   selectedItemDetails: Map<string, boolean>;
   submitForm: any;
+  prefill?: Map<string, string | number | []>;
 }
 
 let vendorPricesDefault = new Array<{ name: string; price: string }>();
@@ -24,6 +25,77 @@ export default function ItemEntryForm(props: Props) {
   const [serving, setServing] = useState("");
   const [servingUnit, setServingUnit] = useState("g");
   const [vendorPrices, setVendorPrices] = useState(vendorPricesDefault);
+  const [prefill, setPrefill] = useState(new Map<string, string | []>());
+
+  useEffect(() => {
+    /*
+    if (props.prefill !== undefined) {
+      let prefillName = props.prefill.get("name");
+      if (typeof prefillName === "string") {
+        setPrefill(props.prefill);
+        console.log(prefillName);
+        setName(prefillName);
+      }
+    }
+    */
+  }, []);
+
+  useEffect(() => {
+    console.log("set name to ", name);
+  }, [name]);
+
+  useEffect(() => {
+    console.log("updating prefill");
+    if (props.prefill !== undefined) {
+      let prefillName = props.prefill.get("name");
+      if (typeof prefillName === "string") {
+        setName(prefillName);
+      }
+
+      let prefillBrand = props.prefill.get("brand");
+      if (typeof prefillBrand === "string") {
+        setBrand(prefillBrand);
+      }
+
+      let prefillCalories = props.prefill.get("calories");
+      if (typeof prefillCalories === "number") {
+        let prefillCaloriesString = prefillCalories.toString();
+        setCalories(prefillCaloriesString);
+      }
+
+      let prefillTotalQuantityAmount = props.prefill.get("totalQuantityAmount");
+      if (typeof prefillTotalQuantityAmount === "number") {
+        let prefillTotalQuantityAmountString =
+          prefillTotalQuantityAmount.toString();
+        setQuantity(prefillTotalQuantityAmountString);
+      }
+
+      let prefillTotalQuantityUnit = props.prefill.get("totalQuantityUnit");
+      if (typeof prefillTotalQuantityUnit === "string") {
+        setQuantityUnit(prefillTotalQuantityUnit);
+        console.log("Quantity unit set to ", prefillTotalQuantityUnit);
+      }
+
+      let prefillServingSizeAmount = props.prefill.get("servingSizeAmount");
+      if (typeof prefillServingSizeAmount === "number") {
+        let prefillServingSizeAmountString =
+          prefillServingSizeAmount.toString();
+        setServing(prefillServingSizeAmountString);
+      }
+
+      let prefillServingSizeUnit = props.prefill.get("servingSizeUnit");
+      if (typeof prefillServingSizeUnit === "string") {
+        setServingUnit(prefillServingSizeUnit);
+      }
+
+      let prefillVendorPrices = props.prefill.get("vendorPrices");
+      if (Array.isArray(prefillVendorPrices)) {
+        console.log("yesss");
+        setVendorPrices(prefillVendorPrices);
+        prefillVendorPrices?.forEach((vp) => {});
+      }
+    }
+  }, [props.prefill]);
 
   let navigate = useNavigate();
 
@@ -36,6 +108,8 @@ export default function ItemEntryForm(props: Props) {
             name="calories"
             label="Calories"
             onBlur={validateField}
+            onChange={handleChange}
+            value={calories}
           ></FormField>
         </>
       );
@@ -54,12 +128,15 @@ export default function ItemEntryForm(props: Props) {
             name="quantity"
             label="Quantity"
             onBlur={validateField}
+            onChange={handleChange}
+            value={quantity}
           ></FormField>
           <FormSelectField
             name="quantityUnit"
             label="quantityUnit"
             options={["g", "oz", "lb"]}
             onChange={handleChange}
+            value={quantityUnit}
           />
         </div>
       );
@@ -75,12 +152,15 @@ export default function ItemEntryForm(props: Props) {
             name="serving"
             label="Serving"
             onBlur={validateField}
+            onChange={handleChange}
+            value={serving}
           ></FormField>
           <FormSelectField
             name="servingUnit"
             label="servingUnit"
             options={["g", "oz", "lb"]}
             onChange={handleChange}
+            value={servingUnit}
           />
         </div>
       );
@@ -352,6 +432,8 @@ export default function ItemEntryForm(props: Props) {
     return item;
   }
 
+  useEffect(() => {}, []);
+
   return (
     <div id="container">
       <div id="parent">
@@ -361,6 +443,7 @@ export default function ItemEntryForm(props: Props) {
             name="name"
             label="Name"
             onChange={handleChange}
+            value={name}
           ></FormField>
 
           <FormField
@@ -368,6 +451,7 @@ export default function ItemEntryForm(props: Props) {
             name="brand"
             label="Brand"
             onChange={handleChange}
+            value={brand}
           ></FormField>
 
           {showCaloriesField()}
