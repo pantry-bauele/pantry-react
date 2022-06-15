@@ -125,7 +125,7 @@ class ServerAPI {
     try {
       let response = await axios({
         method: "post",
-        url: `${this.serverURL}/add-item`,
+        url: `${this.serverURL}/create-item`,
         params: {
           emailAddress: emailAddress,
           itemObject: item,

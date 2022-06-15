@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import Item from "../components/Item";
 
 import { serverSingleton } from "../api/ServerAPI";
+import { ItemBuilder } from "../pantry-shared/src/itemBuilder";
+import { Item as ItemX } from "../pantry-shared/src/item";
 import "../styles/ViewItems.css";
 
 interface Props {
@@ -24,6 +26,16 @@ export default function ViewItems(props: Props) {
     console.log("response = ", response);
     if (response) {
       console.log(response);
+
+      let itemBuilder = new ItemBuilder();
+      let itemX = new ItemX();
+
+      response.forEach((res: ItemX) => {
+        console.log("res = ", res);
+        itemX = res;
+
+        console.log("itemX = ", itemX);
+      });
 
       const elements = response.map((element: any) => (
         <Item

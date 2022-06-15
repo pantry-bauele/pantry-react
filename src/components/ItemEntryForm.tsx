@@ -6,6 +6,7 @@ import { Button } from "./Button";
 import React, { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
+import { Item } from "../pantry-shared/src/item";
 
 interface Props {
   selectedItemDetails: Map<string, boolean>;
@@ -420,6 +421,7 @@ export default function ItemEntryForm(props: Props) {
   }
 
   function buildItemObject() {
+    /*
     let item = {
       id: "",
       name: name,
@@ -429,6 +431,18 @@ export default function ItemEntryForm(props: Props) {
       totalQuantity: { amount: quantity, unit: quantityUnit },
       servingSize: { amount: serving, unit: servingUnit },
     };
+    */
+
+    let item = new Item();
+    item.setId("");
+    item.setName(name);
+    item.setBrand(brand);
+    item.setCalories(Number.parseInt(calories));
+    vendorPrices.forEach((vendorPrice) => {
+      item.addVendorPrice(vendorPrice.name, Number.parseInt(vendorPrice.price));
+    });
+    item.setTotalQuantity(Number.parseInt(quantity), quantityUnit);
+    item.setServingSize(Number.parseInt(serving), servingUnit);
 
     return item;
   }
