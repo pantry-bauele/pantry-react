@@ -1,61 +1,34 @@
 import "../styles/sass/Item.css";
-import ItemBuilder from "../api/ItemBuilder";
 
 import { useNavigate } from "react-router-dom";
-
 import { Button } from "./Button";
 import { useState } from "react";
+import { Item as ItemObject } from "../pantry-shared/src/item";
 
 interface Props {
-  id: string;
-  name: string;
-  brand: string;
-  calories: number;
-  vendorPrices: [];
-  totalQuantity: any;
-  servingSize: any;
+  item: ItemObject;
   deleteItem: any;
 }
 
-function Item({
-  id,
-  name,
-  brand,
-  calories,
-  vendorPrices,
-  totalQuantity,
-  servingSize,
-  deleteItem,
-}: Props) {
+function Item({ item, deleteItem }: Props) {
   let navigate = useNavigate();
   const [showMore, setShowMore] = useState(false);
 
-  let vp = vendorPrices.map((v: any) => {
+  let vendorPrices = item.getVendorPrices().map((vp: any) => {
     return (
-      <div key={v.name} className="vendor-price">
-        <div>{v.name}</div>
-        <div>${v.price}</div>
+      <div key={vp.name} className="vendor-price">
+        <div>{vp.name}</div>
+        <div>${vp.price}</div>
       </div>
     );
   });
 
   function sendDelete() {
-    let itemBuilder = new ItemBuilder();
-    let item = itemBuilder.buildItem(
-      id,
-      name,
-      brand,
-      calories,
-      vendorPrices,
-      totalQuantity,
-      servingSize
-    );
-
     deleteItem(item);
   }
 
   function editItem() {
-    navigate(`/editItem/${id}`);
+    navigate(`/editItem/${item.getId()}`);
   }
 
   function toggleMore() {
@@ -68,13 +41,13 @@ function Item({
         <div id="item-more">
           <div id="sizing">
             <div>
-              {totalQuantity.amount} {totalQuantity.unit}
+              {item.getTotalQuantity().amount} {item.getTotalQuantity().unit}
             </div>
             <div>
-              {calories} calories per {servingSize.unit}
+              {item.getCalories()} calories per {item.getServingSize().unit}
             </div>
           </div>
-          <div id="pricing">{vp}</div>
+          <div id="pricing">{vendorPrices}</div>
           <div id="more-buttons">
             <Button id="edit" text="Edit" click={editItem}></Button>
             <Button id="stats" text="Statistics"></Button>
@@ -91,8 +64,8 @@ function Item({
         <div id="item-icon"></div>
         <div id="item-body">
           <div id="item-header">
-            <div id="item-name">{name}</div>
-            <div id="item-brand">{brand}</div>
+            <div id="item-name">{item.getName()}</div>
+            <div id="item-brand">{item.getBrand()}</div>
           </div>
           <div id="item-buttons">
             <Button id="add" text="Add"></Button>

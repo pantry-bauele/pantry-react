@@ -3,7 +3,7 @@ import Item from "../components/Item";
 
 import { serverSingleton } from "../api/ServerAPI";
 import { ItemBuilder } from "../pantry-shared/src/itemBuilder";
-import { Item as ItemX } from "../pantry-shared/src/item";
+import { Item as ItemObject } from "../pantry-shared/src/item";
 import "../styles/ViewItems.css";
 
 interface Props {
@@ -28,25 +28,10 @@ export default function ViewItems(props: Props) {
       console.log(response);
 
       let itemBuilder = new ItemBuilder();
-      let itemX = new ItemX();
-
-      response.forEach((res: ItemX) => {
-        console.log("res = ", res);
-        itemX = res;
-
-        console.log("itemX = ", itemX);
-      });
-
       const elements = response.map((element: any) => (
         <Item
-          key={element.name}
-          id={element._id}
-          name={element.name}
-          brand={element.brand}
-          calories={element.calories}
-          vendorPrices={element.vendorPrices}
-          totalQuantity={element.totalQuantity}
-          servingSize={element.servingSize}
+          key={itemBuilder.buildItem(element).getId()}
+          item={itemBuilder.buildItem(element)}
           deleteItem={deleteItem}
         />
       ));
