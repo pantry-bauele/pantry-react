@@ -1,9 +1,9 @@
-import "../styles/sass/Item.css";
+import "../../styles/sass/Item.css";
 
 import { useNavigate } from "react-router-dom";
-import { Button } from "./Button";
+import { Button } from "../Button";
 import { useState } from "react";
-import { Item as ItemObject } from "../pantry-shared/src/item";
+import { Item as ItemObject } from "../../pantry-shared/src/item";
 
 interface Props {
   item: ItemObject;

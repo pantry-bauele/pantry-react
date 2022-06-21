@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Item from "../components/Item";
+import Item from "../components/items/Item";
 
 import { serverSingleton } from "../api/ServerAPI";
 import { ItemBuilder } from "../pantry-shared/src/itemBuilder";
