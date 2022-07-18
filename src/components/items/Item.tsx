@@ -4,15 +4,16 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../Button";
 import { useState } from "react";
 import { Item as ItemObject } from "../../pantry-shared/src/item";
-
+import ItemHeading from "../items/ItemHeading";
 interface Props {
   item: ItemObject;
   deleteItem: any;
+  addItem: any;
 }
 
-function Item({ item, deleteItem }: Props) {
+function Item({ item, deleteItem, addItem }: Props) {
   let navigate = useNavigate();
-  const [showMore, setShowMore] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   let vendorPrices = item.getVendorPrices().map((vp: any) => {
     return (
@@ -27,16 +28,20 @@ function Item({ item, deleteItem }: Props) {
     deleteItem(item);
   }
 
+  function sendAdd() {
+    addItem();
+  }
+
   function editItem() {
     navigate(`/editItem/${item.getId()}`);
   }
 
-  function toggleMore() {
-    setShowMore(!showMore);
+  function toggleExpand() {
+    setExpanded(!expanded);
   }
 
   function renderMore() {
-    if (showMore) {
+    if (expanded) {
       return (
         <div id="item-more">
           <div id="sizing">
@@ -61,17 +66,13 @@ function Item({ item, deleteItem }: Props) {
   return (
     <div id="item-container">
       <div id="item-main">
-        <div id="item-icon"></div>
-        <div id="item-body">
-          <div id="item-header">
-            <div id="item-name">{item.getName()}</div>
-            <div id="item-brand">{item.getBrand()}</div>
-          </div>
-          <div id="item-buttons">
-            <Button id="add" text="Add"></Button>
-            <Button id="more" text="More" click={toggleMore}></Button>
-          </div>
-        </div>
+        <ItemHeading
+          name={item.getName()}
+          brand={item.getBrand()}
+          expand={toggleExpand}
+          actionButtonType="add"
+          actionButtonFunction={sendAdd}
+        />
       </div>
       {renderMore()}
       <div id="item-border"></div>

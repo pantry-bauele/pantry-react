@@ -33,12 +33,17 @@ export default function ViewItems(props: Props) {
           key={itemBuilder.buildItem(element).getId()}
           item={itemBuilder.buildItem(element)}
           deleteItem={deleteItem}
+          addItem={addItem}
         />
       ));
 
       console.log(elements);
       setListItems(elements);
     }
+  }
+
+  async function addItem() {
+    alert("Adding an item!");
   }
 
   async function deleteItem(item: {}) {

@@ -16,7 +16,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 2px;
+  margin-right: 5px;
 
   background-image: url("../../assets/dinner.png");
   background-size: contain;
@@ -24,11 +24,26 @@
   background-repeat: no-repeat;
 }
 
-#item-header {
+#item-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  flex-grow: 1;
+}
+
+#item-heading-info {
   margin-left: 5px;
   height: 60px;
   display: flex;
 
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+#item-heading-info-text {
+  display: flex;
   flex-direction: column;
   justify-content: center;
 }
