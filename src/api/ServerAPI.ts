@@ -144,6 +144,10 @@ class ServerAPI {
     }
   }
 
+  async createPantryItem() {
+    console.log("createPantryItem() called!");
+  }
+
   async deleteItem(emailAddress: string, item: any) {
     try {
       let response = await axios({

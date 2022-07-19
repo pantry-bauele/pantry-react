@@ -29,7 +29,7 @@ function Item({ item, deleteItem, addItem }: Props) {
   }
 
   function sendAdd() {
-    addItem();
+    addItem(item);
   }
 
   function editItem() {

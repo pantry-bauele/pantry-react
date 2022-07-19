@@ -5,6 +5,7 @@ import { serverSingleton } from "../api/ServerAPI";
 import { ItemBuilder } from "../pantry-shared/src/itemBuilder";
 import { Item as ItemObject } from "../pantry-shared/src/item";
 import "../styles/ViewItems.css";
+import { PantryItem } from "../pantry-shared/src/pantryItem";
 
 interface Props {
   accountEmail: string | null;
@@ -42,8 +43,16 @@ export default function ViewItems(props: Props) {
     }
   }
 
-  async function addItem() {
+  async function addItem(item: ItemObject) {
     alert("Adding an item!");
+
+    let pantryItem = new PantryItem(item);
+
+    // Hardcode the expiration date and quantity
+    pantryItem.setExpirationDate(2022, 0, 1);
+    pantryItem.setAvailableQuantity(99, "lb");
+
+    await serverSingleton.createPantryItem();
   }
 
   async function deleteItem(item: {}) {
