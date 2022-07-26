@@ -8,6 +8,7 @@ import CreateItem from "./routes/CreateItem";
 import Login from "./routes/Login";
 import CreateAccount from "./routes/CreateAccount";
 import ViewItems from "./routes/ViewItems";
+import Pantry from "./routes/Pantry";
 import EditItem from "./routes/EditItem";
 import { Header } from "./routes/Header";
 import { Home } from "./routes/Home";
@@ -70,6 +71,14 @@ function App() {
               element={
                 <RequireAuthentication>
                   <ViewItems accountEmail={activeUser} />
+                </RequireAuthentication>
+              }
+            />
+            <Route
+              path="/pantry"
+              element={
+                <RequireAuthentication>
+                  <Pantry accountEmail={activeUser} />
                 </RequireAuthentication>
               }
             />

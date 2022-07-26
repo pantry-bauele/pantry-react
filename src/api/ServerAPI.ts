@@ -96,6 +96,31 @@ class ServerAPI {
     }
   }
 
+  async loadPantryItems(emailAddress: string) {
+    console.log(`Loading items from ${emailAddress}`);
+    console.log(`Server URL = ${this.serverURL}`);
+
+    try {
+      let response = await axios({
+        method: "get",
+        url: `${this.serverURL}/get-all-pantry-items`,
+        params: {
+          emailAddress: emailAddress,
+        },
+      });
+
+      if (response.data) {
+        console.log(response.data);
+        return response.data;
+      } else {
+        console.log("No response");
+      }
+    } catch (error) {
+      console.log("loadItems() error");
+      console.log(error);
+    }
+  }
+
   async getItem(emailAddress: string, itemId: string) {
     console.log(`Loading items from ${emailAddress}`);
     console.log(`Server URL = ${this.serverURL}`);

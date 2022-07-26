@@ -11,7 +11,7 @@ export const BottomNavbar = ({}: Props) => {
   let navigate = useNavigate();
 
   const navigatePantry = () => {
-    navigate("/placeHolder");
+    navigate("/pantry");
   };
 
   const navigateItems = () => {
