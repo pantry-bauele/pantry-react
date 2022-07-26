@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import Item from "../components/items/Item";
 
-import { serverSingleton } from "../api/ServerAPI";
+import { ServerAPI, serverSingleton } from "../api/ServerAPI";
 import { ItemBuilder } from "../pantry-shared/src/itemBuilder";
 import { Item as ItemObject } from "../pantry-shared/src/item";
 import "../styles/ViewItems.css";
 import { PantryItem } from "../pantry-shared/src/pantryItem";
+import { AddPantryItemModal } from "../components/AddPantryItemModal";
 
 interface Props {
   accountEmail: string | null;
@@ -14,6 +15,9 @@ interface Props {
 export default function ViewItems(props: Props) {
   const [accountEmail, setAccountEmail] = useState(props.accountEmail);
   const [listItems, setListItems] = useState("");
+  const [showAddPantryItemModal, setShowAddPantryItemModal] = useState(false);
+  const [itemBeingAddedToPantry, setItemBeingAddedToPantry] = useState({});
+
   console.log(props.accountEmail);
 
   async function loadItems(emailAddress: string | null) {
@@ -44,15 +48,8 @@ export default function ViewItems(props: Props) {
   }
 
   async function addItem(item: ItemObject) {
-    alert("Adding an item!");
-
-    let pantryItem = new PantryItem(item);
-
-    // Hardcode the expiration date and quantity
-    pantryItem.setExpirationDate(2022, 0, 1);
-    pantryItem.setAvailableQuantity(99, "lb");
-
-    await serverSingleton.createPantryItem();
+    setItemBeingAddedToPantry(item);
+    setShowAddPantryItemModal(true);
   }
 
   async function deleteItem(item: {}) {
@@ -71,6 +68,54 @@ export default function ViewItems(props: Props) {
     // item from the array here
   }
 
+  function closeModal() {
+    setShowAddPantryItemModal(false);
+    setItemBeingAddedToPantry({});
+  }
+
+  async function submitModal(
+    quantity: string,
+    quantityUnit: string,
+    expirationDate: any
+  ) {
+    console.log(itemBeingAddedToPantry);
+    console.log(quantity);
+    console.log(quantityUnit);
+    console.log(expirationDate);
+
+    if (itemBeingAddedToPantry instanceof ItemObject) {
+      let pantryItem = new PantryItem(itemBeingAddedToPantry);
+      if (quantity !== "") {
+        pantryItem.setAvailableQuantity(
+          Number.parseInt(quantity),
+          quantityUnit
+        );
+
+        console.log("parsed = ", Number.parseInt(quantity));
+      }
+
+      console.log("preExpiration = ", expirationDate);
+      if (expirationDate !== 0) {
+        console.log("expiration date is ", expirationDate);
+
+        let dateString = new Date(expirationDate);
+        let monthIndex = dateString.getMonth();
+        let day = dateString.getUTCDate(); // Must be to avoid time-zone day errors
+        let year = dateString.getFullYear();
+
+        pantryItem.setExpirationDate(year, monthIndex, day);
+        console.log(
+          "pantryItem.getExpirationDate() = ",
+          pantryItem.getExpirationDate()
+        );
+      }
+
+      if (accountEmail !== null) {
+        await serverSingleton.createPantryItem(pantryItem, accountEmail);
+      }
+    }
+  }
+
   useEffect(() => {
     loadItems(accountEmail);
   }, [accountEmail]);
@@ -85,6 +130,11 @@ export default function ViewItems(props: Props) {
     <div id="view-items-container">
       {renderNoItems()}
       <div id="items"> {listItems} </div>
+      <AddPantryItemModal
+        isOpen={showAddPantryItemModal}
+        closeModal={closeModal}
+        submitModal={submitModal}
+      />
     </div>
   );
 }

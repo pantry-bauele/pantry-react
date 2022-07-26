@@ -1,5 +1,6 @@
 import axios from "axios";
-import { isStringObject } from "util/types";
+
+import { PantryItem } from "../pantry-shared/src/pantryItem";
 
 class ServerAPI {
   ipAddress: string;
@@ -144,8 +145,33 @@ class ServerAPI {
     }
   }
 
-  async createPantryItem() {
+  async createPantryItem(pantryItem: PantryItem, emailAddress: string) {
     console.log("createPantryItem() called!");
+    console.log(emailAddress);
+    console.log(pantryItem);
+
+    console.log("amt = ", pantryItem.getAvailableQuantity().amount);
+
+    try {
+      let response = await axios({
+        method: "post",
+        url: `${this.serverURL}/create-pantry-item`,
+        params: {
+          emailAddress: emailAddress,
+          itemObject: pantryItem,
+        },
+      });
+
+      if (response.data) {
+        console.log(response.data);
+        return response.data;
+      } else {
+        console.log("No response");
+      }
+    } catch (error) {
+      console.log("createPantryItem() error");
+      console.log(error);
+    }
   }
 
   async deleteItem(emailAddress: string, item: any) {
@@ -195,6 +221,6 @@ class ServerAPI {
   }
 }
 
-let serverSingleton = new ServerAPI("http://192.168.0.5", "3001");
+let serverSingleton = new ServerAPI("http://192.168.0.7", "3001");
 
 export { ServerAPI, serverSingleton };
