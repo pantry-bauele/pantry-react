@@ -56,7 +56,7 @@ export async function createAuthenticationAccount(
 
 export function logoutUser() {
   signOut(getAuth());
-  localStorage.removeItem("loggedIn");
+  localStorage.removeItem("pantry-app-loggedIn");
 }
 
 export default {};

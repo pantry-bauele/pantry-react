@@ -39,7 +39,7 @@ function App() {
         localStorage.setItem("pantry-app-loggedIn", user?.email);
       } else {
         setUser(null);
-        localStorage.removeItem("loggedIn");
+        localStorage.removeItem("pantry-app-loggedIn");
       }
 
       if (activeUser === "" || activeUser === null) {

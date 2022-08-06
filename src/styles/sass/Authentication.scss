@@ -1,0 +1,10 @@
+@use "base";
+
+#authentication-container {
+  height: 100vh;
+  margin-top: 3px;
+  background-color: base.$background-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
