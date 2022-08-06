@@ -61,7 +61,7 @@ export default function Pantry({ accountEmail }: Props) {
 
   function renderNoItems() {
     if (listItems.length === 0) {
-      return <div>You haven't added any items yet!</div>;
+      return <div id="no-item-message">You haven't added any items yet!</div>;
     }
   }
 

@@ -1,3 +1,5 @@
+import "../styles/sass/EditItem.css";
+
 import { useParams } from "react-router-dom";
 import ItemEntryForm from "../components/ItemEntryForm";
 import { serverSingleton } from "../api/ServerAPI";
@@ -71,7 +73,7 @@ export default function EditItem(props: Props) {
   }
 
   return (
-    <div>
+    <div id="edit-item-container">
       <ItemEntryForm
         selectedItemDetails={itemDetailsDefault}
         submitForm={submitForm}

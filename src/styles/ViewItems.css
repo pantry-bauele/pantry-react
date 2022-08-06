@@ -1,6 +1,8 @@
 #view-items-container {
   background-color: #fffde4;
   height: 100vh;
+  margin-top: 3px;
+  padding-top: 15px;
 }
 
 #items {
@@ -9,4 +11,11 @@
   justify-content: center;
   background-color: #fffde4;
   gap: 5px;
+}
+
+#no-item-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
