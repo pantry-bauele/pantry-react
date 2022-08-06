@@ -11,6 +11,7 @@ import { Item } from "../pantry-shared/src/item";
 interface Props {
   selectedItemDetails: Map<string, boolean>;
   submitForm: any;
+  onBack?: any;
   prefill?: Map<string, string | number | []>;
 }
 
@@ -99,6 +100,14 @@ export default function ItemEntryForm(props: Props) {
   }, [props.prefill]);
 
   let navigate = useNavigate();
+
+  function goBack() {
+    if (props.onBack) {
+      navigate(props.onBack);
+    } else {
+      navigate(0);
+    }
+  }
 
   function showCaloriesField() {
     if (props.selectedItemDetails.get("nutrition-button")) {
@@ -480,7 +489,7 @@ export default function ItemEntryForm(props: Props) {
         <button
           id="back"
           onClick={() => {
-            navigate(0);
+            goBack();
           }}
         >
           Back

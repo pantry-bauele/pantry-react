@@ -1,9 +1,10 @@
 import "../styles/sass/EditItem.css";
 
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import ItemEntryForm from "../components/ItemEntryForm";
 import { serverSingleton } from "../api/ServerAPI";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 let itemDetailsDefault = new Map<string, boolean>();
 itemDetailsDefault.set("nutrition-button", true);
@@ -18,6 +19,7 @@ let blank = new Map<string, string | []>();
 
 export default function EditItem(props: Props) {
   let { id } = useParams();
+  let navigate = useNavigate();
 
   const [iDetails, setItemDetails] = useState(blank);
 
@@ -80,6 +82,7 @@ export default function EditItem(props: Props) {
           selectedItemDetails={itemDetailsDefault}
           submitForm={submitForm}
           prefill={iDetails}
+          onBack={"/viewItems"}
         />
       </div>
     </div>
