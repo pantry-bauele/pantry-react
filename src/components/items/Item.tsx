@@ -48,29 +48,6 @@ function Item({ item, deleteItem, addItem }: Props) {
         <div id="item-more">
           <div id="sizing">
             <div>
-              {item.getTotalQuantity().amount} {item.getTotalQuantity().unit}
-            </div>
-            <div>
-              {item.getCalories()} calories per {item.getServingSize().unit}
-            </div>
-          </div>
-          <div id="pricing">{vendorPrices}</div>
-          <div id="more-buttons">
-            <Button id="edit" text="Edit" click={editItem}></Button>
-            <Button id="stats" text="Statistics"></Button>
-            <Button id="delete" text="Delete" click={sendDelete}></Button>
-          </div>
-        </div>
-      );
-    }
-  }
-
-  function renderMore2() {
-    if (expanded) {
-      return (
-        <div id="item-more">
-          <div id="sizing">
-            <div>
               {isNaN(item.getTotalQuantity().amount)
                 ? ""
                 : item.getTotalQuantity().amount +
@@ -86,7 +63,6 @@ function Item({ item, deleteItem, addItem }: Props) {
           <div id="pricing">{vendorPrices}</div>
           <div id="more-buttons">
             <Button id="edit" text="Edit" click={editItem}></Button>
-            <Button id="stats" text="Statistics"></Button>
             <Button id="delete" text="Delete" click={sendDelete}></Button>
           </div>
         </div>
@@ -105,7 +81,7 @@ function Item({ item, deleteItem, addItem }: Props) {
           actionButtonFunction={sendAdd}
         />
       </div>
-      {renderMore2()}
+      {renderMore()}
       <div id="item-border"></div>
     </div>
   );
