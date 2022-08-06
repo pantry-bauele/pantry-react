@@ -138,6 +138,7 @@ export default function ViewItems(props: Props) {
 
   return (
     <div id="view-items-container">
+      <h1 id="items-heading">Items</h1>
       {renderNoItems()}
       <div id="items"> {listItems} </div>
       <AddPantryItemModal

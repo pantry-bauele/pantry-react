@@ -13,6 +13,10 @@
   gap: 5px;
 }
 
+#items-heading {
+  text-align: center;
+}
+
 #no-item-message {
   display: flex;
   justify-content: center;

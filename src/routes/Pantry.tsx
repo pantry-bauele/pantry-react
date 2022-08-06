@@ -67,6 +67,7 @@ export default function Pantry({ accountEmail }: Props) {
 
   return (
     <div id="view-items-container">
+      <h1 id="items-heading">Pantry Items</h1>
       {renderNoItems()}
       <div id="items"> {listItems} </div>
     </div>
