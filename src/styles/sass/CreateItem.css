@@ -1,12 +1,12 @@
 #create-item-container {
-  height: 100vh;
+  height: 85vh;
   background-color: #fffde4;
 }
 
 #create-item-form-container {
   margin-top: 3px;
   display: flex;
-  height: 90vh;
+  max-height: 85vh;
   flex-direction: column;
   justify-content: center;
   align-items: center;

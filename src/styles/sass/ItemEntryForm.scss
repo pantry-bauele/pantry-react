@@ -1,7 +1,7 @@
 @use "base";
 
 #container {
-  overflow-y: auto;
+  overflow-y: scroll;
   overflow-x: hidden;
   background-color: base.$background-color;
 }
