@@ -1,6 +1,6 @@
 import "../styles/sass/Login.css";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../api/AuthenticationService";
 import { AccountCreator } from "../api/AccountCreator";
 import {
@@ -21,6 +21,9 @@ export default function CreateAccount() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [accountError, setAccountError] = useState(0);
+  const [activeUser, setUser] = useState(
+    localStorage.getItem("pantry-app-loggedIn")
+  );
 
   const navigate = useNavigate();
 
@@ -121,6 +124,12 @@ export default function CreateAccount() {
       setConfirmPassword(target.value);
     }
   };
+
+  useEffect(() => {
+    if (activeUser !== null && activeUser !== undefined) {
+      navigate("/viewItems");
+    }
+  }, []);
 
   return (
     <div id="login-container">

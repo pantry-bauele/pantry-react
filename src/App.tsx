@@ -21,7 +21,9 @@ import {
 } from "./components/Authentication";
 
 function App() {
-  const [activeUser, setUser] = useState(localStorage.getItem("loggedIn"));
+  const [activeUser, setUser] = useState(
+    localStorage.getItem("pantry-app-loggedIn")
+  );
   const [connectedToServer, setConnectedToServer] = useState(false);
 
   let navigate = useNavigate();
@@ -34,7 +36,7 @@ function App() {
       console.log("Auth state chaged in App()");
       if (user?.email !== null && user?.email !== undefined) {
         setUser(user?.email);
-        localStorage.setItem("loggedIn", user?.email);
+        localStorage.setItem("pantry-app-loggedIn", user?.email);
       } else {
         setUser(null);
         localStorage.removeItem("loggedIn");
