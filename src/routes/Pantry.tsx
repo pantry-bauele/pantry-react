@@ -51,7 +51,8 @@ export default function Pantry({ accountEmail }: Props) {
           return 1;
         }
 
-        return 0;
+        if (xName === yName) {
+        }
       });
 
       const elements = response.map((element: any) => (
@@ -69,7 +70,17 @@ export default function Pantry({ accountEmail }: Props) {
     }
   }
 
-  function itemUse(pantryItem: PantryItemObject) {
+  async function itemUse(pantryItem: PantryItemObject) {
+    if (pantryItem.getAvailableQuantity().amount <= 0) {
+      if (accountEmail) {
+        await serverSingleton.deletePantryItem(accountEmail, modalTarget);
+        await loadItems(accountEmail);
+        alert("Item depleted.");
+      }
+
+      return;
+    }
+
     console.log(pantryItem);
     setShowUsePantryItemModal(true);
     setUsePantryItemModalUnits([pantryItem.getAvailableQuantity().unit]);

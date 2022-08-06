@@ -65,8 +65,12 @@ function PantryItem({ item, deleteItem, addItem, itemUse, editItem }: Props) {
       </div>
       <div id="item-stock">
         <div id="item-stock-text">
-          {item.getAvailableQuantity().amount}{" "}
-          {item.getAvailableQuantity().unit} in stock
+          {item.getAvailableQuantity().amount > 0
+            ? item.getAvailableQuantity().amount +
+              " " +
+              item.getAvailableQuantity().unit +
+              " in stock "
+            : ""}
         </div>
         <div id="item-expiration-text">
           {item.getExpirationDate().getFullYear() == 1969
