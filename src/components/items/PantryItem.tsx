@@ -60,6 +60,11 @@ function PantryItem({ item, deleteItem, addItem }: Props) {
           {item.getAvailableQuantity().amount}{" "}
           {item.getAvailableQuantity().unit} in stock
         </div>
+        <div id="item-expiration-text">
+          {item.getExpirationDate().getFullYear() == 1969
+            ? ""
+            : "Expires on " + item.getExpirationDate().toLocaleDateString()}
+        </div>
       </div>
       {renderMore()}
       <div id="item-border"></div>
