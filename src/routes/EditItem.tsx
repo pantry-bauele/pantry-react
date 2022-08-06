@@ -74,11 +74,14 @@ export default function EditItem(props: Props) {
 
   return (
     <div id="edit-item-container">
-      <ItemEntryForm
-        selectedItemDetails={itemDetailsDefault}
-        submitForm={submitForm}
-        prefill={iDetails}
-      />
+      <div id="edit-item-form-container">
+        <h1>Edit Item</h1>
+        <ItemEntryForm
+          selectedItemDetails={itemDetailsDefault}
+          submitForm={submitForm}
+          prefill={iDetails}
+        />
+      </div>
     </div>
   );
 }
