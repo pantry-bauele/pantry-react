@@ -16,12 +16,14 @@ function Item({ item, deleteItem, addItem }: Props) {
   const [expanded, setExpanded] = useState(false);
 
   let vendorPrices = item.getVendorPrices().map((vp: any) => {
-    return (
-      <div key={vp.name} className="vendor-price">
-        <div>{vp.name}</div>
-        <div>${vp.price}</div>
-      </div>
-    );
+    if (vp.name !== "") {
+      return (
+        <div key={vp.name} className="vendor-price">
+          <div>{vp.name}</div>
+          <div>${vp.price}</div>
+        </div>
+      );
+    }
   });
 
   function sendDelete() {
@@ -63,6 +65,35 @@ function Item({ item, deleteItem, addItem }: Props) {
     }
   }
 
+  function renderMore2() {
+    if (expanded) {
+      return (
+        <div id="item-more">
+          <div id="sizing">
+            <div>
+              {isNaN(item.getTotalQuantity().amount)
+                ? ""
+                : item.getTotalQuantity().amount +
+                  " " +
+                  item.getTotalQuantity().unit}
+            </div>
+            <div>
+              {item.getCalories() < 0
+                ? ""
+                : item.getCalories() + " per " + item.getServingSize().unit}
+            </div>
+          </div>
+          <div id="pricing">{vendorPrices}</div>
+          <div id="more-buttons">
+            <Button id="edit" text="Edit" click={editItem}></Button>
+            <Button id="stats" text="Statistics"></Button>
+            <Button id="delete" text="Delete" click={sendDelete}></Button>
+          </div>
+        </div>
+      );
+    }
+  }
+
   return (
     <div id="item-container">
       <div id="item-main">
@@ -74,7 +105,7 @@ function Item({ item, deleteItem, addItem }: Props) {
           actionButtonFunction={sendAdd}
         />
       </div>
-      {renderMore()}
+      {renderMore2()}
       <div id="item-border"></div>
     </div>
   );
