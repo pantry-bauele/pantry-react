@@ -452,6 +452,27 @@ export default function ItemEntryForm(props: Props) {
       return;
     }
 
+    let vendorError = false;
+    vendorPrices.forEach((vp) => {
+      if (vendorError === true) {
+        return;
+      }
+
+      if (vp.name === "") {
+        alert("Please make sure all vendors have names!");
+        vendorError = true;
+        return;
+      } else if (vp.price === "" || isNaN(Number.parseFloat(vp.price))) {
+        alert("Please make sure all vendors have valid prices!");
+        vendorError = true;
+        return;
+      }
+    });
+
+    if (vendorError) {
+      return;
+    }
+
     props.submitForm(buildItemObject());
   }
 
