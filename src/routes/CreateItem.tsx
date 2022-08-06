@@ -62,6 +62,15 @@ export default function CreateItem({ accountEmail }: Props) {
     }
   }
 
+  function goBack() {
+    setShowItemForm(false);
+    itemDetailsDefault.set("nutrition-button", false);
+    itemDetailsDefault.set("spending-button", false);
+    itemDetailsDefault.set("supply-button", false);
+    setSelectedItemDetails(itemDetailsDefault);
+    setShowItemDetailsButtons(true);
+  }
+
   function renderItemDetailsButtons() {
     if (showItemDetailsButtons) {
       return (
@@ -109,6 +118,7 @@ export default function CreateItem({ accountEmail }: Props) {
           <ItemEntryForm
             selectedItemDetails={selectedItemDetails}
             submitForm={submitForm}
+            onBack={goBack}
           />
         </>
       );

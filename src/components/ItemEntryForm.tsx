@@ -103,9 +103,13 @@ export default function ItemEntryForm(props: Props) {
 
   function goBack() {
     if (props.onBack) {
-      navigate(props.onBack);
+      if (typeof props.onBack === "string") {
+        navigate(props.onBack);
+      } else {
+        props.onBack();
+      }
     } else {
-      navigate(0);
+      navigate("/createItemsads");
     }
   }
 
