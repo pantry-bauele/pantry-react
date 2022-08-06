@@ -132,8 +132,8 @@ export default function CreateAccount() {
   }, []);
 
   return (
-    <div id="container">
-      <div id="parent">
+    <div id="container-ca">
+      <div id="parent-ca">
         {renderLoginError()}
         <FormField
           name="firstname"

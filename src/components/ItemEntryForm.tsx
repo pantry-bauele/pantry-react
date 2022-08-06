@@ -481,8 +481,8 @@ export default function ItemEntryForm(props: Props) {
   }
 
   return (
-    <div id="container">
-      <div id="parent">
+    <div id="container-ief">
+      <div id="parent-ief">
         <form id="form">
           <FormField
             orientation="horizontal"

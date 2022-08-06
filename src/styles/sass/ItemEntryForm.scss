@@ -1,6 +1,6 @@
 @use "base";
 
-#container {
+#container-ief {
   overflow-y: scroll;
   overflow-x: hidden;
   background-color: base.$background-color;
@@ -8,8 +8,9 @@
   padding-top: 20px;
 }
 
-#parent {
+#parent-ief {
   display: flex;
+  justify-content: center;
   width: 90vw;
   padding: 5px;
 }
