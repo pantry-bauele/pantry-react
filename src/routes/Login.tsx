@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 import { FormField } from "../components/FormField";
 import { Button } from "../components/Button";
+import CreateAccount from "./CreateAccount";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -55,6 +56,10 @@ export default function Login() {
     }
   };
 
+  function redirectCreateAccount() {
+    navigate("/createAccount");
+  }
+
   return (
     <div id="login-container">
       <div id="login-form-container">
@@ -73,7 +78,7 @@ export default function Login() {
           hideInput={true}
         />
         <Button id="login-button" text="Log In" click={authenticate} />
-        <a id="create-account" href="/createAccount">
+        <a id="create-account" onClick={redirectCreateAccount}>
           I don't have an account
         </a>
       </div>
