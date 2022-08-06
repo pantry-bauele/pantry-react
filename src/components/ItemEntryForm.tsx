@@ -16,7 +16,7 @@ interface Props {
 }
 
 let vendorPricesDefault = new Array<{ name: string; price: string }>();
-vendorPricesDefault.push({ name: "", price: "" });
+vendorPricesDefault.push();
 
 export default function ItemEntryForm(props: Props) {
   const [name, setName] = useState("");

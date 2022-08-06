@@ -73,7 +73,7 @@ export default function Pantry({ accountEmail }: Props) {
   async function itemUse(pantryItem: PantryItemObject) {
     if (pantryItem.getAvailableQuantity().amount <= 0) {
       if (accountEmail) {
-        await serverSingleton.deletePantryItem(accountEmail, modalTarget);
+        await serverSingleton.deletePantryItem(accountEmail, pantryItem);
         await loadItems(accountEmail);
         alert("Item depleted.");
       }
