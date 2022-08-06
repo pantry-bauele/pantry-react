@@ -35,23 +35,14 @@ export const BottomNavbar = ({}: Props) => {
         <div id="nav-pantry"></div>
         <div>Pantry</div>
       </div>
-      <div className="nav-item" onClick={navigateItems}>
-        <div id="nav-items"></div>
-        <div>Items</div>
-      </div>
 
       <div className="nav-item" onClick={navigateCreate}>
         <div id="nav-add">+</div>
       </div>
 
-      <div className="nav-item" onClick={navigateTimeline}>
-        <div id="nav-timeline"></div>
-        <div>Timeline</div>
-      </div>
-
-      <div className="nav-item" onClick={navigateCart}>
-        <div id="nav-cart"></div>
-        <div>Cart</div>
+      <div className="nav-item" onClick={navigateItems}>
+        <div id="nav-items"></div>
+        <div>Items</div>
       </div>
     </div>
   );
