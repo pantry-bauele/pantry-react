@@ -245,6 +245,29 @@ class ServerAPI {
     }
   }
 
+  async editPantryItem(emailAddress: string, item: any) {
+    try {
+      let response = await axios({
+        method: "post",
+        url: `${this.serverURL}/edit-pantry-item`,
+        params: {
+          emailAddress: emailAddress,
+          itemObject: item,
+        },
+      });
+
+      if (response.data) {
+        console.log(response.data);
+        return response.data;
+      } else {
+        console.log("No response");
+      }
+    } catch (error) {
+      console.log("loadItems() error");
+      console.log(error);
+    }
+  }
+
   async editItem(emailAddress: string, item: any) {
     try {
       let response = await axios({

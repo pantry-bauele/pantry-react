@@ -21,6 +21,8 @@ function ItemHeading({
       return "Add";
     } else if (actionButtonType === "delete") {
       return "Delete";
+    } else if (actionButtonType === "use") {
+      return "Use";
     } else {
       return "Undef";
     }

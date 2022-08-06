@@ -11,9 +11,10 @@ interface Props {
   item: PantryItemObject;
   deleteItem: any;
   addItem: any;
+  itemUse?: any;
 }
 
-function PantryItem({ item, deleteItem, addItem }: Props) {
+function PantryItem({ item, deleteItem, addItem, itemUse }: Props) {
   let navigate = useNavigate();
   const [expanded, setExpanded] = useState(false);
 
@@ -23,6 +24,10 @@ function PantryItem({ item, deleteItem, addItem }: Props) {
 
   function sendAdd() {
     addItem(item);
+  }
+
+  function sendUse() {
+    itemUse(item);
   }
 
   function editItem() {}
@@ -51,8 +56,8 @@ function PantryItem({ item, deleteItem, addItem }: Props) {
           name={item.getBaseItem().getName()}
           brand={item.getBaseItem().getBrand()}
           expand={toggleExpand}
-          actionButtonType="add"
-          actionButtonFunction={sendAdd}
+          actionButtonType="use"
+          actionButtonFunction={sendUse}
         />
       </div>
       <div id="item-stock">
