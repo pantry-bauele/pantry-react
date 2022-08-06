@@ -1,6 +1,7 @@
 import { ItemDisplay } from "../components/ItemDisplay";
 import Item from "../components/items/Item";
 import { UsePantryItemModal } from "../components/UsePantryItemModal";
+import { AddPantryItemModal } from "../components/AddPantryItemModal";
 import { serverSingleton } from "../api/ServerAPI";
 import { useEffect, useState } from "react";
 import { PantryItem as PantryItemObject } from "../pantry-shared/src/pantryItem";
@@ -18,6 +19,7 @@ export default function Pantry({ accountEmail }: Props) {
 
   const [listItems, setListItems] = useState("");
   const [showUsePantryItemModal, setShowUsePantryItemModal] = useState(false);
+  const [showEditPantryItemModal, setShowEditPantryItemModal] = useState(false);
   const [usePantryItemModalUnits, setUsePantryItemModalUnits] = useState([""]);
   const [modalTarget, setModalTarget] = useState(defaultPantryItem);
 
@@ -34,13 +36,32 @@ export default function Pantry({ accountEmail }: Props) {
       console.log(response);
       let pantryItemBuilder = new PantryItemBuilder();
 
+      response.sort((x: PantryItemObject, y: PantryItemObject) => {
+        let xPantryItem = pantryItemBuilder.buildItem(x);
+        let yPantryItem = pantryItemBuilder.buildItem(y);
+
+        let xName = xPantryItem.getBaseItem().getName();
+        let yName = yPantryItem.getBaseItem().getName();
+
+        if (xName < yName) {
+          return -1;
+        }
+
+        if (xName > yName) {
+          return 1;
+        }
+
+        return 0;
+      });
+
       const elements = response.map((element: any) => (
         <PantryItem
-          key={pantryItemBuilder.buildItem(element).getBaseItem().getId()}
+          key={pantryItemBuilder.buildItem(element).getId()}
           item={pantryItemBuilder.buildItem(element)}
           deleteItem={deleteItem}
           addItem={null}
           itemUse={itemUse}
+          editItem={editItem}
         />
       ));
       console.log(elements);
@@ -106,6 +127,35 @@ export default function Pantry({ accountEmail }: Props) {
     }
   }
 
+  function editItem(item: PantryItemObject) {
+    setShowEditPantryItemModal(true);
+    setModalTarget(item);
+  }
+
+  function closeEditModal() {
+    setShowEditPantryItemModal(false);
+  }
+
+  async function submitEditModal(
+    quantity: string,
+    quantityUnit: string,
+    expirationDate: Date
+  ) {
+    expirationDate = new Date(expirationDate);
+
+    modalTarget.setExpirationDate(
+      expirationDate.getFullYear(),
+      expirationDate.getMonth(),
+      expirationDate.getUTCDate()
+    );
+
+    if (accountEmail) {
+      await serverSingleton.editPantryItem(accountEmail, modalTarget);
+      await loadItems(accountEmail);
+      alert("Expiration date updated!");
+    }
+  }
+
   useEffect(() => {
     loadItems(accountEmail);
   }, [accountEmail]);
@@ -126,6 +176,11 @@ export default function Pantry({ accountEmail }: Props) {
         closeModal={closeModal}
         submitModal={submitModal}
         availableUnits={usePantryItemModalUnits}
+      />
+      <AddPantryItemModal
+        isOpen={showEditPantryItemModal}
+        closeModal={closeEditModal}
+        submitModal={submitEditModal}
       />
     </div>
   );

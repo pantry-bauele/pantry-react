@@ -12,9 +12,10 @@ interface Props {
   deleteItem: any;
   addItem: any;
   itemUse?: any;
+  editItem?: any;
 }
 
-function PantryItem({ item, deleteItem, addItem, itemUse }: Props) {
+function PantryItem({ item, deleteItem, addItem, itemUse, editItem }: Props) {
   let navigate = useNavigate();
   const [expanded, setExpanded] = useState(false);
 
@@ -30,7 +31,9 @@ function PantryItem({ item, deleteItem, addItem, itemUse }: Props) {
     itemUse(item);
   }
 
-  function editItem() {}
+  function sendEdit() {
+    editItem(item);
+  }
 
   function toggleExpand() {
     setExpanded(!expanded);
@@ -41,7 +44,7 @@ function PantryItem({ item, deleteItem, addItem, itemUse }: Props) {
       return (
         <div id="item-more">
           <div id="more-buttons">
-            <Button id="edit" text="Audit" click={editItem}></Button>
+            <Button id="edit" text="Edit" click={sendEdit}></Button>
             <Button id="delete" text="Delete" click={sendDelete}></Button>
           </div>
         </div>
