@@ -1,15 +1,18 @@
 import { ItemDisplay } from "../components/ItemDisplay";
 import Item from "../components/items/Item";
-import { Item as ItemObject } from "../pantry-shared/src/item";
 import { serverSingleton } from "../api/ServerAPI";
-import { useEffect } from "react";
-import { PantryItem } from "../pantry-shared/src/pantryItem";
+import { useEffect, useState } from "react";
+import { PantryItem as PantryItemObject } from "../pantry-shared/src/pantryItem";
+import { PantryItemBuilder } from "../pantry-shared/src/pantryItemBuilder";
+import PantryItem from "../components/items/PantryItem";
 
 interface Props {
   accountEmail: string | null;
 }
 
 export default function Pantry({ accountEmail }: Props) {
+  const [listItems, setListItems] = useState("");
+
   async function loadItems(emailAddress: string | null) {
     console.log(`Loading items from ${emailAddress}`);
 
@@ -21,43 +24,51 @@ export default function Pantry({ accountEmail }: Props) {
     console.log("pantry response = ", response);
     if (response) {
       console.log(response);
+      let pantryItemBuilder = new PantryItemBuilder();
+
+      const elements = response.map((element: any) => (
+        <PantryItem
+          key={pantryItemBuilder.buildItem(element).getBaseItem().getId()}
+          item={pantryItemBuilder.buildItem(element)}
+          deleteItem={deleteItem}
+          addItem={null}
+        />
+      ));
+      console.log(elements);
+      setListItems(elements);
     }
+  }
+
+  async function deleteItem(item: {}) {
+    alert(`Deleted item`);
+    console.log(item);
+
+    if (typeof accountEmail === "string") {
+      await serverSingleton.deletePantryItem(accountEmail, item);
+    } else {
+      console.log("accountEmail is not a string!");
+    }
+
+    await loadItems(accountEmail);
+
+    // Eventually, add support for removing that particular
+    // item from the array here
   }
 
   useEffect(() => {
     loadItems(accountEmail);
   }, [accountEmail]);
 
-  /*
-    function renderNoItems() {
-        if (listItems.length === 0) {
-          return <div>You haven't added any items yet!</div>;
-        }
-      }
+  function renderNoItems() {
+    if (listItems.length === 0) {
+      return <div>You haven't added any items yet!</div>;
+    }
+  }
 
-    return (
-        <div id="view-items-container">
-          {renderNoItems()}
-          <div id="items"> {listItems} </div>
-          <AddPantryItemModal
-            isOpen={showAddPantryItemModal}
-            closeModal={closeModal}
-            submitModal={submitModal}
-          />
-        </div>
-      );
-      */
-
-  const item1 = (
-    <Item item={new ItemObject()} deleteItem={null} addItem={null}></Item>
+  return (
+    <div id="view-items-container">
+      {renderNoItems()}
+      <div id="items"> {listItems} </div>
+    </div>
   );
-  const item2 = (
-    <Item item={new ItemObject()} deleteItem={null} addItem={null}></Item>
-  );
-  const item3 = (
-    <Item item={new ItemObject()} deleteItem={null} addItem={null}></Item>
-  );
-  const itemArray = [item1, item2, item3];
-
-  return <div></div>;
 }
