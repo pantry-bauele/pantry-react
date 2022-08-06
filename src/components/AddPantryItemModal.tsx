@@ -113,13 +113,16 @@ export const AddPantryItemModal = ({
     }
   }
 
+  /*  Use inline styling to remove the ability to set the quantity
+  within the modal. This feature may return, and I do not want to
+  remove all the logic only to potentially re-introduce it later. */
   return (
     <Modal isOpen={isOpen}>
       <div id="modal-contents">
         <h1 id="modal-heading">Adding Pantry Item</h1>
 
         <div id="form-field-container">
-          <div id="quantity-field">
+          <div style={{ display: "none" }} id="quantity-field">
             <FormField
               orientation="horizontal"
               name="quantity"
@@ -138,7 +141,7 @@ export const AddPantryItemModal = ({
           </div>
 
           <div id="date-container">
-            <div id="form-label-horizontal">Date</div>
+            <div id="form-label-horizontal">Expiration Date</div>
             <input
               type="date"
               id="date-picker"

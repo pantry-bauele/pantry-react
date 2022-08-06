@@ -85,6 +85,8 @@ export default function ViewItems(props: Props) {
 
     if (itemBeingAddedToPantry instanceof ItemObject) {
       let pantryItem = new PantryItem(itemBeingAddedToPantry);
+
+      /*
       if (quantity !== "") {
         pantryItem.setAvailableQuantity(
           Number.parseInt(quantity),
@@ -92,6 +94,12 @@ export default function ViewItems(props: Props) {
         );
 
         console.log("parsed = ", Number.parseInt(quantity));
+      }
+      */
+
+      let itemQuantity = itemBeingAddedToPantry.getTotalQuantity();
+      if (itemQuantity.amount > 0) {
+        pantryItem.setAvailableQuantity(itemQuantity.amount, itemQuantity.unit);
       }
 
       console.log("preExpiration = ", expirationDate);
@@ -114,6 +122,8 @@ export default function ViewItems(props: Props) {
         await serverSingleton.createPantryItem(pantryItem, accountEmail);
       }
     }
+
+    alert("Added item to pantry!");
   }
 
   useEffect(() => {
