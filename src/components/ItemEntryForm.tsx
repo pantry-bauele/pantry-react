@@ -430,18 +430,6 @@ export default function ItemEntryForm(props: Props) {
   }
 
   function buildItemObject() {
-    /*
-    let item = {
-      id: "",
-      name: name,
-      brand: brand,
-      calories: calories,
-      vendorPrices: vendorPrices,
-      totalQuantity: { amount: quantity, unit: quantityUnit },
-      servingSize: { amount: serving, unit: servingUnit },
-    };
-    */
-
     let item = new Item();
     item.setId("");
     item.setName(name);
@@ -457,6 +445,15 @@ export default function ItemEntryForm(props: Props) {
   }
 
   useEffect(() => {}, []);
+
+  function onSubmit() {
+    if (name === "") {
+      alert("Item name is required.");
+      return;
+    }
+
+    props.submitForm(buildItemObject());
+  }
 
   return (
     <div id="container">
@@ -499,7 +496,7 @@ export default function ItemEntryForm(props: Props) {
           id="submit"
           text="Submit"
           click={() => {
-            props.submitForm(buildItemObject());
+            onSubmit();
           }}
         ></Button>
       </div>
