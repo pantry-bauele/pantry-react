@@ -1,17 +1,29 @@
 @use "base";
 
-#login-container {
+#container {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-color: base.$background-color;
+
+  display: flex;
+  justify-content: center;
   height: 100vh;
+}
+
+#parent {
+  margin-top: 3px;
+  display: flex;
+  width: 90vw;
+  padding: 5px;
+}
+
+#login-container {
   background-color: base.$background-color;
 }
 
 #login-form-container {
   margin-top: 3px;
-  display: flex;
-  height: 90vh;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  padding-top: 40px;
 }
 
 #login-button {

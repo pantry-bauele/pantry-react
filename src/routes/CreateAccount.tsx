@@ -1,4 +1,4 @@
-import "../styles/sass/Login.css";
+import "../styles/sass/CreateAccount.css";
 
 import { useEffect, useState } from "react";
 import "../api/AuthenticationService";
@@ -132,8 +132,8 @@ export default function CreateAccount() {
   }, []);
 
   return (
-    <div id="login-container">
-      <div id="login-form-container">
+    <div id="container">
+      <div id="parent">
         {renderLoginError()}
         <FormField
           name="firstname"
