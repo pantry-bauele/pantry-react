@@ -132,7 +132,7 @@ export default function ViewItems(props: Props) {
 
   function renderNoItems() {
     if (listItems.length === 0) {
-      return <div id="no-items-text">You haven't added any sitems yet!</div>;
+      return <div id="no-items-text">You haven't added any items yet!</div>;
     }
   }
 
