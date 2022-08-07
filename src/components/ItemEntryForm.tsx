@@ -1,5 +1,6 @@
 import "../styles/sass/ItemEntryForm.css";
 import { ItemEntryFormValidator } from "../api/ItemEntryFormValidator";
+import { ItemBuilder } from "../pantry-shared/src/itemBuilder";
 import { FormField } from "./FormField";
 import { FormSelectField } from "./FormSelectField";
 import { Button } from "./Button";
@@ -440,7 +441,10 @@ export default function ItemEntryForm(props: Props) {
     item.setBrand(brand);
     item.setCalories(Number.parseInt(calories));
     vendorPrices.forEach((vendorPrice) => {
-      item.addVendorPrice(vendorPrice.name, Number.parseInt(vendorPrice.price));
+      let float = Number.parseFloat(vendorPrice.price);
+      let financial = Number.parseFloat(float.toFixed(2));
+
+      item.addVendorPrice(vendorPrice.name, financial);
     });
     item.setTotalQuantity(Number.parseInt(quantity), quantityUnit);
     item.setServingSize(Number.parseInt(serving), servingUnit);
