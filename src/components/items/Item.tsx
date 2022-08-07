@@ -57,7 +57,9 @@ function Item({ item, deleteItem, addItem }: Props) {
             <div>
               {item.getCalories() < 0
                 ? ""
-                : item.getCalories() + " per " + item.getServingSize().unit}
+                : item.getCalories() +
+                  " calories per " +
+                  item.getServingSize().unit}
             </div>
           </div>
           <div id="pricing">{vendorPrices}</div>
