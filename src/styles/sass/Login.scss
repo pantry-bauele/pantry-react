@@ -1,14 +1,15 @@
 @use "base";
 
 #login-container {
-  height: 100vh;
-  background-color: base.$background-color;
+  margin-top: 3px;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
 }
 
 #login-form-container {
   margin-top: 3px;
   display: flex;
-  height: 90vh;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -39,4 +40,5 @@
   margin-top: 20px;
   text-decoration: underline;
   color: blue;
+  cursor: pointer;
 }

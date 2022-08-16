@@ -1,10 +1,15 @@
 #authentication-container {
-  height: 100vh;
   margin-top: 3px;
   background-color: #fffde4;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#authentication-text {
+  text-align: center;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 /*# sourceMappingURL=Authentication.css.map */

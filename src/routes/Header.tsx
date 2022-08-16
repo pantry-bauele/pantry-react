@@ -9,12 +9,12 @@ interface Props {
 
 export const Header = ({ loggedIn }: Props) => {
   return (
-    <div>
+    <div id="page-layout-container">
       <Navbar loggedIn={loggedIn} siteName="Pantry" />
       <div id="outlet">
         <Outlet />
       </div>
-      <div id="bottomNav">
+      <div id="bottom-nav">
         <BottomNavbar />
       </div>
     </div>

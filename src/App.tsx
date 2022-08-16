@@ -1,4 +1,3 @@
-import "./App.css";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -40,10 +39,6 @@ function App() {
       } else {
         setUser(null);
         localStorage.removeItem("pantry-app-loggedIn");
-      }
-
-      if (activeUser === "" || activeUser === null) {
-        //navigate('/login');
       }
     });
   }, [activeUser, navigate]);
