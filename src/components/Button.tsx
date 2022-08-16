@@ -9,7 +9,7 @@ interface Props {
 
 export const Button = ({ id, click, text }: Props) => {
   return (
-    <div id="button-container">
+    <div id="button-comp-container">
       <button id={id} className="clickable-button" onClick={click}>
         {text}
       </button>
