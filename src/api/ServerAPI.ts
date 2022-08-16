@@ -292,6 +292,6 @@ class ServerAPI {
   }
 }
 
-let serverSingleton = new ServerAPI("http://192.168.0.7", "3001");
+let serverSingleton = new ServerAPI("https://bauele.com", "3001");
 
 export { ServerAPI, serverSingleton };
