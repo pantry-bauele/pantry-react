@@ -77,7 +77,11 @@ export default function Login() {
           onChange={handleChange}
           hideInput={true}
         />
-        <Button id="login-button" text="Log In" click={authenticate} />
+        <Button
+          className="brand-button-red button-large clickable-button"
+          text="Log In"
+          click={authenticate}
+        />
         <a id="create-account" onClick={redirectCreateAccount}>
           I don't have an account
         </a>

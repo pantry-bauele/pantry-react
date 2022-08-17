@@ -21,7 +21,10 @@ export const Navbar = ({ siteName, loggedIn }: Props) => {
         {loggedIn && (
           <nav>
             <Link to="/logout">
-              <Button className="brand-button-white" text="Log Out"></Button>
+              <Button
+                className="brand-button-white button-medium clickable-button"
+                text="Log Out"
+              ></Button>
             </Link>
           </nav>
         )}
@@ -29,7 +32,10 @@ export const Navbar = ({ siteName, loggedIn }: Props) => {
         {!loggedIn && (
           <nav>
             <Link to="/login">
-              <Button className="brand-button-red" text="Log In"></Button>
+              <Button
+                className="brand-button-red button-medium clickable-button"
+                text="Log In"
+              ></Button>
             </Link>
           </nav>
         )}

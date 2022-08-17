@@ -21,7 +21,7 @@ export const Home = () => {
 
           <div id="hero-button-container">
             <Button
-              id="hero-sign-up-button"
+              className="brand-button-white button-medium clickable-button"
               text="Sign Up"
               click={redirectToSignUp}
             ></Button>
@@ -45,7 +45,7 @@ export const Home = () => {
             tracking software
           </h3>
           <Button
-            id="bottom-action-button"
+            className="brand-button-red button-large clickable-button"
             text="Get Started"
             click={redirectToSignUp}
           ></Button>

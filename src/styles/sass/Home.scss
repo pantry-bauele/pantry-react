@@ -45,18 +45,6 @@
   height: 100%;
 }
 
-#hero-sign-up-button {
-  height: 30px;
-  width: 130px;
-
-  background-color: base.$accent-color;
-  border: none;
-  border-radius: 10px;
-  color: white;
-  font-size: 14px;
-  font-weight: 400;
-}
-
 #hero-logo-container {
   display: flex;
   align-items: center;
@@ -112,6 +100,10 @@
   justify-content: center;
 }
 
+#bottom-action-contents Button {
+  margin-top: 20px;
+}
+
 #bottom-action-container h2 {
   font-size: 24px;
   font-weight: 700;
@@ -122,19 +114,5 @@
   padding-right: 20px;
 
   font-size: 14px;
-  font-weight: 400;
-}
-
-#bottom-action-button {
-  height: 50px;
-  width: 215px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-
-  border: none;
-  border-radius: 10px;
-  background-color: base.$brand-color;
-  color: white;
-  font-size: 24px;
   font-weight: 400;
 }

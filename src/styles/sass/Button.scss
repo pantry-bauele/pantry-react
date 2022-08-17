@@ -37,9 +37,7 @@ a:active {
 .brand-button-red {
   border: none;
   border-radius: 20px;
-  font-size: 14px;
-  width: 95px;
-  height: 40px;
+  height: 45px;
 
   background-color: base.$brand-color;
   color: white;
@@ -48,9 +46,18 @@ a:active {
 .brand-button-white {
   border: 2px solid base.$brand-color;
   border-radius: 20px;
-  width: 95px;
-  height: 40px;
-  font-size: 14px;
+  height: 45px;
+
   background-color: white;
   color: base.$brand-color;
+}
+
+.button-medium {
+  width: 95px;
+  font-size: 14px;
+}
+
+.button-large {
+  width: 215px;
+  font-size: 20px;
 }
