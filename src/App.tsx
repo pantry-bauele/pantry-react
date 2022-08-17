@@ -19,25 +19,22 @@ import {
   RequireAuthentication,
 } from "./components/Authentication";
 
-function App() {
-  const [activeUser, setUser] = useState(
+const App = () => {
+  const [activeUser, setActiveUser] = useState(
     localStorage.getItem("pantry-app-loggedIn")
   );
-  const [connectedToServer, setConnectedToServer] = useState(false);
 
   let navigate = useNavigate();
 
   useEffect(() => {
-    console.log("useEffect, [activeUser]");
     console.log("Current user is ", activeUser);
 
-    onAuthStateChanged(getAuth(), (user) => {
-      console.log("Auth state chaged in App()");
-      if (user?.email !== null && user?.email !== undefined) {
-        setUser(user?.email);
-        localStorage.setItem("pantry-app-loggedIn", user?.email);
+    onAuthStateChanged(getAuth(), (newUser) => {
+      if (newUser?.email !== null && newUser?.email !== undefined) {
+        setActiveUser(newUser?.email);
+        localStorage.setItem("pantry-app-loggedIn", newUser?.email);
       } else {
-        setUser(null);
+        setActiveUser(null);
         localStorage.removeItem("pantry-app-loggedIn");
       }
     });
@@ -93,6 +90,6 @@ function App() {
       </div>
     </AuthenticationProvider>
   );
-}
+};
 
 export default App;
