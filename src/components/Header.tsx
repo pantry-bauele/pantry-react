@@ -8,7 +8,7 @@ interface Props {
   loggedIn: boolean;
 }
 
-export const Navbar = ({ siteName, loggedIn }: Props) => {
+export const Header = ({ siteName, loggedIn }: Props) => {
   return (
     <div id="header-container">
       <div id="header-site-details">

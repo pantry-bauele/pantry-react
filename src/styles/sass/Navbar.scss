@@ -1,0 +1,58 @@
+@use "base";
+
+#navbar-container {
+  background-color: base.$background-color;
+
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 50px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.navbar-item {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+.navbar-item-icon {
+  width: 35px;
+  height: 35px;
+
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#navbar-pantry {
+  background-image: url("../../assets/cupboard.png");
+}
+
+#navbar-view-items {
+  background-image: url("../../assets/dinner.png");
+}
+
+#navbar-create-item {
+  width: 40px;
+  height: 40px;
+
+  background: base.$brand-color;
+  border: 2px solid base.$brand-color;
+  border-radius: 360px;
+  color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 40px;
+  font-family: Arial;
+}
