@@ -19,15 +19,13 @@
   display: flex;
   flex-direction: column;
 
+  text-align: center;
+
   min-width: 185px;
   max-width: 185px;
-  padding-left: 20px;
-  padding-right: 20px;
 }
 
 #hero-info-container h2 {
-  margin-bottom: -5px;
-
   font-size: 24px;
   font-weight: 700;
 }

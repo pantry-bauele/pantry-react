@@ -6,6 +6,7 @@
   flex-direction: column;
   justify-content: space-between;
 
+  width: 100vw;
   height: 100vh;
 }
 
@@ -13,8 +14,9 @@
   background-color: #fffde4;
 
   height: 50px;
+  padding: 5px;
+  border-top: 1px solid grey;
 
   bottom: 0;
   position: sticky;
-  width: 100%;
 }
