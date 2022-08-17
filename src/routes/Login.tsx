@@ -1,15 +1,14 @@
 import "../styles/sass/Login.css";
 
 import { useState } from "react";
-import "../api/AuthenticationService";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
+import "../api/AuthenticationService";
 import { FormField } from "../components/FormField";
 import { Button } from "../components/Button";
-import CreateAccount from "./CreateAccount";
 
-export default function Login() {
+export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState(false);
@@ -19,28 +18,12 @@ export default function Login() {
   const authenticate = () => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
+      .then(() => {
         navigate("/");
-        // ...
       })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+      .catch(() => {
         setLoginError(true);
       });
-  };
-
-  const renderLoginError = () => {
-    if (loginError) {
-      console.log("show");
-      return (
-        <div id="login-error-message">
-          Your log in attempt was not successful. Please try again.
-        </div>
-      );
-    }
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,21 +32,20 @@ export default function Login() {
 
     if (name === "email") {
       setEmail(target.value);
-      console.log(target.value);
     } else if (name === "password") {
       setPassword(target.value);
-      console.log(target.value);
     }
   };
-
-  function redirectCreateAccount() {
-    navigate("/createAccount");
-  }
 
   return (
     <div id="login-container">
       <div id="login-form-container">
-        {renderLoginError()}
+        {loginError && (
+          <div id="login-error-message">
+            Your log in attempt was not successful. Please try again.
+          </div>
+        )}
+
         <FormField
           name="email"
           orientation="vertical"
@@ -82,10 +64,15 @@ export default function Login() {
           text="Log In"
           click={authenticate}
         />
-        <a id="create-account" onClick={redirectCreateAccount}>
+        <a
+          id="create-account"
+          onClick={() => {
+            navigate("/createAccount");
+          }}
+        >
           I don't have an account
         </a>
       </div>
     </div>
   );
-}
+};
