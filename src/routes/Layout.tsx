@@ -1,20 +1,20 @@
 import { Outlet } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import { BottomNavbar } from "../components/BottomNavbar";
-import "../styles/sass/Header.css";
+import "../styles/sass/Layout.css";
 
 interface Props {
   loggedIn: boolean;
 }
 
-export const Header = ({ loggedIn }: Props) => {
+export const Layout = ({ loggedIn }: Props) => {
   return (
-    <div id="page-layout-container">
+    <div id="layout-container">
       <Navbar loggedIn={loggedIn} siteName="Pantry" />
-      <div id="outlet">
+      <div id="layout-outlet">
         <Outlet />
       </div>
-      <div id="bottom-nav">
+      <div id="layout-navigation-bar">
         <BottomNavbar />
       </div>
     </div>

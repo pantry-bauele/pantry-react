@@ -1,18 +1,20 @@
-#page-layout-container {
+@use "base";
+
+#layout-container {
   display: flex;
-  background-color: #fffde4;
+  background-color: base.$background-color;
   flex-direction: column;
   justify-content: space-between;
+
   height: 100vh;
 }
 
-#bottom-nav {
+#layout-navigation-bar {
   background-color: #fffde4;
+
   height: 50px;
-  flex-shrink: 1;
+
   bottom: 0;
   position: sticky;
   width: 100%;
 }
-
-/*# sourceMappingURL=Header.css.map */

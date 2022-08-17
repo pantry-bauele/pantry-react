@@ -9,7 +9,7 @@ import CreateAccount from "./routes/CreateAccount";
 import ViewItems from "./routes/ViewItems";
 import Pantry from "./routes/Pantry";
 import EditItem from "./routes/EditItem";
-import { Header } from "./routes/Header";
+import { Layout } from "./routes/Layout";
 import { Home } from "./routes/Home";
 import Logout from "./routes/Logout";
 import { Placeholder } from "./routes/Placeholder";
@@ -46,7 +46,7 @@ const App = () => {
         <Routes>
           <Route
             path="/"
-            element={<Header loggedIn={activeUser ? true : false} />}
+            element={<Layout loggedIn={activeUser ? true : false} />}
           >
             <Route path="/" element={<Home />} />
             <Route path="/placeHolder" element={<Placeholder />} />
