@@ -3,14 +3,19 @@ import "../styles/sass/Button.css";
 
 interface Props {
   id?: string;
+  className?: string;
   click?: MouseEventHandler<HTMLButtonElement>;
   text: string;
 }
 
-export const Button = ({ id, click, text }: Props) => {
+export const Button = ({ id, className, click, text }: Props) => {
   return (
     <div id="button-comp-container">
-      <button id={id} className="clickable-button" onClick={click}>
+      <button
+        id={id}
+        className={"clickable-button " + className}
+        onClick={click}
+      >
         {text}
       </button>
     </div>

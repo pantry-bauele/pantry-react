@@ -1,4 +1,4 @@
-#navbar-container {
+#header-container {
   background: #fffde4;
   display: flex;
   justify-content: space-between;
@@ -9,16 +9,16 @@
   padding-right: 10px;
 }
 
-#navbar-site-details {
+#header-site-details {
   display: flex;
 }
 
-#navbar-logo-link {
+#header-logo-link {
   display: flex;
   text-decoration: none;
 }
 
-#navbar-logo {
+#header-logo {
   background-image: url("../../assets/pantry-logo.png");
   background-size: cover;
   width: 40px;
@@ -26,7 +26,7 @@
   align-self: center;
 }
 
-#navbar-site-name {
+#header-site-name {
   font-size: 32px;
   font-weight: bold;
   color: #ff4646;
@@ -34,19 +34,9 @@
   margin-left: 5px;
 }
 
-#navbar-navigation {
+#header-navigation {
   display: flex;
   align-items: center;
 }
 
-#navbar-log-button {
-  border: none;
-  border-radius: 20px;
-  font-size: 14px;
-  height: 40px;
-  width: 95px;
-  background-color: #ff4646;
-  color: white;
-}
-
-/*# sourceMappingURL=Navbar.css.map */
+/*# sourceMappingURL=Header.css.map */

@@ -1,4 +1,5 @@
 #create-item-container {
+  height: 85vh;
   background-color: #fffde4;
 }
 
@@ -36,20 +37,16 @@
   color: white;
   font-weight: 700;
   font-size: 20px;
-  opacity: 50%;
   background-color: #ff4646;
 }
 
 .item-details-button-selected {
-  /* border: 6px solid #46ffff; */
-  opacity: 100%;
-  background-color: #ff4646;
+  border: 6px solid #46ffff;
 }
 
 #continue-button {
   margin-top: 60px;
   background: #82bd42;
-  opacity: 100%;
 }
 
 .error {
