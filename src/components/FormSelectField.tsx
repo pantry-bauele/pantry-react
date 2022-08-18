@@ -2,20 +2,13 @@ import { ChangeEventHandler } from "react";
 import "../styles/sass/FormSelectField.css";
 
 interface Props {
-  label: string;
   onChange: ChangeEventHandler<HTMLSelectElement>;
   name: string;
   options: string[];
   value: string;
 }
 
-export const FormSelectField = ({
-  label,
-  onChange,
-  options,
-  name,
-  value,
-}: Props) => {
+export const FormSelectField = ({ onChange, options, name, value }: Props) => {
   let selectElements = options.map((optionName, index) => {
     return (
       <option key={index} value={optionName}>

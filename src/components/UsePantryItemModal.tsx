@@ -125,7 +125,6 @@ export const UsePantryItemModal = ({
             ></FormField>
             <FormSelectField
               name="quantityUnit"
-              label="quantityUnit"
               options={availableUnits ? availableUnits : ["g", "oz", "lb"]}
               onChange={handleChange}
               value={quantityUnit}

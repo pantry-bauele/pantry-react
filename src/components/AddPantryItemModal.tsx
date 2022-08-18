@@ -133,7 +133,6 @@ export const AddPantryItemModal = ({
             ></FormField>
             <FormSelectField
               name="quantityUnit"
-              label="quantityUnit"
               options={["g", "oz", "lb"]}
               onChange={handleChange}
               value={quantityUnit}

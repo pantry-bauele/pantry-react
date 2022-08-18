@@ -122,7 +122,6 @@ export const ItemEntryForm = ({
           ></FormField>
           <FormSelectField
             name="quantityUnit"
-            label="quantityUnit"
             options={["g", "oz", "lb"]}
             onChange={handleChange}
             value={quantityUnit}
@@ -146,7 +145,6 @@ export const ItemEntryForm = ({
           ></FormField>
           <FormSelectField
             name="servingUnit"
-            label="servingUnit"
             options={["g", "oz", "lb"]}
             onChange={handleChange}
             value={servingUnit}
