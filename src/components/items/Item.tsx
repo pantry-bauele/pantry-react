@@ -1,58 +1,47 @@
-import "../../styles/sass/Item.css";
-
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../Button";
-import { useState } from "react";
-import { Item as ItemObject } from "../../pantry-shared/src/item";
-import ItemHeading from "../items/ItemHeading";
+
+import { ItemHeading } from "../items/ItemHeading";
+import { Item as ItemObject, VendorPrice } from "../../pantry-shared/src/item";
+
+import "../../styles/sass/Item.css";
+
 interface Props {
   item: ItemObject;
-  deleteItem: any;
-  addItem: any;
+  deleteItem: Function;
+  addItem: Function;
 }
 
-function Item({ item, deleteItem, addItem }: Props) {
-  let navigate = useNavigate();
+export const Item = ({ item, deleteItem, addItem }: Props) => {
   const [expanded, setExpanded] = useState(false);
+  let navigate = useNavigate();
 
-  let vendorPrices = item.getVendorPrices().map((vp: any) => {
-    if (vp.name !== "") {
-      return (
-        <div key={vp.name} className="vendor-price">
-          <div>{vp.name}</div>
-          <div>${vp.price}</div>
-        </div>
-      );
-    }
-  });
+  let vendorPrices = item
+    .getVendorPrices()
+    .map((vendorPrice: VendorPrice, index) => {
+      if (vendorPrice.name !== "") {
+        return (
+          <div key={index} className="item-vendor-price">
+            <div>{vendorPrice.name}</div>
+            <div>${vendorPrice.price}</div>
+          </div>
+        );
+      }
+    });
 
-  function sendDelete() {
-    deleteItem(item);
-  }
-
-  function sendAdd() {
-    addItem(item);
-  }
-
-  function editItem() {
-    navigate(`/editItem/${item.getId()}`);
-  }
-
-  function toggleExpand() {
-    setExpanded(!expanded);
-  }
-
-  function renderMore() {
+  const renderExpandedContent = () => {
     if (expanded) {
       return (
-        <div id="item-more">
-          <div id="sizing">
+        <div id="item-expanded-area">
+          <div id="item-size">
             <div>
               {isNaN(item.getTotalQuantity().amount)
                 ? ""
                 : item.getTotalQuantity().amount +
                   " " +
-                  item.getTotalQuantity().unit}
+                  item.getTotalQuantity().unit +
+                  " of product"}
             </div>
             <div>
               {item.getCalories() < 0
@@ -62,31 +51,37 @@ function Item({ item, deleteItem, addItem }: Props) {
                   item.getServingSize().unit}
             </div>
           </div>
-          <div id="pricing">{vendorPrices}</div>
-          <div id="more-buttons">
-            <Button id="edit" text="Edit" click={editItem}></Button>
-            <Button id="delete" text="Delete" click={sendDelete}></Button>
+          <div id="item-prices">{vendorPrices}</div>
+          <div id="item-additional-buttons">
+            <Button
+              className="brand-button-red button-medium clickable-button"
+              text="Edit"
+              click={() => navigate(`/editItem/${item.getId()}`)}
+            ></Button>
+            <Button
+              className="brand-button-white button-medium clickable-button"
+              text="Delete"
+              click={() => deleteItem(item)}
+            ></Button>
           </div>
         </div>
       );
     }
-  }
+  };
 
   return (
     <div id="item-container">
-      <div id="item-main">
+      <div id="item-parent">
         <ItemHeading
           name={item.getName()}
           brand={item.getBrand()}
-          expand={toggleExpand}
-          actionButtonType="add"
-          actionButtonFunction={sendAdd}
+          expand={() => setExpanded(!expanded)}
+          actionButtonText="Add"
+          actionButtonFunction={() => addItem(item)}
         />
       </div>
-      {renderMore()}
+      {renderExpandedContent()}
       <div id="item-border"></div>
     </div>
   );
-}
-
-export default Item;
+};

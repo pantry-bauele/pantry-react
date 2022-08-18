@@ -1,52 +1,49 @@
-import "../../styles/sass/Item.css";
+import { useState } from "react";
 import { Button } from "../Button";
+
+import "../../styles/sass/ItemHeading.css";
 
 interface Props {
   name: string;
   brand: string;
-  actionButtonType: any;
-  actionButtonFunction: any;
-  expand: any;
+  actionButtonText: string;
+  actionButtonFunction: Function;
+  expand: Function;
 }
 
-function ItemHeading({
+export const ItemHeading = ({
   name,
   brand,
-  actionButtonType,
+  actionButtonText,
   actionButtonFunction,
   expand,
-}: Props) {
-  function getButtonText() {
-    if (actionButtonType === "add") {
-      return "Add";
-    } else if (actionButtonType === "delete") {
-      return "Delete";
-    } else if (actionButtonType === "use") {
-      return "Use";
-    } else {
-      return "Undef";
-    }
-  }
+}: Props) => {
+  const [expanded, setExpanded] = useState(false);
 
   return (
     <div id="item-heading">
       <div id="item-heading-info">
-        <div id="item-icon"></div>
+        <div id="item-heading-icon"></div>
         <div id="item-heading-info-text">
-          <div id="item-name">{name}</div>
-          <div id="item-brand">{brand}</div>
+          <div id="item-heading-name">{name}</div>
+          <div id="item-heading-brand">{brand}</div>
         </div>
       </div>
-      <div id="item-buttons">
+      <div id="item-heading-buttons">
         <Button
-          id="add"
-          text={getButtonText()}
-          click={actionButtonFunction}
+          className="brand-button-red button-small clickable-button"
+          text={actionButtonText}
+          click={() => actionButtonFunction()}
         ></Button>
-        <Button id="more" text="More" click={expand}></Button>
+        <Button
+          className="brand-button-green button-small clickable-button"
+          text={expanded ? "Less" : "More"}
+          click={() => {
+            setExpanded(!expanded);
+            expand();
+          }}
+        ></Button>
       </div>
     </div>
   );
-}
-
-export default ItemHeading;
+};

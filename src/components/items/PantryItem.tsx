@@ -1,66 +1,59 @@
+import { useState } from "react";
+
+import { Button } from "../Button";
+import { ItemHeading } from "../items/ItemHeading";
+import { PantryItem as PantryItemObject } from "../../pantry-shared/src/pantryItem";
+
 import "../../styles/sass/PantryItem.css";
 import "../../styles/sass/Item.css";
 
-import { useNavigate } from "react-router-dom";
-import { Button } from "../Button";
-import { useState } from "react";
-import { PantryItem as PantryItemObject } from "../../pantry-shared/src/pantryItem";
-import ItemHeading from "../items/ItemHeading";
-
 interface Props {
   item: PantryItemObject;
-  deleteItem: any;
-  addItem: any;
-  itemUse?: any;
-  editItem?: any;
+  deleteItem: Function;
+  addItem: Function;
+  utilizeItem: Function;
+  editItem: Function;
 }
 
-function PantryItem({ item, deleteItem, addItem, itemUse, editItem }: Props) {
-  let navigate = useNavigate();
+export const PantryItem = ({
+  item,
+  deleteItem,
+  addItem,
+  utilizeItem,
+  editItem,
+}: Props) => {
   const [expanded, setExpanded] = useState(false);
 
-  function sendDelete() {
-    deleteItem(item);
-  }
-
-  function sendAdd() {
-    addItem(item);
-  }
-
-  function sendUse() {
-    itemUse(item);
-  }
-
-  function sendEdit() {
-    editItem(item);
-  }
-
-  function toggleExpand() {
-    setExpanded(!expanded);
-  }
-
-  function renderMore() {
+  const renderExpandedContent = () => {
     if (expanded) {
       return (
-        <div id="item-more">
-          <div id="more-buttons">
-            <Button id="edit" text="Edit" click={sendEdit}></Button>
-            <Button id="delete" text="Delete" click={sendDelete}></Button>
+        <div id="item-expanded-area">
+          <div id="item-additional-buttons">
+            <Button
+              className="brand-button-red button-medium clickable-button"
+              text="Edit"
+              click={() => editItem(item)}
+            ></Button>
+            <Button
+              className="brand-button-white button-medium clickable-button"
+              text="Delete"
+              click={() => deleteItem(item)}
+            ></Button>
           </div>
         </div>
       );
     }
-  }
+  };
 
   return (
     <div id="item-container">
-      <div id="item-main">
+      <div id="item-parent">
         <ItemHeading
           name={item.getBaseItem().getName()}
           brand={item.getBaseItem().getBrand()}
-          expand={toggleExpand}
-          actionButtonType="use"
-          actionButtonFunction={sendUse}
+          expand={() => setExpanded(!expanded)}
+          actionButtonText="Use"
+          actionButtonFunction={() => utilizeItem(item)}
         />
       </div>
       <div id="item-stock">
@@ -73,15 +66,15 @@ function PantryItem({ item, deleteItem, addItem, itemUse, editItem }: Props) {
             : ""}
         </div>
         <div id="item-expiration-text">
+          {/* 1969 is the year that is returned by default if the user has not
+           selected an expiration date, so it should not be shown */}
           {item.getExpirationDate().getFullYear() == 1969
             ? ""
             : "Expires on " + item.getExpirationDate().toLocaleDateString()}
         </div>
       </div>
-      {renderMore()}
+      {renderExpandedContent()}
       <div id="item-border"></div>
     </div>
   );
-}
-
-export default PantryItem;
+};

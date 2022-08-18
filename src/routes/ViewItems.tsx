@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import Item from "../components/items/Item";
+import { Item } from "../components/items/Item";
 import { Item as ItemObject } from "../pantry-shared/src/item";
 import { ItemBuilder } from "../pantry-shared/src/itemBuilder";
 import { PantryItem } from "../pantry-shared/src/pantryItem";

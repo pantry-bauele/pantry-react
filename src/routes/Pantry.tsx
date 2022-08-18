@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import PantryItem from "../components/items/PantryItem";
+import { PantryItem } from "../components/items/PantryItem";
 import { PantryItem as PantryItemObject } from "../pantry-shared/src/pantryItem";
 import { PantryItemBuilder } from "../pantry-shared/src/pantryItemBuilder";
 import { Item as ItemObject } from "../pantry-shared/src/item";
@@ -59,8 +59,8 @@ export const Pantry = ({ accountEmail }: Props) => {
           key={pantryItemBuilder.buildItem(element).getId()}
           item={pantryItemBuilder.buildItem(element)}
           deleteItem={deleteItem}
-          addItem={null}
-          itemUse={utilizeItem}
+          addItem={() => {}}
+          utilizeItem={utilizeItem}
           editItem={editItem}
         />
       ));

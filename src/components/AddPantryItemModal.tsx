@@ -151,7 +151,7 @@ export const AddPantryItemModal = ({
           </div>
         </div>
 
-        <div id="button-container">
+        <div id="modal-button-container">
           <Button text="Back" id="back" click={sendClose} />
           <Button text="Submit" id="submit" click={sendSubmit} />
         </div>
