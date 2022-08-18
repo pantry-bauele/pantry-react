@@ -68,7 +68,6 @@ export const CreateItem = ({ accountEmail }: Props) => {
 
   const submitForm = async (item: ItemObject) => {
     alert("Submitted your item!");
-    console.log("Item = ", item.getName());
 
     if (typeof accountEmail === "string") {
       await server.createItem(accountEmail, item);

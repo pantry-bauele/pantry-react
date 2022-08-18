@@ -48,7 +48,6 @@ export const AddPantryItemModal = ({
     let itemEntryFormValidator = new ItemEntryFormValidator();
     switch (name) {
       case "quantity":
-        console.log("Validating quantity");
         let convertedQuantity;
         try {
           convertedQuantity = itemEntryFormValidator.validateQuantity(
@@ -65,7 +64,6 @@ export const AddPantryItemModal = ({
             ?.classList.add("field-error");
         }
 
-        console.log("convertedQuantity = ", convertedQuantity);
         if (convertedQuantity) {
           setQuantity(convertedQuantity.toString());
         }

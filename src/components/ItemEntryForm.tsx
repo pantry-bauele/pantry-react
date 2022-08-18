@@ -69,7 +69,6 @@ export const ItemEntryForm = ({
       let prefillTotalQuantityUnit = prefill.get("totalQuantityUnit");
       if (typeof prefillTotalQuantityUnit === "string") {
         setQuantityUnit(prefillTotalQuantityUnit);
-        console.log("Quantity unit set to ", prefillTotalQuantityUnit);
       }
 
       let prefillServingSizeAmount = prefill.get("servingSizeAmount");
@@ -308,7 +307,6 @@ export const ItemEntryForm = ({
         break;
 
       case "calories":
-        console.log("Validating calories");
         let convertedCalories;
         try {
           convertedCalories = itemEntryFormValidator.validateCalories(
@@ -331,7 +329,6 @@ export const ItemEntryForm = ({
         break;
 
       case "quantity":
-        console.log("Validating quantity");
         let convertedQuantity;
         try {
           convertedQuantity = itemEntryFormValidator.validateQuantity(
@@ -348,7 +345,6 @@ export const ItemEntryForm = ({
             ?.classList.add("field-error");
         }
 
-        console.log("convertedQuantity = ", convertedQuantity);
         if (convertedQuantity) {
           setQuantity(convertedQuantity.toString());
         }
@@ -359,7 +355,6 @@ export const ItemEntryForm = ({
         break;
 
       case "serving":
-        console.log("Validating serving");
         let convertedServing;
         try {
           convertedServing = itemEntryFormValidator.validateQuantity(
@@ -376,7 +371,6 @@ export const ItemEntryForm = ({
             ?.classList.add("field-error");
         }
 
-        console.log("convertedServing = ", convertedServing);
         if (convertedServing) {
           setServing(convertedServing.toString());
         }
