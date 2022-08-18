@@ -4,8 +4,8 @@ import { PantryItem } from "../components/items/PantryItem";
 import { PantryItem as PantryItemObject } from "../pantry-shared/src/pantryItem";
 import { PantryItemBuilder } from "../pantry-shared/src/pantryItemBuilder";
 import { Item as ItemObject } from "../pantry-shared/src/item";
-import { UsePantryItemModal } from "../components/UsePantryItemModal";
-import { AddPantryItemModal } from "../components/AddPantryItemModal";
+import { UsePantryItemModal } from "../components/modals/UsePantryItemModal";
+import { AddPantryItemModal } from "../components/modals/AddPantryItemModal";
 import { serverSingleton } from "../api/ServerAPI";
 
 interface Props {

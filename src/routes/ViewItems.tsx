@@ -4,7 +4,7 @@ import { Item } from "../components/items/Item";
 import { Item as ItemObject } from "../pantry-shared/src/item";
 import { ItemBuilder } from "../pantry-shared/src/itemBuilder";
 import { PantryItem } from "../pantry-shared/src/pantryItem";
-import { AddPantryItemModal } from "../components/AddPantryItemModal";
+import { AddPantryItemModal } from "../components/modals/AddPantryItemModal";
 import { serverSingleton } from "../api/ServerAPI";
 
 import "../styles/sass/ViewItems.css";

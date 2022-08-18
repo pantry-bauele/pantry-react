@@ -1,56 +1,51 @@
-import "../styles/sass/AddPantryItemModal.css";
-import { Modal } from "../components/Modal";
-import { FormField } from "./FormField";
-import { FormSelectField } from "./FormSelectField";
-import { Button } from "./Button";
-import { ItemEntryFormValidator } from "../api/ItemEntryFormValidator";
 import { useState } from "react";
+
+import { Modal } from "./Modal";
+import { FormField } from "../FormField";
+import { FormSelectField } from "../FormSelectField";
+import { Button } from "../Button";
+import { ItemEntryFormValidator } from "../../api/ItemEntryFormValidator";
+
+import "../../styles/sass/AddPantryItemModal.css";
 
 interface Props {
   isOpen: boolean;
-  closeModal?: any;
-  submitModal?: any;
-  availableUnits?: Array<string>;
+  closeModal: Function;
+  submitModal: Function;
 }
 
-export const UsePantryItemModal = ({
+export const AddPantryItemModal = ({
   isOpen,
   closeModal,
   submitModal,
-  availableUnits,
 }: Props) => {
   const [quantity, setQuantity] = useState("");
   const [quantityUnit, setQuantityUnit] = useState("g");
+  const [expirationDate, setExpirationDate] = useState(0);
 
   const sendClose = () => {
     setQuantity("");
     setQuantityUnit("g");
+    setExpirationDate(0);
 
     closeModal();
   };
 
   const sendSubmit = () => {
-    if (isNaN(Number.parseFloat(quantity))) {
-      alert("Please enter a valid number!");
-      return;
-    }
-
-    submitModal(quantity, quantityUnit);
+    submitModal(quantity, quantityUnit, expirationDate);
 
     sendClose();
   };
 
-  function validateField(
+  const validateField = (
     event:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLSelectElement>
-  ) {
+  ) => {
     const target = event.target;
     const name = target.name;
-    //console.log(name);
-    console.log(target);
-    let itemEntryFormValidator = new ItemEntryFormValidator();
 
+    let itemEntryFormValidator = new ItemEntryFormValidator();
     switch (name) {
       case "quantity":
         console.log("Validating quantity");
@@ -70,8 +65,6 @@ export const UsePantryItemModal = ({
             ?.classList.add("field-error");
         }
 
-        // Consider setting the form equal to the converted value to
-        // remove any trailing characters after int conversion
         console.log("convertedQuantity = ", convertedQuantity);
         if (convertedQuantity) {
           setQuantity(convertedQuantity.toString());
@@ -82,17 +75,15 @@ export const UsePantryItemModal = ({
         setQuantityUnit(target.value);
         break;
     }
-  }
+  };
 
-  function handleChange(
+  const handleChange = (
     event:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLSelectElement>
-  ) {
+  ) => {
     const target = event.target;
     const name = target.name;
-    console.log(name);
-    console.log(target.value);
 
     switch (name) {
       case "quantity":
@@ -102,8 +93,19 @@ export const UsePantryItemModal = ({
       case "quantityUnit":
         setQuantityUnit(target.value);
         break;
+
+      case "expirationDate":
+        var dateElement = document.querySelector(
+          'input[type="date"]'
+        ) as HTMLInputElement;
+        if (dateElement !== null) {
+          var dateValue = dateElement.valueAsNumber;
+          setExpirationDate(dateValue);
+        }
+
+        break;
     }
-  }
+  };
 
   /*  Use inline styling to remove the ability to set the quantity
   within the modal. This feature may return, and I do not want to
@@ -111,10 +113,10 @@ export const UsePantryItemModal = ({
   return (
     <Modal isOpen={isOpen}>
       <div id="modal-contents">
-        <h1 id="modal-heading">How much did you use?</h1>
+        <h1 id="modal-heading">Adding Pantry Item</h1>
 
         <div id="form-field-container">
-          <div id="quantity-field">
+          <div style={{ display: "none" }} id="quantity-field">
             <FormField
               orientation="horizontal"
               name="quantity"
@@ -125,16 +127,34 @@ export const UsePantryItemModal = ({
             ></FormField>
             <FormSelectField
               name="quantityUnit"
-              options={availableUnits ? availableUnits : ["g", "oz", "lb"]}
+              options={["g", "oz", "lb"]}
               onChange={handleChange}
               value={quantityUnit}
             />
           </div>
+
+          <div id="modal-date-container">
+            <div id="form-label-horizontal">Expiration Date</div>
+            <input
+              type="date"
+              id="modal-date-picker"
+              onChange={handleChange}
+              name="expirationDate"
+            ></input>
+          </div>
         </div>
 
-        <div id="button-container">
-          <Button text="Back" id="back" click={sendClose} />
-          <Button text="Submit" id="submit" click={sendSubmit} />
+        <div id="modal-button-container">
+          <Button
+            text="Back"
+            className="brand-button-red button-medium clickable-button"
+            click={sendClose}
+          />
+          <Button
+            text="Submit"
+            className="brand-button-green button-medium clickable-button"
+            click={sendSubmit}
+          />
         </div>
       </div>
     </Modal>

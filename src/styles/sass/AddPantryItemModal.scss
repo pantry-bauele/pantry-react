@@ -23,13 +23,13 @@
   height: 100%;
 }
 
-#date-container {
+#modal-date-container {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-#date-picker {
+#modal-date-picker {
   border: none;
   font-size: 16px;
 
@@ -55,6 +55,9 @@
   flex-grow: 1;
 }
 
+// The following commented out rules are for an
+// upcoming feature.
+/*
 #quantity-line {
   display: flex;
   justify-content: space-between;
@@ -79,6 +82,7 @@
   margin-top: 2px;
   width: 10%;
 }
+*/
 
 #modal-button-container {
   display: flex;
@@ -86,30 +90,4 @@
   justify-content: space-between;
 
   flex-grow: 1;
-}
-
-#submit {
-  margin-top: 10px;
-  border: none;
-
-  height: 50px;
-  width: 100px;
-  border-radius: 10px;
-  color: white;
-  font-weight: 700;
-  font-size: 20px;
-  background-color: base.$brand-color;
-}
-
-#back {
-  margin-top: 10px;
-  border: none;
-
-  height: 50px;
-  width: 100px;
-  border-radius: 10px;
-  color: white;
-  font-weight: 700;
-  font-size: 20px;
-  background-color: base.$accent-color;
 }
