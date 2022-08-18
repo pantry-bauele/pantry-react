@@ -1,7 +1,7 @@
-import "../styles/sass/Header.css";
-
 import { Button } from "./Button";
 import { Link } from "react-router-dom";
+
+import "../styles/sass/Header.css";
 
 interface Props {
   siteName: string;
