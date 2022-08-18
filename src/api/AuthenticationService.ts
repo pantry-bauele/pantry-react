@@ -4,7 +4,6 @@ import {
   signOut,
 } from "firebase/auth";
 import firebase from "firebase/compat/app";
-import { stringify } from "querystring";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAXAhW8XBVJ4mmuUi_2NaDRpMY_MYDCwn8",
@@ -16,7 +15,7 @@ const firebaseConfig = {
   measurementId: "G-6LW3GB395J",
 };
 
-const app = firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
 // Function will return an object containing both an
 // error code and an error message. The reason it returns
@@ -28,15 +27,15 @@ const app = firebase.initializeApp(firebaseConfig);
 // 1 - Internal error
 // 2 - Invalid email address
 // 3 - Weak password
-export async function createAuthenticationAccount(
+export const createAuthenticationAccount = async (
   emailAddress: string,
   password: string
-) {
+) => {
   let errorCode;
 
   await createUserWithEmailAndPassword(getAuth(), emailAddress, password)
-    .then((userCredential) => {
-      // Signed in
+    .then(() => {
+      // Signed in successfully
       errorCode = 0;
     })
     .catch((error) => {
@@ -52,11 +51,9 @@ export async function createAuthenticationAccount(
     });
 
   return errorCode;
-}
+};
 
-export function logoutUser() {
+export const logoutUser = () => {
   signOut(getAuth());
   localStorage.removeItem("pantry-app-loggedIn");
-}
-
-export default {};
+};

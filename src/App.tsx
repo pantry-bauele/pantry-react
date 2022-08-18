@@ -11,7 +11,7 @@ import { Pantry } from "./routes/Pantry";
 import { EditItem } from "./routes/EditItem";
 import { Layout } from "./routes/Layout";
 import { Home } from "./routes/Home";
-import Logout from "./routes/Logout";
+import { Logout } from "./routes/Logout";
 import { Placeholder } from "./routes/Placeholder";
 
 import {

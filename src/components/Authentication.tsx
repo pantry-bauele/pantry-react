@@ -1,35 +1,37 @@
 import React from "react";
+
 import "../styles/sass/Authentication.css";
+
 interface IAuthentication {
   emailAddress: string | null;
 }
 
 let AuthenticationContext = React.createContext<IAuthentication>(null!);
 
-export function AuthenticationProvider({
+export const useAuthentication = () => {
+  return React.useContext(AuthenticationContext);
+};
+
+export const AuthenticationProvider = ({
   children,
 }: {
   children: React.ReactNode;
-}) {
+}) => {
   let email = localStorage.getItem("pantry-app-loggedIn");
-  console.log("AuthService email = ", email);
   let value = { emailAddress: email };
-  if (typeof email === "string") {
-    value = { emailAddress: email };
-  }
 
   return (
     <AuthenticationContext.Provider value={value}>
       {children}
     </AuthenticationContext.Provider>
   );
-}
+};
 
-export function useAuthentication() {
-  return React.useContext(AuthenticationContext);
-}
-
-export function RequireAuthentication({ children }: { children: JSX.Element }) {
+export const RequireAuthentication = ({
+  children,
+}: {
+  children: JSX.Element;
+}) => {
   let auth = useAuthentication();
 
   let email = auth.emailAddress;
@@ -41,9 +43,7 @@ export function RequireAuthentication({ children }: { children: JSX.Element }) {
         </div>
       </div>
     );
+  } else {
+    return children;
   }
-
-  return children;
-}
-
-export default {};
+};
