@@ -1,12 +1,12 @@
-import "../styles/sass/Login.css";
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-import "../api/AuthenticationService";
 import { FormField } from "../components/FormField";
 import { Button } from "../components/Button";
+import "../api/AuthenticationService";
+
+import "../styles/sass/Login.css";
 
 export const Login = () => {
   const [email, setEmail] = useState("");

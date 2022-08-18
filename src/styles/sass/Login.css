@@ -40,4 +40,10 @@
   cursor: pointer;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  #create-account:hover {
+    color: #ff4646;
+  }
+}
+
 /*# sourceMappingURL=Login.css.map */

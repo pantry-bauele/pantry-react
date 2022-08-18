@@ -42,3 +42,9 @@
   color: blue;
   cursor: pointer;
 }
+
+@media (hover: hover) and (pointer: fine) {
+  #create-account:hover {
+    color: base.$brand-color;
+  }
+}
