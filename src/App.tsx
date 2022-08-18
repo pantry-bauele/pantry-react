@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-import CreateItem from "./routes/CreateItem";
+import { CreateItem } from "./routes/CreateItem";
 import { Login } from "./routes/Login";
 import CreateAccount from "./routes/CreateAccount";
 import { ViewItems } from "./routes/ViewItems";

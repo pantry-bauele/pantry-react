@@ -1,7 +1,9 @@
-import "../styles/sass/CreateItem.css";
-import ItemEntryForm from "../components/ItemEntryForm";
 import { useState } from "react";
+import { Item as ItemObject } from "../pantry-shared/src/item";
+import ItemEntryForm from "../components/ItemEntryForm";
 import { serverSingleton } from "../api/ServerAPI";
+
+import "../styles/sass/CreateItem.css";
 
 let itemDetailsDefault = new Map<string, boolean>();
 itemDetailsDefault.set("nutrition-button", false);
@@ -12,14 +14,14 @@ type Props = {
   accountEmail: string | null;
 };
 
-export default function CreateItem({ accountEmail }: Props) {
+export const CreateItem = ({ accountEmail }: Props) => {
   const [selectedItemDetails, setSelectedItemDetails] = useState(
     new Map<string, boolean>(itemDetailsDefault)
   );
   const [showItemDetailsButtons, setShowItemDetailsButtons] = useState(true);
   const [showItemForm, setShowItemForm] = useState(false);
 
-  function toggleItemDetail(event: React.MouseEvent<HTMLElement>) {
+  const toggleItemDetail = (event: React.MouseEvent<HTMLElement>) => {
     const buttonId = event.currentTarget.id;
 
     let newItemDetails = selectedItemDetails;
@@ -27,18 +29,29 @@ export default function CreateItem({ accountEmail }: Props) {
 
     // Toggles the border around the button to show whether or not
     // the selected item detail has been enabled
-    newItemDetails.get(buttonId)
-      ? document
-          .querySelector(`#${buttonId}`)
-          ?.classList.add("item-details-button-selected")
-      : document
-          .querySelector(`#${buttonId}`)
-          ?.classList.remove("item-details-button-selected");
+    let buttonEnabled = newItemDetails.get(buttonId);
+    if (buttonEnabled) {
+      document
+        .querySelector(`#${buttonId}`)
+        ?.classList.remove("item-details-button-unselected");
+
+      document
+        .querySelector(`#${buttonId}`)
+        ?.classList.add("item-details-button-selected");
+    } else {
+      document
+        .querySelector(`#${buttonId}`)
+        ?.classList.remove("item-details-button-selected");
+
+      document
+        .querySelector(`#${buttonId}`)
+        ?.classList.add("item-details-button-unselected");
+    }
 
     setSelectedItemDetails(newItemDetails);
-  }
+  };
 
-  function toggleFormPage() {
+  const toggleFormPage = () => {
     // If item details buttons are not currently visible, they are
     // about to be after the toggle completes, so they should all be
     // reset to being unselected.
@@ -51,27 +64,27 @@ export default function CreateItem({ accountEmail }: Props) {
 
     setShowItemDetailsButtons(!showItemDetailsButtons);
     setShowItemForm(!showItemForm);
-  }
+  };
 
-  function submitForm(item: {}) {
+  const submitForm = async (item: ItemObject) => {
     alert("Submitted your item!");
-    console.log("Item = ", item);
+    console.log("Item = ", item.getName());
 
     if (typeof accountEmail === "string") {
-      serverSingleton.createItem(accountEmail, item);
+      await serverSingleton.createItem(accountEmail, item);
     }
-  }
+  };
 
-  function goBack() {
+  const resetPage = () => {
     setShowItemForm(false);
     itemDetailsDefault.set("nutrition-button", false);
     itemDetailsDefault.set("spending-button", false);
     itemDetailsDefault.set("supply-button", false);
     setSelectedItemDetails(itemDetailsDefault);
     setShowItemDetailsButtons(true);
-  }
+  };
 
-  function renderItemDetailsButtons() {
+  const renderItemDetailsButtons = () => {
     if (showItemDetailsButtons) {
       return (
         <div id="item-details-form-container">
@@ -80,28 +93,28 @@ export default function CreateItem({ accountEmail }: Props) {
           </h2>
           <button
             id="nutrition-button"
-            className="item-details-button"
+            className="item-details-button button-large brand-button-red item-details-button-unselected clickable-button"
             onClick={toggleItemDetail}
           >
             Nutrition
           </button>
           <button
             id="spending-button"
-            className="item-details-button"
+            className="item-details-button button-large brand-button-red item-details-button-unselected clickable-button"
             onClick={toggleItemDetail}
           >
             Spending
           </button>
           <button
             id="supply-button"
-            className="item-details-button"
+            className="item-details-button button-large brand-button-red item-details-button-unselected clickable-button"
             onClick={toggleItemDetail}
           >
             At-Home Supply
           </button>
           <button
-            id="continue-button"
-            className="item-details-button"
+            id="create-item-continue-button"
+            className="item-details-button button-large brand-button-green clickable-button"
             onClick={toggleFormPage}
           >
             Continue
@@ -109,21 +122,21 @@ export default function CreateItem({ accountEmail }: Props) {
         </div>
       );
     }
-  }
+  };
 
-  function renderItemForm() {
+  const renderItemForm = () => {
     if (showItemForm) {
       return (
         <>
           <ItemEntryForm
             selectedItemDetails={selectedItemDetails}
             submitForm={submitForm}
-            onBack={goBack}
+            onBack={resetPage}
           />
         </>
       );
     }
-  }
+  };
   return (
     <div id="create-item-container">
       <div id="create-item-form-container">
@@ -134,4 +147,4 @@ export default function CreateItem({ accountEmail }: Props) {
       </div>
     </div>
   );
-}
+};

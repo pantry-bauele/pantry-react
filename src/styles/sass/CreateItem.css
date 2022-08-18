@@ -1,5 +1,4 @@
 #create-item-container {
-  height: 85vh;
   background-color: #fffde4;
 }
 
@@ -29,28 +28,20 @@
 }
 
 .item-details-button {
-  margin-top: 10px;
-  border: none;
-  width: 215px;
-  height: 50px;
-  border-radius: 10px;
-  color: white;
   font-weight: 700;
-  font-size: 20px;
-  background-color: #ff4646;
+  margin-top: 10px;
+}
+
+.item-details-button-unselected {
+  opacity: 50%;
 }
 
 .item-details-button-selected {
-  border: 6px solid #46ffff;
+  opacity: 100%;
 }
 
-#continue-button {
+#create-item-continue-button {
   margin-top: 60px;
-  background: #82bd42;
-}
-
-.error {
-  border: 10px solid red;
 }
 
 /*# sourceMappingURL=CreateItem.css.map */

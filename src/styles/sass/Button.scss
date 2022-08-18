@@ -1,19 +1,17 @@
 @use "base";
 
-a:link {
-  text-decoration: none;
-}
+// Only enable hover effects for appropiate devices
+@media (hover: hover) and (pointer: fine) {
+  .clickable-button:hover {
+    background-color: base.$neutral-color;
+    border: none;
+    color: white;
+  }
 
-a:visited {
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: none;
-}
-
-a:active {
-  text-decoration: none;
+  .clickable-button-opacity:hover {
+    background-color: base.$neutral-color;
+    opacity: 100%;
+  }
 }
 
 .clickable-button {
@@ -21,10 +19,9 @@ a:active {
   text-decoration: none;
 }
 
-.clickable-button:hover {
-  background-color: base.$neutral-color;
-  border: none;
-  color: white;
+.clickable-button-opacity {
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .brand-button {
@@ -40,6 +37,15 @@ a:active {
   height: 45px;
 
   background-color: base.$brand-color;
+  color: white;
+}
+
+.brand-button-green {
+  border: none;
+  border-radius: 20px;
+  height: 45px;
+
+  background-color: base.$accent-color;
   color: white;
 }
 

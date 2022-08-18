@@ -1,28 +1,22 @@
-a:link {
-  text-decoration: none;
+@media (hover: hover) and (pointer: fine) {
+  .clickable-button:hover {
+    background-color: #d0d1dd;
+    border: none;
+    color: white;
+  }
+  .clickable-button-opacity:hover {
+    background-color: #d0d1dd;
+    opacity: 100%;
+  }
 }
-
-a:visited {
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: none;
-}
-
-a:active {
-  text-decoration: none;
-}
-
 .clickable-button {
   cursor: pointer;
   text-decoration: none;
 }
 
-.clickable-button:hover {
-  background-color: #d0d1dd;
-  border: none;
-  color: white;
+.clickable-button-opacity {
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .brand-button {
@@ -37,6 +31,14 @@ a:active {
   border-radius: 20px;
   height: 45px;
   background-color: #ff4646;
+  color: white;
+}
+
+.brand-button-green {
+  border: none;
+  border-radius: 20px;
+  height: 45px;
+  background-color: #82bd42;
   color: white;
 }
 

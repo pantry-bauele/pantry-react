@@ -1,8 +1,6 @@
 @use "base";
 
 #create-item-container {
-  height: 85vh;
-
   background-color: base.$background-color;
 }
 
@@ -34,26 +32,18 @@
 }
 
 .item-details-button {
-  margin-top: 10px;
-  border: none;
-  width: 215px;
-  height: 50px;
-  border-radius: 10px;
-  color: white;
   font-weight: 700;
-  font-size: 20px;
-  background-color: base.$brand-color;
+  margin-top: 10px;
+}
+
+.item-details-button-unselected {
+  opacity: 50%;
 }
 
 .item-details-button-selected {
-  border: 6px solid #46ffff;
+  opacity: 100%;
 }
 
-#continue-button {
+#create-item-continue-button {
   margin-top: 60px;
-  background: base.$accent-color;
-}
-
-.error {
-  border: 10px solid red;
 }
