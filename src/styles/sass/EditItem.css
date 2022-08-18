@@ -1,12 +1,10 @@
 #edit-item-container {
-  height: 100vh;
   background-color: #fffde4;
 }
 
 #edit-item-form-container {
   margin-top: 3px;
   display: flex;
-  height: 90vh;
   flex-direction: column;
   justify-content: center;
   align-items: center;

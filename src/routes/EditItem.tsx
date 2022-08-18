@@ -1,47 +1,49 @@
-import "../styles/sass/EditItem.css";
-
-import { Navigate, useParams } from "react-router-dom";
-import { ItemEntryForm } from "../components/ItemEntryForm";
-import { serverSingleton } from "../api/ServerAPI";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { ItemEntryForm } from "../components/ItemEntryForm";
+import { Item as ItemObject } from "../pantry-shared/src/item";
+import { serverSingleton } from "../api/ServerAPI";
+
+import "../styles/sass/EditItem.css";
 
 interface Props {
   accountEmail: string | null;
 }
 
-let blank = new Map<string, string | []>();
+export const EditItem = ({ accountEmail }: Props) => {
+  const [finishedLoading, setFinishedLoading] = useState(false);
+  const [itemDetails, setItemDetails] = useState(
+    new Map<string, string | []>()
+  );
 
-export default function EditItem(props: Props) {
   let { id } = useParams();
   let navigate = useNavigate();
 
-  const [iDetails, setItemDetails] = useState(blank);
-
-  function submitForm(item: any) {
-    alert("Submitted your item!");
-    item.id = id;
-
-    console.log("Item = ", item);
-
-    if (typeof props.accountEmail === "string") {
-      serverSingleton.editItem(props.accountEmail, item);
+  const submitForm = async (item: ItemObject) => {
+    if (typeof id === "string") {
+      item.setId(id);
+      if (typeof accountEmail === "string") {
+        await serverSingleton.editItem(accountEmail, item);
+        alert("Submitted your item!");
+      } else {
+        alert("An unexpected error occured. Please try again.");
+      }
+    } else {
+      alert("An unexpected error occured. Please try again.");
     }
-  }
+  };
 
-  async function getItemDetails() {
-    // Make a call to the server to get all the information about that item
-    // using its id
-    if (typeof props.accountEmail === "string" && typeof id === "string") {
-      console.log("getting item details");
-      let result = await serverSingleton.getItem(props.accountEmail, id);
+  const loadItemDetails = async () => {
+    // Get the item details from the server via its id
+    if (typeof accountEmail === "string" && typeof id === "string") {
+      let result = await serverSingleton.getItem(accountEmail, id);
       return result;
     }
-  }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
-      let result = await getItemDetails();
+      let result = await loadItemDetails();
 
       let details = new Map<string, string | []>();
       details.set("name", result.name);
@@ -54,34 +56,31 @@ export default function EditItem(props: Props) {
       details.set("vendorPrices", result.vendorPrices);
 
       setItemDetails(details);
+      setFinishedLoading(true);
     };
 
     fetchData();
   }, []);
 
-  useEffect(() => {
-    console.log("update details");
-    console.log(iDetails);
-    console.log("re-render");
-  }, [iDetails]);
-
-  function renderItemForm() {
-    return <></>;
-  }
-
   return (
     <div id="edit-item-container">
       <div id="edit-item-form-container">
         <h1>Edit Item</h1>
-        <ItemEntryForm
-          showNutritionFields={true}
-          showSpendingFields={true}
-          showSupplyFields={true}
-          submitForm={submitForm}
-          prefill={iDetails}
-          onBack={() => navigate("/viewItems")}
-        />
+        {!finishedLoading && <div>Loading item...</div>}
+        {finishedLoading && itemDetails.size === 0 && (
+          <div>Could not retrieve item details</div>
+        )}
+        {finishedLoading && itemDetails.size !== 0 && (
+          <ItemEntryForm
+            showNutritionFields={true}
+            showSpendingFields={true}
+            showSupplyFields={true}
+            submitForm={submitForm}
+            prefill={itemDetails}
+            onBack={() => navigate("/viewItems")}
+          />
+        )}
       </div>
     </div>
   );
-}
+};
