@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Item as ItemObject } from "../pantry-shared/src/item";
 import { ItemEntryForm } from "../components/ItemEntryForm";
-import { serverSingleton } from "../api/ServerAPI";
+import { server } from "../api/ServerAPI";
 
 import "../styles/sass/CreateItem.css";
 
@@ -71,7 +71,7 @@ export const CreateItem = ({ accountEmail }: Props) => {
     console.log("Item = ", item.getName());
 
     if (typeof accountEmail === "string") {
-      await serverSingleton.createItem(accountEmail, item);
+      await server.createItem(accountEmail, item);
     }
   };
 

@@ -14,10 +14,6 @@ class ServerAPI {
   }
 
   async getAccount(emailAddress: string) {
-    let account = {
-      emailAddress: emailAddress,
-    };
-
     try {
       let response = await axios({
         method: "get",
@@ -72,9 +68,6 @@ class ServerAPI {
   }
 
   async loadItems(emailAddress: string) {
-    console.log(`Loading items from ${emailAddress}`);
-    console.log(`Server URL = ${this.serverURL}`);
-
     try {
       let response = await axios({
         method: "get",
@@ -97,9 +90,6 @@ class ServerAPI {
   }
 
   async loadPantryItems(emailAddress: string) {
-    console.log(`Loading items from ${emailAddress}`);
-    console.log(`Server URL = ${this.serverURL}`);
-
     try {
       let response = await axios({
         method: "get",
@@ -116,15 +106,12 @@ class ServerAPI {
         console.log("No response");
       }
     } catch (error) {
-      console.log("loadItems() error");
+      console.log("loadPantryItems() error");
       console.log(error);
     }
   }
 
   async getItem(emailAddress: string, itemId: string) {
-    console.log(`Loading items from ${emailAddress}`);
-    console.log(`Server URL = ${this.serverURL}`);
-
     try {
       let response = await axios({
         method: "get",
@@ -165,18 +152,12 @@ class ServerAPI {
         console.log("No response");
       }
     } catch (error) {
-      console.log("loadItems() error");
+      console.log("createItem() error");
       console.log(error);
     }
   }
 
   async createPantryItem(pantryItem: PantryItem, emailAddress: string) {
-    console.log("createPantryItem() called!");
-    console.log(emailAddress);
-    console.log(pantryItem);
-
-    console.log("amt = ", pantryItem.getAvailableQuantity().amount);
-
     try {
       let response = await axios({
         method: "post",
@@ -217,7 +198,7 @@ class ServerAPI {
         console.log("No response");
       }
     } catch (error) {
-      console.log("loadItems() error");
+      console.log("deleteItem() error");
       console.log(error);
     }
   }
@@ -240,7 +221,7 @@ class ServerAPI {
         console.log("No response");
       }
     } catch (error) {
-      console.log("loadItems() error");
+      console.log("deletePantryItem() error");
       console.log(error);
     }
   }
@@ -263,7 +244,7 @@ class ServerAPI {
         console.log("No response");
       }
     } catch (error) {
-      console.log("loadItems() error");
+      console.log("editPantryItem() error");
       console.log(error);
     }
   }
@@ -292,6 +273,4 @@ class ServerAPI {
   }
 }
 
-let serverSingleton = new ServerAPI("https://bauele.com", "3001");
-
-export { ServerAPI, serverSingleton };
+export const server = new ServerAPI("https://bauele.com", "3001");

@@ -5,7 +5,7 @@ import { Item as ItemObject } from "../pantry-shared/src/item";
 import { ItemBuilder } from "../pantry-shared/src/itemBuilder";
 import { PantryItem } from "../pantry-shared/src/pantryItem";
 import { AddPantryItemModal } from "../components/modals/AddPantryItemModal";
-import { serverSingleton } from "../api/ServerAPI";
+import { server } from "../api/ServerAPI";
 
 import "../styles/sass/ViewItems.css";
 
@@ -26,7 +26,7 @@ export const ViewItems = ({ accountEmail }: Props) => {
 
     let response;
     if (typeof accountEmail === "string") {
-      response = await serverSingleton.loadItems(accountEmail);
+      response = await server.loadItems(accountEmail);
     }
 
     console.log("response = ", response);
@@ -60,7 +60,7 @@ export const ViewItems = ({ accountEmail }: Props) => {
     alert(`Deleted item`);
 
     if (typeof accountEmail === "string") {
-      await serverSingleton.deleteItem(accountEmail, item);
+      await server.deleteItem(accountEmail, item);
       await loadItems(accountEmail);
     }
   };
@@ -93,7 +93,7 @@ export const ViewItems = ({ accountEmail }: Props) => {
       }
 
       if (accountEmail !== null) {
-        await serverSingleton.createPantryItem(pantryItem, accountEmail);
+        await server.createPantryItem(pantryItem, accountEmail);
       }
     }
 

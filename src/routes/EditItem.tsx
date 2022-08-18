@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ItemEntryForm } from "../components/ItemEntryForm";
 import { Item as ItemObject } from "../pantry-shared/src/item";
-import { serverSingleton } from "../api/ServerAPI";
+import { server } from "../api/ServerAPI";
 
 import "../styles/sass/EditItem.css";
 
@@ -23,7 +23,7 @@ export const EditItem = ({ accountEmail }: Props) => {
     if (typeof id === "string") {
       item.setId(id);
       if (typeof accountEmail === "string") {
-        await serverSingleton.editItem(accountEmail, item);
+        await server.editItem(accountEmail, item);
         alert("Submitted your item!");
       } else {
         alert("An unexpected error occured. Please try again.");
@@ -36,7 +36,7 @@ export const EditItem = ({ accountEmail }: Props) => {
   const loadItemDetails = async () => {
     // Get the item details from the server via its id
     if (typeof accountEmail === "string" && typeof id === "string") {
-      let result = await serverSingleton.getItem(accountEmail, id);
+      let result = await server.getItem(accountEmail, id);
       return result;
     }
   };

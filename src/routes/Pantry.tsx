@@ -6,7 +6,7 @@ import { PantryItemBuilder } from "../pantry-shared/src/pantryItemBuilder";
 import { Item as ItemObject } from "../pantry-shared/src/item";
 import { UsePantryItemModal } from "../components/modals/UsePantryItemModal";
 import { AddPantryItemModal } from "../components/modals/AddPantryItemModal";
-import { serverSingleton } from "../api/ServerAPI";
+import { server } from "../api/ServerAPI";
 
 interface Props {
   accountEmail: string | null;
@@ -26,7 +26,7 @@ export const Pantry = ({ accountEmail }: Props) => {
   const loadItems = async (emailAddress: string | null) => {
     let response;
     if (typeof emailAddress === "string") {
-      response = await serverSingleton.loadPantryItems(emailAddress);
+      response = await server.loadPantryItems(emailAddress);
     }
 
     if (response) {
@@ -78,7 +78,7 @@ export const Pantry = ({ accountEmail }: Props) => {
     alert(`Deleted item`);
 
     if (typeof accountEmail === "string") {
-      await serverSingleton.deletePantryItem(accountEmail, pantryItem);
+      await server.deletePantryItem(accountEmail, pantryItem);
     }
 
     await loadItems(accountEmail);
@@ -89,7 +89,7 @@ export const Pantry = ({ accountEmail }: Props) => {
   const utilizeItem = async (pantryItem: PantryItemObject) => {
     if (pantryItem.getAvailableQuantity().amount <= 0) {
       if (accountEmail) {
-        await serverSingleton.deletePantryItem(accountEmail, pantryItem);
+        await server.deletePantryItem(accountEmail, pantryItem);
         await loadItems(accountEmail);
         alert("Item depleted.");
       }
@@ -121,7 +121,7 @@ export const Pantry = ({ accountEmail }: Props) => {
 
     if (accountEmail) {
       if (newAmount <= 0) {
-        await serverSingleton.deletePantryItem(accountEmail, modalTarget);
+        await server.deletePantryItem(accountEmail, modalTarget);
         await loadItems(accountEmail);
         alert("Item depleted.");
       } else {
@@ -130,7 +130,7 @@ export const Pantry = ({ accountEmail }: Props) => {
           modalTarget.availableQuantity.unit
         );
 
-        await serverSingleton.editPantryItem(accountEmail, modalTarget);
+        await server.editPantryItem(accountEmail, modalTarget);
         await loadItems(accountEmail);
         alert("Quantity has been adjusted.");
       }
@@ -151,7 +151,7 @@ export const Pantry = ({ accountEmail }: Props) => {
     );
 
     if (accountEmail) {
-      await serverSingleton.editPantryItem(accountEmail, modalTarget);
+      await server.editPantryItem(accountEmail, modalTarget);
       await loadItems(accountEmail);
       alert("Expiration date updated!");
     }
