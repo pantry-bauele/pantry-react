@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import { Button } from "./Button";
 import { Link } from "react-router-dom";
 
@@ -9,6 +11,8 @@ interface Props {
 }
 
 export const Header = ({ siteName, loggedIn }: Props) => {
+  let navigate = useNavigate();
+
   return (
     <div id="header-container">
       <div id="header-site-details">
@@ -19,25 +23,19 @@ export const Header = ({ siteName, loggedIn }: Props) => {
       </div>
       <div id="header-navigation">
         {loggedIn && (
-          <nav>
-            <Link to="/logout">
-              <Button
-                className="brand-button-white button-medium clickable-button"
-                text="Log Out"
-              ></Button>
-            </Link>
-          </nav>
+          <Button
+            className="brand-button-white button-medium clickable-button"
+            text="Log Out"
+            click={() => navigate("/logout")}
+          ></Button>
         )}
 
         {!loggedIn && (
-          <nav>
-            <Link to="/login">
-              <Button
-                className="brand-button-red button-medium clickable-button"
-                text="Log In"
-              ></Button>
-            </Link>
-          </nav>
+          <Button
+            className="brand-button-red button-medium clickable-button"
+            text="Log In"
+            click={() => navigate("/login")}
+          ></Button>
         )}
       </div>
     </div>
