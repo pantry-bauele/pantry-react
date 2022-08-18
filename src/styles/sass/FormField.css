@@ -1,10 +1,10 @@
-#form-container-vertical {
+.form-container-vertical {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-#form-label-vertical {
+.form-label-vertical {
   font-weight: 500;
   font-size: 18px;
   margin-bottom: 10px;
@@ -24,14 +24,14 @@
   align-items: center;
 }
 
-#form-container-horizontal {
+.form-container-horizontal {
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 100%;
 }
 
-#form-label-horizontal {
+.form-label-horizontal {
   font-weight: 500;
   font-size: 18px;
   margin-bottom: 10px;
@@ -54,7 +54,7 @@
 }
 
 .field-error {
-  border: 3px solid #ff4646;
+  border: 3px solid red;
 }
 
 /*# sourceMappingURL=FormField.css.map */
