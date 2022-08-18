@@ -1,25 +1,35 @@
-import "../styles/sass/ItemEntryForm.css";
+import React, { useEffect, useState } from "react";
+
+import { Item as ItemObject } from "../pantry-shared/src/item";
 import { ItemEntryFormValidator } from "../api/ItemEntryFormValidator";
-import { ItemBuilder } from "../pantry-shared/src/itemBuilder";
 import { FormField } from "./FormField";
 import { FormSelectField } from "./FormSelectField";
 import { Button } from "./Button";
-import React, { useEffect, useState } from "react";
 
-import { useNavigate } from "react-router-dom";
-import { Item } from "../pantry-shared/src/item";
+import "../styles/sass/ItemEntryForm.css";
 
 interface Props {
-  selectedItemDetails: Map<string, boolean>;
-  submitForm: any;
-  onBack?: any;
+  showNutritionFields?: boolean;
+  showSpendingFields?: boolean;
+  showSupplyFields?: boolean;
+
+  submitForm: Function;
+  onBack: Function;
   prefill?: Map<string, string | number | []>;
 }
 
+//Leaving until I am sure it works okay.
 let vendorPricesDefault = new Array<{ name: string; price: string }>();
 vendorPricesDefault.push();
 
-export default function ItemEntryForm(props: Props) {
+export const ItemEntryForm = ({
+  showNutritionFields,
+  showSpendingFields,
+  showSupplyFields,
+  submitForm,
+  onBack,
+  prefill,
+}: Props) => {
   const [name, setName] = useState("");
   const [brand, setBrand] = useState("");
   const [calories, setCalories] = useState("");
@@ -27,95 +37,62 @@ export default function ItemEntryForm(props: Props) {
   const [quantityUnit, setQuantityUnit] = useState("g");
   const [serving, setServing] = useState("");
   const [servingUnit, setServingUnit] = useState("g");
-  const [vendorPrices, setVendorPrices] = useState(vendorPricesDefault);
-  const [prefill, setPrefill] = useState(new Map<string, string | []>());
+  const [vendorPrices, setVendorPrices] = useState(
+    new Array<{ name: string; price: string }>()
+  );
 
   useEffect(() => {
-    /*
-    if (props.prefill !== undefined) {
-      let prefillName = props.prefill.get("name");
-      if (typeof prefillName === "string") {
-        setPrefill(props.prefill);
-        console.log(prefillName);
-        setName(prefillName);
-      }
-    }
-    */
-  }, []);
-
-  useEffect(() => {
-    console.log("set name to ", name);
-  }, [name]);
-
-  useEffect(() => {
-    console.log("updating prefill");
-    if (props.prefill !== undefined) {
-      let prefillName = props.prefill.get("name");
+    if (prefill !== undefined) {
+      let prefillName = prefill.get("name");
       if (typeof prefillName === "string") {
         setName(prefillName);
       }
 
-      let prefillBrand = props.prefill.get("brand");
+      let prefillBrand = prefill.get("brand");
       if (typeof prefillBrand === "string") {
         setBrand(prefillBrand);
       }
 
-      let prefillCalories = props.prefill.get("calories");
+      let prefillCalories = prefill.get("calories");
       if (typeof prefillCalories === "number") {
         let prefillCaloriesString = prefillCalories.toString();
         setCalories(prefillCaloriesString);
       }
 
-      let prefillTotalQuantityAmount = props.prefill.get("totalQuantityAmount");
+      let prefillTotalQuantityAmount = prefill.get("totalQuantityAmount");
       if (typeof prefillTotalQuantityAmount === "number") {
         let prefillTotalQuantityAmountString =
           prefillTotalQuantityAmount.toString();
         setQuantity(prefillTotalQuantityAmountString);
       }
 
-      let prefillTotalQuantityUnit = props.prefill.get("totalQuantityUnit");
+      let prefillTotalQuantityUnit = prefill.get("totalQuantityUnit");
       if (typeof prefillTotalQuantityUnit === "string") {
         setQuantityUnit(prefillTotalQuantityUnit);
         console.log("Quantity unit set to ", prefillTotalQuantityUnit);
       }
 
-      let prefillServingSizeAmount = props.prefill.get("servingSizeAmount");
+      let prefillServingSizeAmount = prefill.get("servingSizeAmount");
       if (typeof prefillServingSizeAmount === "number") {
         let prefillServingSizeAmountString =
           prefillServingSizeAmount.toString();
         setServing(prefillServingSizeAmountString);
       }
 
-      let prefillServingSizeUnit = props.prefill.get("servingSizeUnit");
+      let prefillServingSizeUnit = prefill.get("servingSizeUnit");
       if (typeof prefillServingSizeUnit === "string") {
         setServingUnit(prefillServingSizeUnit);
       }
 
-      let prefillVendorPrices = props.prefill.get("vendorPrices");
+      let prefillVendorPrices = prefill.get("vendorPrices");
       if (Array.isArray(prefillVendorPrices)) {
-        console.log("yesss");
         setVendorPrices(prefillVendorPrices);
-        prefillVendorPrices?.forEach((vp) => {});
       }
     }
-  }, [props.prefill]);
+  }, [prefill]);
 
-  let navigate = useNavigate();
-
-  function goBack() {
-    if (props.onBack) {
-      if (typeof props.onBack === "string") {
-        navigate(props.onBack);
-      } else {
-        props.onBack();
-      }
-    } else {
-      navigate("/createItemsads");
-    }
-  }
-
-  function showCaloriesField() {
-    if (props.selectedItemDetails.get("nutrition-button")) {
+  const showCaloriesField = () => {
+    if (showNutritionFields) {
       return (
         <>
           <FormField
@@ -129,13 +106,10 @@ export default function ItemEntryForm(props: Props) {
         </>
       );
     }
-  }
+  };
 
-  function showTotalQuantityField() {
-    if (
-      props.selectedItemDetails.get("supply-button") ||
-      props.selectedItemDetails.get("spending-button")
-    ) {
+  const showTotalQuantityField = () => {
+    if (showSupplyFields || showSpendingFields) {
       return (
         <div id="quantity-field">
           <FormField
@@ -156,10 +130,10 @@ export default function ItemEntryForm(props: Props) {
         </div>
       );
     }
-  }
+  };
 
-  function showServingSizeField() {
-    if (props.selectedItemDetails.get("nutrition-button")) {
+  const showServingSizeField = () => {
+    if (showNutritionFields) {
       return (
         <div id="serving-field">
           <FormField
@@ -180,120 +154,111 @@ export default function ItemEntryForm(props: Props) {
         </div>
       );
     }
-  }
+  };
 
-  function showVendorField() {
-    if (props.selectedItemDetails.get("spending-button")) {
-      let x = vendorPrices.map((v, index) => {
+  const showVendorField = () => {
+    if (showSpendingFields) {
+      let vendorPriceElements = vendorPrices.map((vendorPrice, index) => {
         return (
-          <div className="vendorListing" key={index}>
+          <div className="item-entry-form-vendor-price-element" key={index}>
             <input
-              className="vendorName"
+              className="item-entry-form-vendor-name"
               name={`vendor${index}`}
               type="text"
-              value={vendorPrices[index].name}
+              value={vendorPrice.name}
               onChange={onVendorPriceChange}
             />
             <input
-              className="vendorPrice"
+              className="item-entry-form-vendor-price"
               name={`price${index}`}
               type="text"
-              value={vendorPrices[index].price}
+              value={vendorPrice.price}
               onChange={onVendorPriceChange}
             />
-            <button
-              className="vendorDelete"
-              name={`${index}`}
-              onClick={(e) => deleteVendorPrice(e)}
-            >
-              X
-            </button>
+
+            <Button
+              className="item-entry-form-delete-vendor-button brand-button-white button-small clickable-button"
+              id={`${index}`}
+              click={(event) => deleteVendorPrice(event)}
+              text="X"
+            />
           </div>
         );
       });
 
       return (
         <>
-          <label id="vendorHeading">
+          <label id="item-entry-form-vendor-heading">
             <p>Vendors</p>
-            {x}
-            <button className="roundButton" onClick={(e) => addVendorPrice(e)}>
-              {" "}
-              +{" "}
-            </button>
+            {vendorPriceElements}
+            <Button
+              className="brand-button-white button-small clickable-button"
+              id="item-entry-form-add-vendor-button"
+              click={(event) => addVendorPrice(event)}
+              text="+"
+            />
           </label>
         </>
       );
     }
-  }
+  };
 
-  function onVendorPriceChange(
+  const onVendorPriceChange = (
     event:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLSelectElement>
-  ) {
+  ) => {
     const target = event.target;
     const name = target.name;
-    console.log(name);
-    console.log(target.value);
 
     let currentVendorPrices = vendorPrices;
     let newVendorPrices = [...currentVendorPrices];
 
+    // All vendorPrice elements on the page are named in such a way where
+    // their name attributes are vendor[index] or price[index] where
+    // index identifies their position within the array. The following
+    // code obtains that index by parsing the name string.
     if (name.includes("vendor")) {
-      console.log("Updating vendor...");
       let index = Number.parseInt(name.substring(6));
-      console.log("index = ", index);
-      console.log("newVP = ", newVendorPrices);
-
       newVendorPrices[index].name = target.value;
-      console.log("newVP = ", newVendorPrices);
-
       setVendorPrices(newVendorPrices);
     } else if (name.includes("price")) {
       let index = Number.parseInt(name.substring(5));
-
       newVendorPrices[index].price = target.value;
-      console.log("newVP = ", newVendorPrices);
-
       setVendorPrices(newVendorPrices);
     }
-  }
+  };
 
-  function addVendorPrice(e: React.MouseEvent) {
-    e.preventDefault();
+  const addVendorPrice = (event: React.MouseEvent) => {
+    event.preventDefault();
 
     let currentVendorPrices = vendorPrices;
     let newVendorPrices = [...currentVendorPrices];
     newVendorPrices.push({ name: "", price: "" });
-
     setVendorPrices(newVendorPrices);
-  }
+  };
 
-  function deleteVendorPrice(e: React.MouseEvent) {
-    e.preventDefault();
-    let name = e.currentTarget.getAttribute("name");
-    console.log(e.currentTarget.getAttribute("name"));
+  const deleteVendorPrice = (event: React.MouseEvent) => {
+    event.preventDefault();
+    let elementId = event.currentTarget.getAttribute("id");
 
     let currentVendorPrices = vendorPrices;
     let newVendorPrices = [...currentVendorPrices];
 
-    if (name !== null) {
-      newVendorPrices.splice(Number.parseInt(name), 1);
+    if (elementId !== null) {
+      newVendorPrices.splice(Number.parseInt(elementId), 1);
     }
 
     setVendorPrices(newVendorPrices);
-  }
+  };
 
-  function handleChange(
+  const handleChange = (
     event:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLSelectElement>
-  ) {
+  ) => {
     const target = event.target;
     const name = target.name;
-    console.log(name);
-    console.log(target.value);
 
     switch (name) {
       case "name":
@@ -324,17 +289,15 @@ export default function ItemEntryForm(props: Props) {
         setServingUnit(target.value);
         break;
     }
-  }
+  };
 
-  function validateField(
+  const validateField = (
     event:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLSelectElement>
-  ) {
+  ) => {
     const target = event.target;
     const name = target.name;
-    //console.log(name);
-    console.log(target);
     let itemEntryFormValidator = new ItemEntryFormValidator();
 
     switch (name) {
@@ -355,18 +318,15 @@ export default function ItemEntryForm(props: Props) {
           );
           document
             .querySelector(`input#form-text-calories`)
-            ?.classList.remove("field-error");
+            ?.classList.remove("item-entry-form-field-error");
         } catch (error) {
           console.log(error);
 
           document
             .querySelector(`input#form-text-calories`)
-            ?.classList.add("field-error");
+            ?.classList.add("item-entry-form-field-error");
         }
 
-        // Consider setting the form equal to the converted value to
-        // remove any trailing characters after int conversion
-        //console.log("cv = ", convertedValue);
         if (convertedCalories) {
           setCalories(convertedCalories.toString());
         }
@@ -390,8 +350,6 @@ export default function ItemEntryForm(props: Props) {
             ?.classList.add("field-error");
         }
 
-        // Consider setting the form equal to the converted value to
-        // remove any trailing characters after int conversion
         console.log("convertedQuantity = ", convertedQuantity);
         if (convertedQuantity) {
           setQuantity(convertedQuantity.toString());
@@ -420,8 +378,6 @@ export default function ItemEntryForm(props: Props) {
             ?.classList.add("field-error");
         }
 
-        // Consider setting the form equal to the converted value to
-        // remove any trailing characters after int conversion
         console.log("convertedServing = ", convertedServing);
         if (convertedServing) {
           setServing(convertedServing.toString());
@@ -432,10 +388,12 @@ export default function ItemEntryForm(props: Props) {
         setServingUnit(target.value);
         break;
     }
-  }
+  };
 
-  function buildItemObject() {
-    let item = new Item();
+  // TODO: Consider building this Item through the ItemBuilder available
+  // through pantry-shared module.
+  const buildItemObject = () => {
+    let item = new ItemObject();
     item.setId("");
     item.setName(name);
     item.setBrand(brand);
@@ -450,27 +408,24 @@ export default function ItemEntryForm(props: Props) {
     item.setServingSize(Number.parseInt(serving), servingUnit);
 
     return item;
-  }
+  };
 
-  useEffect(() => {}, []);
-
-  function onSubmit() {
+  const onSubmit = () => {
     if (name === "") {
       alert("Item name is required.");
       return;
     }
 
     let vendorError = false;
-    vendorPrices.forEach((vp) => {
-      if (vendorError === true) {
-        return;
-      }
-
-      if (vp.name === "") {
+    vendorPrices.forEach((vendorPrice) => {
+      if (vendorPrice.name === "") {
         alert("Please make sure all vendors have names!");
         vendorError = true;
         return;
-      } else if (vp.price === "" || isNaN(Number.parseFloat(vp.price))) {
+      } else if (
+        vendorPrice.price === "" ||
+        isNaN(Number.parseFloat(vendorPrice.price))
+      ) {
         alert("Please make sure all vendors have valid prices!");
         vendorError = true;
         return;
@@ -481,13 +436,13 @@ export default function ItemEntryForm(props: Props) {
       return;
     }
 
-    props.submitForm(buildItemObject());
-  }
+    submitForm(buildItemObject());
+  };
 
   return (
-    <div id="container-ief">
-      <div id="parent-ief">
-        <form id="form">
+    <div id="item-entry-form-container">
+      <div id="item-entry-form-parent">
+        <form>
           <FormField
             orientation="horizontal"
             name="name"
@@ -511,18 +466,19 @@ export default function ItemEntryForm(props: Props) {
         </form>
       </div>
 
-      <div id="form-buttons">
-        <button
-          id="back"
-          onClick={() => {
-            goBack();
+      <div id="item-entry-form-buttons">
+        <Button
+          id="item-entry-form-back-button"
+          className="brand-button-red button-medium clickable-button"
+          text="Back"
+          click={() => {
+            onBack();
           }}
-        >
-          Back
-        </button>
+        />
 
         <Button
-          id="submit"
+          id="item-entry-form-submit-button"
+          className="brand-button-green button-medium clickable-button"
           text="Submit"
           click={() => {
             onSubmit();
@@ -531,4 +487,4 @@ export default function ItemEntryForm(props: Props) {
       </div>
     </div>
   );
-}
+};

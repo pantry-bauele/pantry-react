@@ -50,6 +50,11 @@
   color: #ff4646;
 }
 
+.button-small {
+  width: 50px;
+  font-size: 16px;
+}
+
 .button-medium {
   width: 95px;
   font-size: 14px;

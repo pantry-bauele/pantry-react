@@ -1,15 +1,10 @@
 import "../styles/sass/EditItem.css";
 
 import { Navigate, useParams } from "react-router-dom";
-import ItemEntryForm from "../components/ItemEntryForm";
+import { ItemEntryForm } from "../components/ItemEntryForm";
 import { serverSingleton } from "../api/ServerAPI";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-let itemDetailsDefault = new Map<string, boolean>();
-itemDetailsDefault.set("nutrition-button", true);
-itemDetailsDefault.set("spending-button", true);
-itemDetailsDefault.set("supply-button", true);
 
 interface Props {
   accountEmail: string | null;
@@ -79,10 +74,12 @@ export default function EditItem(props: Props) {
       <div id="edit-item-form-container">
         <h1>Edit Item</h1>
         <ItemEntryForm
-          selectedItemDetails={itemDetailsDefault}
+          showNutritionFields={true}
+          showSpendingFields={true}
+          showSupplyFields={true}
           submitForm={submitForm}
           prefill={iDetails}
-          onBack={"/viewItems"}
+          onBack={() => navigate("/viewItems")}
         />
       </div>
     </div>

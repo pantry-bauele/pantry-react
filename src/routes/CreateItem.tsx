@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Item as ItemObject } from "../pantry-shared/src/item";
-import ItemEntryForm from "../components/ItemEntryForm";
+import { ItemEntryForm } from "../components/ItemEntryForm";
 import { serverSingleton } from "../api/ServerAPI";
 
 import "../styles/sass/CreateItem.css";
@@ -129,7 +129,9 @@ export const CreateItem = ({ accountEmail }: Props) => {
       return (
         <>
           <ItemEntryForm
-            selectedItemDetails={selectedItemDetails}
+            showNutritionFields={selectedItemDetails.get("nutrition-button")}
+            showSpendingFields={selectedItemDetails.get("spending-button")}
+            showSupplyFields={selectedItemDetails.get("supply-button")}
             submitForm={submitForm}
             onBack={resetPage}
           />
