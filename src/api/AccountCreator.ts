@@ -8,13 +8,14 @@ export class AccountCreator {
     emailAddress: string,
     password: string
   ) => {
+    // Attempt to locate the account with the server. If it is not found,
+    // attempt to create the account with the Authentication Provider.
     let response = await serverSingleton.getAccount(emailAddress);
-
     if (!response) {
-      console.log("Account does not exist.");
-      // Authentication provider goes first
       let errorCode = await createAuthenticationAccount(emailAddress, password);
-      console.log("Authentication Code:  ", errorCode);
+
+      // If account was successfully created with the Authentication Provider,
+      // create it on the server as well.
       if (errorCode === 0) {
         await serverSingleton.createAccount(emailAddress, firstName, lastName);
         return 0;

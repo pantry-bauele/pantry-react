@@ -5,7 +5,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import { CreateItem } from "./routes/CreateItem";
 import { Login } from "./routes/Login";
-import CreateAccount from "./routes/CreateAccount";
+import { CreateAccount } from "./routes/CreateAccount";
 import { ViewItems } from "./routes/ViewItems";
 import { Pantry } from "./routes/Pantry";
 import { EditItem } from "./routes/EditItem";

@@ -1,20 +1,14 @@
-import "../styles/sass/CreateAccount.css";
-
 import { useEffect, useState } from "react";
-import "../api/AuthenticationService";
-import { AccountCreator } from "../api/AccountCreator";
-import {
-  createUserWithEmailAndPassword,
-  getAuth,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
+import { AccountCreator } from "../api/AccountCreator";
 import { FormField } from "../components/FormField";
 import { Button } from "../components/Button";
-import { serverSingleton } from "../api/ServerAPI";
+import "../api/AuthenticationService";
 
-export default function CreateAccount() {
+import "../styles/sass/CreateAccount.css";
+
+export const CreateAccount = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -28,82 +22,87 @@ export default function CreateAccount() {
   const navigate = useNavigate();
 
   const createAccount = async () => {
-    let error = 0;
-
-    if (firstName.length === 0 || lastName.length === 0) {
-      error = 1;
-    } else if (email.length === 0) {
-      error = 2;
-    } else if (password.length === 0) {
-      error = 3;
-    } else if (confirmPassword.length === 0) {
-      error = 4;
-    } else if (password !== confirmPassword) {
-      error = 5;
-    }
-
-    setAccountError(error);
-    if (error !== 0) {
+    // Validate all the user-supplied fields
+    let validationErrorCode = validateFields();
+    if (validationErrorCode) {
+      setAccountError(validationErrorCode);
       return;
     }
 
+    // Attempt to create the account
     let accountCreator = new AccountCreator();
-    let errorCode = await accountCreator.createAccount(
+    let accountCreationErrorCode = await accountCreator.createAccount(
       firstName,
       lastName,
       email,
       password
     );
 
-    if (errorCode === 0) {
+    if (accountCreationErrorCode === 0) {
       // Account creation was successful, direct to new screen
       navigate("/viewItems");
-    } else if (errorCode === 1) {
+
+      // AccountCreator might return various error codes depending on
+      // what happened with the Authentication Provider.
+    } else if (accountCreationErrorCode === 1) {
       setAccountError(6);
-    } else if (errorCode === 2) {
+    } else if (accountCreationErrorCode === 2) {
       setAccountError(7);
-    } else if (errorCode === 3) {
+    } else if (accountCreationErrorCode === 3) {
       setAccountError(8);
-    } else if (errorCode === -1) {
+    } else if (accountCreationErrorCode === -1) {
       setAccountError(9);
     }
   };
 
-  const renderLoginError = () => {
-    let errorMessage;
-
-    switch (accountError) {
-      case 1:
-        errorMessage = "Please enter your first and last name.";
-        break;
-      case 2:
-        errorMessage = "Please enter an email address.";
-        break;
-      case 3:
-        errorMessage = "Please enter a passwoord.";
-        break;
-      case 4:
-        errorMessage = "Please confirm your password.";
-        break;
-      case 5:
-        errorMessage = "Your passwords do not match.";
-        break;
-      case 6:
-        errorMessage = "Authentication provider error. Please try again later.";
-        break;
-      case 7:
-        errorMessage = "Please enter a valid email address.";
-        break;
-      case 8:
-        errorMessage = "Please enter a password with at least 6 characters.";
-        break;
-      case 9:
-        errorMessage = "That email address is already registered.";
-        break;
+  const validateFields = () => {
+    if (firstName.length === 0 || lastName.length === 0) {
+      return 1;
+    } else if (email.length === 0) {
+      return 2;
+    } else if (password.length === 0) {
+      return 3;
+    } else if (confirmPassword.length === 0) {
+      return 4;
+    } else if (password !== confirmPassword) {
+      return 5;
     }
+  };
 
+  const renderLoginError = () => {
     if (accountError) {
-      return <div id="login-error-message">{errorMessage}</div>;
+      let errorMessage;
+      switch (accountError) {
+        case 1:
+          errorMessage = "Please enter your first and last name.";
+          break;
+        case 2:
+          errorMessage = "Please enter an email address.";
+          break;
+        case 3:
+          errorMessage = "Please enter a passwoord.";
+          break;
+        case 4:
+          errorMessage = "Please confirm your password.";
+          break;
+        case 5:
+          errorMessage = "Your passwords do not match.";
+          break;
+        case 6:
+          errorMessage =
+            "Authentication provider error. Please try again later.";
+          break;
+        case 7:
+          errorMessage = "Please enter a valid email address.";
+          break;
+        case 8:
+          errorMessage = "Please enter a password with at least 6 characters.";
+          break;
+        case 9:
+          errorMessage = "That email address is already registered.";
+          break;
+      }
+      return <div id="create-account-error-message">{errorMessage}</div>;
     }
   };
 
@@ -126,14 +125,16 @@ export default function CreateAccount() {
   };
 
   useEffect(() => {
+    // If user lands on this page while already being logged in,
+    // redirect them to their item page.
     if (activeUser !== null && activeUser !== undefined) {
       navigate("/viewItems");
     }
   }, []);
 
   return (
-    <div id="container-ca">
-      <div id="parent-ca">
+    <div id="create-account-container">
+      <div id="create-account-parent">
         {renderLoginError()}
         <FormField
           name="firstname"
@@ -167,8 +168,12 @@ export default function CreateAccount() {
           onChange={handleChange}
           hideInput={true}
         />
-        <Button id="login-button" text="Create Account" click={createAccount} />
+        <Button
+          id="create-account-button"
+          text="Create Account"
+          click={createAccount}
+        />
       </div>
     </div>
   );
-}
+};
