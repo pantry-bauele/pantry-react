@@ -1,76 +1,92 @@
-import { ItemDisplay } from "../components/ItemDisplay";
-import Item from "../components/items/Item";
+import { useEffect, useState } from "react";
+
+import PantryItem from "../components/items/PantryItem";
+import { PantryItem as PantryItemObject } from "../pantry-shared/src/pantryItem";
+import { PantryItemBuilder } from "../pantry-shared/src/pantryItemBuilder";
+import { Item as ItemObject } from "../pantry-shared/src/item";
 import { UsePantryItemModal } from "../components/UsePantryItemModal";
 import { AddPantryItemModal } from "../components/AddPantryItemModal";
 import { serverSingleton } from "../api/ServerAPI";
-import { useEffect, useState } from "react";
-import { PantryItem as PantryItemObject } from "../pantry-shared/src/pantryItem";
-import { Item as ItemObject } from "../pantry-shared/src/item";
-import { PantryItemBuilder } from "../pantry-shared/src/pantryItemBuilder";
-import PantryItem from "../components/items/PantryItem";
 
 interface Props {
   accountEmail: string | null;
 }
 
-export default function Pantry({ accountEmail }: Props) {
-  let defaultItem = new ItemObject();
-  let defaultPantryItem = new PantryItemObject(defaultItem);
+export const Pantry = ({ accountEmail }: Props) => {
+  const [finishedLoading, setFinishedLoading] = useState(false);
+  const [listItems, setListItems] = useState(Array<JSX.Element>());
 
-  const [listItems, setListItems] = useState("");
+  const [modalTarget, setModalTarget] = useState(
+    new PantryItemObject(new ItemObject())
+  );
   const [showUsePantryItemModal, setShowUsePantryItemModal] = useState(false);
   const [showEditPantryItemModal, setShowEditPantryItemModal] = useState(false);
   const [usePantryItemModalUnits, setUsePantryItemModalUnits] = useState([""]);
-  const [modalTarget, setModalTarget] = useState(defaultPantryItem);
 
-  async function loadItems(emailAddress: string | null) {
-    console.log(`Loading items from ${emailAddress}`);
-
+  const loadItems = async (emailAddress: string | null) => {
     let response;
     if (typeof emailAddress === "string") {
       response = await serverSingleton.loadPantryItems(emailAddress);
     }
 
-    console.log("pantry response = ", response);
     if (response) {
-      console.log(response);
       let pantryItemBuilder = new PantryItemBuilder();
 
-      response.sort((x: PantryItemObject, y: PantryItemObject) => {
-        let xPantryItem = pantryItemBuilder.buildItem(x);
-        let yPantryItem = pantryItemBuilder.buildItem(y);
+      // Sort the items by alphabetical order
+      response.sort((obj1: PantryItemObject, obj2: PantryItemObject) => {
+        // Objects still have to be built before properties on them
+        // can be accessed using the class methods
+        let pantryItem1 = pantryItemBuilder.buildItem(obj1);
+        let pantryItem2 = pantryItemBuilder.buildItem(obj2);
 
-        let xName = xPantryItem.getBaseItem().getName();
-        let yName = yPantryItem.getBaseItem().getName();
+        let pantryItemName1 = pantryItem1.getBaseItem().getName();
+        let pantryItemName2 = pantryItem2.getBaseItem().getName();
 
-        if (xName < yName) {
+        if (pantryItemName1 < pantryItemName2) {
           return -1;
         }
 
-        if (xName > yName) {
+        if (pantryItemName1 > pantryItemName2) {
           return 1;
         }
 
-        if (xName === yName) {
+        if (pantryItemName1 === pantryItemName2) {
         }
       });
 
-      const elements = response.map((element: any) => (
+      const elements = response.map((element: PantryItemObject) => (
         <PantryItem
           key={pantryItemBuilder.buildItem(element).getId()}
           item={pantryItemBuilder.buildItem(element)}
           deleteItem={deleteItem}
           addItem={null}
-          itemUse={itemUse}
+          itemUse={utilizeItem}
           editItem={editItem}
         />
       ));
-      console.log(elements);
       setListItems(elements);
+      setFinishedLoading(true);
     }
-  }
+  };
 
-  async function itemUse(pantryItem: PantryItemObject) {
+  const editItem = (pantryItem: PantryItemObject) => {
+    setShowEditPantryItemModal(true);
+    setModalTarget(pantryItem);
+  };
+
+  const deleteItem = async (pantryItem: PantryItemObject) => {
+    alert(`Deleted item`);
+
+    if (typeof accountEmail === "string") {
+      await serverSingleton.deletePantryItem(accountEmail, pantryItem);
+    }
+
+    await loadItems(accountEmail);
+  };
+
+  // Function name here is a bit awkward due to React's useX naming conventing
+  // for hooks. I was unable to name this function useItem() for such reasons.
+  const utilizeItem = async (pantryItem: PantryItemObject) => {
     if (pantryItem.getAvailableQuantity().amount <= 0) {
       if (accountEmail) {
         await serverSingleton.deletePantryItem(accountEmail, pantryItem);
@@ -81,42 +97,25 @@ export default function Pantry({ accountEmail }: Props) {
       return;
     }
 
-    console.log(pantryItem);
     setShowUsePantryItemModal(true);
     setUsePantryItemModalUnits([pantryItem.getAvailableQuantity().unit]);
     setModalTarget(pantryItem);
-  }
+  };
 
-  function closeModal() {
+  const closeUseModal = () => {
     setShowUsePantryItemModal(false);
-  }
+  };
 
-  async function deleteItem(item: {}) {
-    alert(`Deleted item`);
-    console.log(item);
+  const closeEditModal = () => {
+    setShowEditPantryItemModal(false);
+  };
 
-    if (typeof accountEmail === "string") {
-      await serverSingleton.deletePantryItem(accountEmail, item);
-    } else {
-      console.log("accountEmail is not a string!");
-    }
-
-    await loadItems(accountEmail);
-
-    // Eventually, add support for removing that particular
-    // item from the array here
-  }
-
-  async function submitModal(quantity: string, quantityUnit: string) {
-    console.log("modal quantity = ", quantity);
-    console.log("modal unit = ", quantityUnit);
-    console.log("target = ", modalTarget);
-
+  const submitUseModal = async (quantity: string, quantityUnit: string) => {
     let previousAmount = modalTarget.getAvailableQuantity().amount;
     let newAmount = previousAmount - Number.parseFloat(quantity);
 
     if (isNaN(newAmount)) {
-      alert("Please try again");
+      alert("Please try again!");
       return;
     }
 
@@ -136,22 +135,13 @@ export default function Pantry({ accountEmail }: Props) {
         alert("Quantity has been adjusted.");
       }
     }
-  }
+  };
 
-  function editItem(item: PantryItemObject) {
-    setShowEditPantryItemModal(true);
-    setModalTarget(item);
-  }
-
-  function closeEditModal() {
-    setShowEditPantryItemModal(false);
-  }
-
-  async function submitEditModal(
+  const submitEditModal = async (
     quantity: string,
     quantityUnit: string,
     expirationDate: Date
-  ) {
+  ) => {
     expirationDate = new Date(expirationDate);
 
     modalTarget.setExpirationDate(
@@ -165,27 +155,28 @@ export default function Pantry({ accountEmail }: Props) {
       await loadItems(accountEmail);
       alert("Expiration date updated!");
     }
-  }
+  };
 
   useEffect(() => {
     loadItems(accountEmail);
   }, [accountEmail]);
 
-  function renderNoItems() {
-    if (listItems.length === 0) {
-      return <div id="no-item-message">You haven't added any items yet!</div>;
-    }
-  }
-
   return (
     <div id="view-items-container">
       <h1 id="items-heading">Pantry Items</h1>
-      {renderNoItems()}
+      {!finishedLoading && (
+        <div id="view-items-loading-text">Loading your items...</div>
+      )}
+      {finishedLoading && listItems.length === 0 && (
+        <div id="view-items-no-items-text">
+          You haven't added any items yet!
+        </div>
+      )}
       <div id="items"> {listItems} </div>
       <UsePantryItemModal
         isOpen={showUsePantryItemModal}
-        closeModal={closeModal}
-        submitModal={submitModal}
+        closeModal={closeUseModal}
+        submitModal={submitUseModal}
         availableUnits={usePantryItemModalUnits}
       />
       <AddPantryItemModal
@@ -195,4 +186,4 @@ export default function Pantry({ accountEmail }: Props) {
       />
     </div>
   );
-}
+};
