@@ -10,9 +10,9 @@ itemDetailsDefault.set("nutrition-button", false);
 itemDetailsDefault.set("spending-button", false);
 itemDetailsDefault.set("supply-button", false);
 
-type Props = {
+interface Props {
   accountEmail: string | null;
-};
+}
 
 export const CreateItem = ({ accountEmail }: Props) => {
   const [selectedItemDetails, setSelectedItemDetails] = useState(
