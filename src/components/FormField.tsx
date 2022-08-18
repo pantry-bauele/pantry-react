@@ -19,6 +19,7 @@ export const FormField = ({
   onBlur,
   name,
   hideInput,
+  value,
 }: Props) => {
   return (
     <div className={`form-container-${orientation}`}>
@@ -30,6 +31,7 @@ export const FormField = ({
         onChange={onChange}
         onBlur={onBlur}
         type={hideInput ? "password" : "text"}
+        value={value}
       />
     </div>
   );
