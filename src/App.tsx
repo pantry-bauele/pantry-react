@@ -12,7 +12,6 @@ import { EditItem } from "./routes/EditItem";
 import { Layout } from "./routes/Layout";
 import { Home } from "./routes/Home";
 import { Logout } from "./routes/Logout";
-import { Placeholder } from "./routes/Placeholder";
 
 import {
   AuthenticationProvider,
@@ -49,7 +48,6 @@ const App = () => {
             element={<Layout loggedIn={activeUser ? true : false} />}
           >
             <Route path="/" element={<Home />} />
-            <Route path="/placeHolder" element={<Placeholder />} />
             <Route path="/login" element={<Login />} />
             <Route path="/createAccount" element={<CreateAccount />} />
             <Route
