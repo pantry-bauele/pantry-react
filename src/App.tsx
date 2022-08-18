@@ -26,8 +26,6 @@ const App = () => {
   let navigate = useNavigate();
 
   useEffect(() => {
-    console.log("Current user is ", activeUser);
-
     onAuthStateChanged(getAuth(), (newUser) => {
       if (newUser?.email !== null && newUser?.email !== undefined) {
         setActiveUser(newUser?.email);

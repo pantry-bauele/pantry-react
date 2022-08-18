@@ -22,17 +22,12 @@ export const ViewItems = ({ accountEmail }: Props) => {
   );
 
   const loadItems = async (accountEmail: string | null) => {
-    console.log(`Loading items from ${accountEmail}`);
-
     let response;
     if (typeof accountEmail === "string") {
       response = await server.loadItems(accountEmail);
     }
 
-    console.log("response = ", response);
     if (response) {
-      console.log(response);
-
       let itemBuilder = new ItemBuilder();
       const elements: Array<JSX.Element> = response.map(
         (element: ItemObject) => (
@@ -45,7 +40,6 @@ export const ViewItems = ({ accountEmail }: Props) => {
         )
       );
 
-      console.log(elements);
       setListItems(elements);
       setFinishedLoading(true);
     }

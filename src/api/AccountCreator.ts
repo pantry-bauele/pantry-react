@@ -23,7 +23,6 @@ export class AccountCreator {
         return errorCode;
       }
     } else {
-      console.log("Account already exists.");
       return -1;
     }
   };
