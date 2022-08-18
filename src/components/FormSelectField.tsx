@@ -18,7 +18,7 @@ export const FormSelectField = ({ onChange, options, name, value }: Props) => {
   });
 
   return (
-    <div id="form-select-container">
+    <div className="form-select-container">
       <select
         value={value}
         className="form-select"
