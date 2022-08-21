@@ -86,6 +86,7 @@ class ServerAPI {
     } catch (error) {
       console.log("loadItems() error");
       console.log(error);
+      return false;
     }
   }
 
