@@ -18,7 +18,11 @@ export const Login = () => {
   const authenticate = () => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
+      .then((userCredential) => {
+        localStorage.setItem(
+          "pantry-firebase-credential",
+          JSON.stringify(userCredential)
+        );
         navigate("/");
       })
       .catch(() => {
