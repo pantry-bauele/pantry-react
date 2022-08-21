@@ -270,6 +270,7 @@ class ServerAPI {
     } catch (error) {
       console.log("editItem() error");
       console.log(error);
+      return false;
     }
   }
 }
