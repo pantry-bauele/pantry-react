@@ -1,5 +1,8 @@
 #create-item-container {
   background-color: #fffde4;
+  height: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 #create-item-form-container {

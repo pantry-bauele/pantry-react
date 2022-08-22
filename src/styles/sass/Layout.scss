@@ -10,6 +10,10 @@
   height: 100vh;
 }
 
+#layout-outlet {
+  flex-grow: 1;
+}
+
 #layout-navigation-bar {
   background-color: #fffde4;
 

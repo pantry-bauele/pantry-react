@@ -2,6 +2,10 @@
 
 #create-item-container {
   background-color: base.$background-color;
+
+  height: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 #create-item-form-container {
