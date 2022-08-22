@@ -18,14 +18,14 @@ export const Login = () => {
   const authenticate = () => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then((userCredentials) => {
         localStorage.setItem(
           "pantry-firebase-credentials",
-          JSON.stringify(userCredential)
+          JSON.stringify(userCredentials)
         );
         navigate("/");
       })
-      .catch(() => {
+      .catch((error: any) => {
         setLoginError(true);
       });
   };

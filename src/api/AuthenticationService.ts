@@ -34,8 +34,11 @@ export const createAuthenticationAccount = async (
   let errorCode;
 
   await createUserWithEmailAndPassword(getAuth(), emailAddress, password)
-    .then(() => {
-      // Signed in successfully
+    .then((userCredentials) => {
+      localStorage.setItem(
+        "pantry-firebase-credentials",
+        JSON.stringify(userCredentials)
+      );
       errorCode = 0;
     })
     .catch((error) => {
