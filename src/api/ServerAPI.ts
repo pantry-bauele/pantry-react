@@ -40,18 +40,14 @@ class ServerAPI {
     firstName: string,
     lastName: string
   ) {
-    let account = {
-      emailAddress: emailAddress,
-      firstName: firstName,
-      lastName: lastName,
-    };
-
     try {
       let response = await axios({
         method: "post",
         url: `${this.serverURL}/create-account`,
         params: {
-          account: account,
+          emailAddress: emailAddress,
+          firstName: firstName,
+          lastName: lastName,
         },
       });
 
