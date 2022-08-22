@@ -20,7 +20,7 @@ export const Login = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         localStorage.setItem(
-          "pantry-firebase-credential",
+          "pantry-firebase-credentials",
           JSON.stringify(userCredential)
         );
         navigate("/");

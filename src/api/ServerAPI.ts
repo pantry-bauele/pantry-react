@@ -74,6 +74,7 @@ class ServerAPI {
         url: `${this.serverURL}/get-all-items`,
         params: {
           emailAddress: emailAddress,
+          credentials: localStorage.getItem("pantry-firebase-credentials"),
         },
       });
 
@@ -275,4 +276,4 @@ class ServerAPI {
   }
 }
 
-export const server = new ServerAPI("https://bauele.com", "3001");
+export const server = new ServerAPI("http://192.168.0.7", "3001");

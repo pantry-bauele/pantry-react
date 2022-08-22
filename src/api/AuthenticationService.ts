@@ -55,6 +55,6 @@ export const createAuthenticationAccount = async (
 
 export const logoutUser = () => {
   signOut(getAuth());
-  localStorage.removeItem("pantry-firebase-credential");
+  localStorage.removeItem("pantry-firebase-credentials");
   localStorage.removeItem("pantry-app-loggedIn");
 };
