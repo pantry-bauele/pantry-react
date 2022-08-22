@@ -1,9 +1,9 @@
 #authentication-container {
-  margin-top: 3px;
   background-color: #fffde4;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
 }
 
 #authentication-text {

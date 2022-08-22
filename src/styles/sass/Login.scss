@@ -1,7 +1,6 @@
 @use "base";
 
 #login-container {
-  margin-top: 3px;
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
@@ -12,7 +11,6 @@
 }
 
 #login-form-container {
-  margin-top: 3px;
   display: flex;
   flex-direction: column;
   justify-content: center;

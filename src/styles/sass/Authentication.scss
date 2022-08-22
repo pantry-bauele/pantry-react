@@ -1,11 +1,11 @@
 @use "base";
 
 #authentication-container {
-  margin-top: 3px;
   background-color: base.$background-color;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
 }
 
 #authentication-text {
