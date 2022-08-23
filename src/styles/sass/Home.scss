@@ -118,11 +118,6 @@
     display: flex;
   }
 
-  #promo-banner-bottom-action-vertical-container {
-    //display: none;
-    //border: 12px solid blue;
-  }
-
   #promo-banner-container {
     height: 70vw;
   }
@@ -149,17 +144,19 @@
   #hero-promo-banner-horizontal-container {
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
 
     height: 80%;
   }
 
   #hero-container {
     height: 100%;
-    width: 45vw;
-    z-index: 10;
+
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    flex-grow: 1;
   }
 
   #hero-info-container {
@@ -186,43 +183,15 @@
     display: none;
   }
 
-  #promo-banner-bottom-action-vertical-container {
-    visibility: unset;
-  }
-
   #promo-banner-container {
-    background-color: base.$brand-color;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 65vw;
+    width: 700px;
     height: 100%;
+    min-height: 500px;
   }
 
-  #bottom-action-container {
-    height: 200px;
+  #promo-banner-image {
+    background-size: 600px 500px;
   }
 }
 @media screen and (min-width: 1550px) {
-  /*
-  #promo-banner-image {
-    width: 95%;
-    height: 95%;
-
-    //border-top-left-radius: 150px 150px;
-    //border-bottom-left-radius: 150px 150px;
-
-    //border-top-right-radius: 50px 50px;
-    //border-bottom-right-radius: 50px 50px;
-    border-radius: 50px;
-
-    background-image: url("../../assets/promo.png");
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: center !important;
-
-    //border: 2px solid green !important;
-  }
-  */
 }
