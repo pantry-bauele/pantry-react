@@ -87,41 +87,33 @@ class ServerAPI {
       // response will thrown an error if the server responds with a
       // status code outside of the 200s
       if (response) {
-        console.log("response = ", response);
-
-        console.log(response.data);
         return response.data;
-      } else {
-        console.log("No response");
       }
     } catch (error) {
-      console.log("loadItems() error");
       console.log(error);
       return false;
     }
   };
 
-  async loadPantryItems(emailAddress: string) {
+  loadPantryItems = async (emailAddress: string) => {
     try {
       let response = await axios({
         method: "get",
         url: `${this.serverURL}/get-all-pantry-items`,
+        timeout: this.timeout,
         params: {
           emailAddress: emailAddress,
         },
       });
 
-      if (response.data) {
-        console.log(response.data);
+      if (response) {
         return response.data;
-      } else {
-        console.log("No response");
       }
     } catch (error) {
-      console.log("loadPantryItems() error");
       console.log(error);
+      return false;
     }
-  }
+  };
 
   async getItem(emailAddress: string, itemId: string) {
     try {
@@ -286,4 +278,4 @@ class ServerAPI {
   }
 }
 
-export const server = new ServerAPI("http://192.168.0.7", "3001", 0);
+export const server = new ServerAPI("http://192.168.0.7", "3001");

@@ -14,6 +14,7 @@ interface Props {
 
 export const Pantry = ({ accountEmail }: Props) => {
   const [finishedLoading, setFinishedLoading] = useState(false);
+  const [loadingError, setLoadingError] = useState(false);
   const [listItems, setListItems] = useState(Array<JSX.Element>());
 
   const [modalTarget, setModalTarget] = useState(
@@ -66,6 +67,8 @@ export const Pantry = ({ accountEmail }: Props) => {
       ));
       setListItems(elements);
       setFinishedLoading(true);
+    } else {
+      setLoadingError(true);
     }
   };
 
@@ -164,12 +167,17 @@ export const Pantry = ({ accountEmail }: Props) => {
   return (
     <div id="view-items-container">
       <h1 id="items-heading">Pantry Items</h1>
-      {!finishedLoading && (
+      {!finishedLoading && !loadingError && (
         <div id="view-items-loading-text">Loading your items...</div>
       )}
       {finishedLoading && listItems.length === 0 && (
         <div id="view-items-no-items-text">
           You haven't added any items yet!
+        </div>
+      )}
+      {loadingError && (
+        <div id="view-items-loading-text">
+          There was an error processing your request. Please try again.
         </div>
       )}
       <div id="items"> {listItems} </div>
