@@ -170,6 +170,7 @@ export const CreateAccount = () => {
         />
         <Button
           id="create-account-button"
+          className="brand-button-red button-large clickable-button button-top-margin"
           text="Create Account"
           click={createAccount}
         />
