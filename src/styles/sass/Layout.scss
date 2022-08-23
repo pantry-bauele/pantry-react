@@ -12,6 +12,8 @@
 
 #layout-outlet {
   flex-grow: 1;
+  background-color: base.$background-color;
+  padding-bottom: 50px;
 }
 
 #layout-navigation-bar {

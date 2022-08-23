@@ -9,6 +9,8 @@
 
 #layout-outlet {
   flex-grow: 1;
+  background-color: #fffde4;
+  padding-bottom: 50px;
 }
 
 #layout-navigation-bar {
