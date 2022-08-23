@@ -30,7 +30,7 @@ export const Pantry = ({ accountEmail }: Props) => {
       response = await server.loadPantryItems(emailAddress);
     }
 
-    if (response) {
+    if (Array.isArray(response)) {
       let pantryItemBuilder = new PantryItemBuilder();
 
       // Sort the items by alphabetical order
@@ -51,8 +51,7 @@ export const Pantry = ({ accountEmail }: Props) => {
           return 1;
         }
 
-        if (pantryItemName1 === pantryItemName2) {
-        }
+        return 0;
       });
 
       const elements = response.map((element: PantryItemObject) => (
