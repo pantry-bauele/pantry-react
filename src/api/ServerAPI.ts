@@ -182,28 +182,26 @@ class ServerAPI {
     }
   };
 
-  async deleteItem(emailAddress: string, item: any) {
+  deleteItem = async (emailAddress: string, item: any) => {
     try {
       let response = await axios({
         method: "post",
         url: `${this.serverURL}/delete-item`,
+        timeout: this.timeout,
         params: {
           emailAddress: emailAddress,
           itemObject: item,
         },
       });
 
-      if (response.data) {
-        console.log(response.data);
+      if (response) {
         return response.data;
-      } else {
-        console.log("No response");
       }
     } catch (error) {
-      console.log("deleteItem() error");
       console.log(error);
+      return false;
     }
-  }
+  };
 
   async deletePantryItem(emailAddress: string, item: any) {
     try {

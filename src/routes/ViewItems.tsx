@@ -54,11 +54,14 @@ export const ViewItems = ({ accountEmail }: Props) => {
   };
 
   const deleteItem = async (item: ItemObject) => {
-    alert(`Deleted item`);
-
     if (typeof accountEmail === "string") {
-      await server.deleteItem(accountEmail, item);
-      await loadItems(accountEmail);
+      let result = await server.deleteItem(accountEmail, item);
+      if (result) {
+        alert("Item deleted!");
+        await loadItems(accountEmail);
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
     }
   };
 
