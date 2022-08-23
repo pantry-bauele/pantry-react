@@ -64,7 +64,7 @@ export const Login = () => {
           hideInput={true}
         />
         <Button
-          className="brand-button-red button-large clickable-button"
+          className="brand-button-red button-large clickable-button button-top-margin"
           text="Log In"
           click={authenticate}
         />
