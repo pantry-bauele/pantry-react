@@ -28,7 +28,10 @@ export const ViewItems = ({ accountEmail }: Props) => {
       response = await server.loadItems(accountEmail);
     }
 
-    if (response) {
+    // The respond should be an array of item objects. If it's
+    // not, an error has occured and the data is invalid.
+    if (Array.isArray(response)) {
+      console.log(response);
       let itemBuilder = new ItemBuilder();
       const elements: Array<JSX.Element> = response.map(
         (element: ItemObject) => (
