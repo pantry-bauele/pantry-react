@@ -1,5 +1,12 @@
 @use "base";
 
+@media (hover: hover) and (pointer: fine) {
+  #navbar-create-item:hover {
+    background-color: base.$interaction-color;
+    border-color: base.$interaction-color;
+  }
+}
+
 #navbar-container {
   background-color: base.$background-color;
 
@@ -63,9 +70,4 @@
 
   font-size: 40px;
   font-family: Arial;
-}
-
-#navbar-create-item:hover {
-  background-color: base.$interaction-color;
-  border-color: base.$interaction-color;
 }

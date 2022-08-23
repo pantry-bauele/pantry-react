@@ -3,8 +3,7 @@
 // Only enable hover effects for appropiate devices
 @media (hover: hover) and (pointer: fine) {
   .clickable-button:hover {
-    //background-color: base.$neutral-color;
-    background-color: #ffb01f;
+    background-color: base.$interaction-color;
     border: none;
     color: white;
   }

@@ -1,3 +1,9 @@
+@media (hover: hover) and (pointer: fine) {
+  #navbar-create-item:hover {
+    background-color: #ffb01f;
+    border-color: #ffb01f;
+  }
+}
 #navbar-container {
   background-color: #fffde4;
   display: flex;
@@ -51,11 +57,6 @@
   align-items: center;
   font-size: 40px;
   font-family: Arial;
-}
-
-#navbar-create-item:hover {
-  background-color: #ffb01f;
-  border-color: #ffb01f;
 }
 
 /*# sourceMappingURL=Navbar.css.map */
