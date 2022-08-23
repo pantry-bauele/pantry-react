@@ -14,7 +14,6 @@ export const Navbar = () => {
   useEffect(() => {
     if (selectedTab.id) {
       selectedTab.classList.remove("navbar-item-selected");
-      console.log("true");
     }
 
     let target;
