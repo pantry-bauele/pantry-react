@@ -1,33 +1,43 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { validMeasurementUnit } from "../pantry-shared/src/measurementUnits";
+import { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import "../styles/sass/Navbar.css";
 
 export const Navbar = () => {
   let navigate = useNavigate();
-  const [selectedTab, setSelectedTab] = useState(document.createElement("div"));
+  let { pathname } = useLocation();
 
-  function setTab(event: React.MouseEvent<HTMLDivElement>) {
-    console.log("setTab called");
+  const [selectedTab, setSelectedTab] = useState(
+    document.createElement("null")
+  );
 
-    let previousTarget = selectedTab;
-    let currentTarget = event.currentTarget;
-    console.log("previousTarget = ", previousTarget);
-    console.log("currentTarget = ", currentTarget);
+  useEffect(() => {
+    if (selectedTab.id) {
+      selectedTab.classList.remove("navbar-item-selected");
+      console.log("true");
+    }
 
-    previousTarget.classList.remove("navbar-item-selected");
-    currentTarget.classList.add("navbar-item-selected");
+    let target;
+    if (pathname === "/viewItems") {
+      target = document.getElementById("navbar-view-items-container");
+    } else if (pathname == "/pantry") {
+      target = document.getElementById("navbar-pantry-container");
+    }
 
-    setSelectedTab(currentTarget);
-  }
+    if (!target) {
+      return;
+    }
+
+    target.classList.add("navbar-item-selected");
+    setSelectedTab(target);
+  });
 
   return (
     <div id="navbar-container">
       <div
+        id="navbar-pantry-container"
         className="navbar-item"
-        onClick={(event) => {
-          setTab(event);
+        onClick={() => {
           navigate("/pantry");
         }}
       >
@@ -38,8 +48,7 @@ export const Navbar = () => {
       <div id="navbar-create-item-container">
         <div
           id="navbar-create-item"
-          onClick={(event) => {
-            setTab(event);
+          onClick={() => {
             navigate("/createItem");
           }}
         >
@@ -48,9 +57,9 @@ export const Navbar = () => {
       </div>
 
       <div
+        id="navbar-view-items-container"
         className="navbar-item"
-        onClick={(event) => {
-          setTab(event);
+        onClick={() => {
           navigate("/viewItems");
         }}
       >
