@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { Item as ItemObject } from "../pantry-shared/src/item";
-import { PantryItem } from "../pantry-shared/src/pantryItem";
+import { PantryItem as PantryItemObject } from "../pantry-shared/src/pantryItem";
 
 class ServerAPI {
   ipAddress: string;
@@ -158,11 +158,15 @@ class ServerAPI {
     }
   };
 
-  async createPantryItem(pantryItem: PantryItem, emailAddress: string) {
+  createPantryItem = async (
+    pantryItem: PantryItemObject,
+    emailAddress: string
+  ) => {
     try {
       let response = await axios({
         method: "post",
         url: `${this.serverURL}/create-pantry-item`,
+        timeout: this.timeout,
         params: {
           emailAddress: emailAddress,
           itemObject: pantryItem,
@@ -170,16 +174,13 @@ class ServerAPI {
       });
 
       if (response.data) {
-        console.log(response.data);
         return response.data;
-      } else {
-        console.log("No response");
       }
     } catch (error) {
-      console.log("createPantryItem() error");
       console.log(error);
+      return false;
     }
-  }
+  };
 
   async deleteItem(emailAddress: string, item: any) {
     try {

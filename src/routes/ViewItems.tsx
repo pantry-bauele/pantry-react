@@ -90,11 +90,14 @@ export const ViewItems = ({ accountEmail }: Props) => {
       }
 
       if (accountEmail !== null) {
-        await server.createPantryItem(pantryItem, accountEmail);
+        let result = await server.createPantryItem(pantryItem, accountEmail);
+        if (result) {
+          alert("Added item to pantry!");
+        } else {
+          alert("Something went wrong. Please try again.");
+        }
       }
     }
-
-    alert("Added item to pantry!");
   };
 
   useEffect(() => {
