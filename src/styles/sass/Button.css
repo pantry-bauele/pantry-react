@@ -1,6 +1,6 @@
 @media (hover: hover) and (pointer: fine) {
   .clickable-button:hover {
-    background-color: #d0d1dd;
+    background-color: #ffb01f;
     border: none;
     color: white;
   }
