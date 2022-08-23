@@ -77,10 +77,13 @@ export const Pantry = ({ accountEmail }: Props) => {
   };
 
   const deleteItem = async (pantryItem: PantryItemObject) => {
-    alert(`Deleted item`);
-
     if (typeof accountEmail === "string") {
-      await server.deletePantryItem(accountEmail, pantryItem);
+      let result = await server.deletePantryItem(accountEmail, pantryItem);
+      if (result) {
+        alert("Pantry item deleted!");
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
     }
 
     await loadItems(accountEmail);
