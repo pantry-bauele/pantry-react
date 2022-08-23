@@ -24,8 +24,12 @@ export const EditItem = ({ accountEmail }: Props) => {
     if (typeof id === "string") {
       item.setId(id);
       if (typeof accountEmail === "string") {
-        await server.editItem(accountEmail, item);
-        alert("Submitted your item!");
+        let result = await server.editItem(accountEmail, item);
+        if (result) {
+          alert("Edited your item!");
+        } else {
+          alert("Something went wrong. Please try again.");
+        }
       } else {
         alert("An unexpected error occured. Please try again.");
       }
