@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { Method } from "axios";
 
 import { Item as ItemObject } from "../pantry-shared/src/item";
 import { PantryItem as PantryItemObject } from "../pantry-shared/src/pantryItem";
@@ -73,16 +73,18 @@ class ServerAPI {
     }
   }
 
-  loadItems = async (emailAddress: string) => {
+  serverRequest = async (
+    method: Method,
+    endpoint: string,
+    params: any,
+    timeout: number
+  ) => {
     try {
       let response = await axios({
-        method: "get",
-        url: `${this.serverURL}/get-all-items`,
-        timeout: this.timeout,
-        params: {
-          emailAddress: emailAddress,
-          credentials: localStorage.getItem("pantry-firebase-credentials"),
-        },
+        method: method,
+        url: `${this.serverURL}/${endpoint}`,
+        timeout: timeout,
+        params: params,
       });
 
       // response will thrown an error if the server responds with a
@@ -96,182 +98,121 @@ class ServerAPI {
     }
   };
 
-  loadPantryItems = async (emailAddress: string) => {
-    try {
-      let response = await axios({
-        method: "get",
-        url: `${this.serverURL}/get-all-pantry-items`,
-        timeout: this.timeout,
-        params: {
-          emailAddress: emailAddress,
-        },
-      });
+  loadItems = async (emailAddress: string) => {
+    return await this.serverRequest(
+      "get",
+      "get-all-items",
+      {
+        emailAddress: emailAddress,
+        credentials: localStorage.getItem("pantry-firebase-credentials"),
+      },
+      this.timeout
+    );
+  };
 
-      if (response) {
-        return response.data;
-      }
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
+  loadPantryItems = async (emailAddress: string) => {
+    return await this.serverRequest(
+      "get",
+      "get-all-pantry-items",
+      {
+        emailAddress: emailAddress,
+      },
+      this.timeout
+    );
   };
 
   getItem = async (emailAddress: string, itemId: string) => {
-    try {
-      let response = await axios({
-        method: "get",
-        url: `${this.serverURL}/get-item`,
-        timeout: this.timeout,
-        params: {
-          emailAddress: emailAddress,
-          itemId: itemId,
-        },
-      });
-
-      if (response) {
-        return response.data;
-      }
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
+    return await this.serverRequest(
+      "get",
+      "get-item",
+      {
+        emailAddress: emailAddress,
+        itemId: itemId,
+      },
+      this.timeout
+    );
   };
 
   createItem = async (emailAddress: string, item: ItemObject) => {
-    try {
-      let response = await axios({
-        method: "post",
-        url: `${this.serverURL}/create-item`,
-        timeout: this.timeout,
-        params: {
-          emailAddress: emailAddress,
-          itemObject: item,
-        },
-      });
-
-      if (response) {
-        return response.data;
-      }
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
+    return await this.serverRequest(
+      "post",
+      "create-item",
+      {
+        emailAddress: emailAddress,
+        itemObject: item,
+      },
+      this.timeout
+    );
   };
 
   createPantryItem = async (
     pantryItem: PantryItemObject,
     emailAddress: string
   ) => {
-    try {
-      let response = await axios({
-        method: "post",
-        url: `${this.serverURL}/create-pantry-item`,
-        timeout: this.timeout,
-        params: {
-          emailAddress: emailAddress,
-          itemObject: pantryItem,
-        },
-      });
-
-      if (response.data) {
-        return response.data;
-      }
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
+    return await this.serverRequest(
+      "post",
+      "create-pantry-item",
+      {
+        emailAddress: emailAddress,
+        itemObject: pantryItem,
+      },
+      this.timeout
+    );
   };
 
-  deleteItem = async (emailAddress: string, item: any) => {
-    try {
-      let response = await axios({
-        method: "post",
-        url: `${this.serverURL}/delete-item`,
-        timeout: this.timeout,
-        params: {
-          emailAddress: emailAddress,
-          itemObject: item,
-        },
-      });
-
-      if (response) {
-        return response.data;
-      }
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
+  deleteItem = async (emailAddress: string, item: ItemObject) => {
+    return await this.serverRequest(
+      "post",
+      "delete-item",
+      {
+        emailAddress: emailAddress,
+        itemObject: item,
+      },
+      this.timeout
+    );
   };
 
-  async deletePantryItem(emailAddress: string, item: any) {
-    try {
-      let response = await axios({
-        method: "post",
-        url: `${this.serverURL}/delete-pantry-item`,
-        params: {
-          emailAddress: emailAddress,
-          itemObject: item,
-        },
-      });
+  deletePantryItem = async (
+    emailAddress: string,
+    pantryItem: PantryItemObject
+  ) => {
+    return await this.serverRequest(
+      "post",
+      "delete-pantry-item",
+      {
+        emailAddress: emailAddress,
+        itemObject: pantryItem,
+      },
+      this.timeout
+    );
+  };
 
-      if (response.data) {
-        console.log(response.data);
-        return response.data;
-      } else {
-        console.log("No response");
-      }
-    } catch (error) {
-      console.log("deletePantryItem() error");
-      console.log(error);
-    }
-  }
+  editPantryItem = async (
+    emailAddress: string,
+    pantryItem: PantryItemObject
+  ) => {
+    return await this.serverRequest(
+      "post",
+      "edit-pantry-item",
+      {
+        emailAddress: emailAddress,
+        itemObject: pantryItem,
+      },
+      this.timeout
+    );
+  };
 
-  async editPantryItem(emailAddress: string, item: any) {
-    try {
-      let response = await axios({
-        method: "post",
-        url: `${this.serverURL}/edit-pantry-item`,
-        params: {
-          emailAddress: emailAddress,
-          itemObject: item,
-        },
-      });
-
-      if (response.data) {
-        console.log(response.data);
-        return response.data;
-      } else {
-        console.log("No response");
-      }
-    } catch (error) {
-      console.log("editPantryItem() error");
-      console.log(error);
-    }
-  }
-
-  async editItem(emailAddress: string, item: any) {
-    try {
-      let response = await axios({
-        method: "post",
-        url: `${this.serverURL}/edit-item`,
-        params: {
-          emailAddress: emailAddress,
-          itemObject: item,
-        },
-      });
-
-      if (response.data) {
-        console.log(response.data);
-        return response.data;
-      } else {
-        console.log("No response");
-      }
-    } catch (error) {
-      console.log("editItem() error");
-      console.log(error);
-      return false;
-    }
-  }
+  editItem = async (emailAddress: string, item: ItemObject) => {
+    return await this.serverRequest(
+      "post",
+      "edit-item",
+      {
+        emailAddress: emailAddress,
+        itemObject: item,
+      },
+      this.timeout
+    );
+  };
 }
 
 export const server = new ServerAPI("http://192.168.0.7", "3001");
