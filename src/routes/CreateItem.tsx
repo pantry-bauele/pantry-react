@@ -67,10 +67,13 @@ export const CreateItem = ({ accountEmail }: Props) => {
   };
 
   const submitForm = async (item: ItemObject) => {
-    alert("Submitted your item!");
-
     if (typeof accountEmail === "string") {
-      await server.createItem(accountEmail, item);
+      let result = await server.createItem(accountEmail, item);
+      if (result) {
+        alert("Submitted your item!");
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
     }
   };
 
