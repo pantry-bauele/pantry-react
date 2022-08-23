@@ -1,4 +1,5 @@
 import axios, { Method } from "axios";
+import { getAuth } from "firebase/auth";
 
 import { Item as ItemObject } from "../pantry-shared/src/item";
 import { PantryItem as PantryItemObject } from "../pantry-shared/src/pantryItem";
@@ -104,7 +105,7 @@ class ServerAPI {
       "get-all-items",
       {
         emailAddress: emailAddress,
-        credentials: localStorage.getItem("pantry-firebase-credentials"),
+        idToken: await getAuth().currentUser?.getIdToken(),
       },
       this.timeout
     );
