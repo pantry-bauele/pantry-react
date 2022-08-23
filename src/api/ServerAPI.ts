@@ -6,11 +6,20 @@ class ServerAPI {
   ipAddress: string;
   port: string;
   serverURL: string;
+  timeout = 5000;
 
-  constructor(ipAddress: string, port: string) {
+  constructor(ipAddress: string, port: string, timeout?: number) {
     this.ipAddress = ipAddress;
     this.port = port;
     this.serverURL = ipAddress + ":" + port;
+
+    if (timeout !== undefined) {
+      if (timeout < 0) {
+        throw new Error("timeout value must be a positive or 0 value");
+      }
+
+      this.timeout = timeout;
+    }
   }
 
   async getAccount(emailAddress: string) {
@@ -63,18 +72,23 @@ class ServerAPI {
     }
   }
 
-  async loadItems(emailAddress: string) {
+  loadItems = async (emailAddress: string) => {
     try {
       let response = await axios({
         method: "get",
         url: `${this.serverURL}/get-all-items`,
+        timeout: this.timeout,
         params: {
           emailAddress: emailAddress,
           credentials: localStorage.getItem("pantry-firebase-credentials"),
         },
       });
 
-      if (response.data) {
+      // response will thrown an error if the server responds with a
+      // status code outside of the 200s
+      if (response) {
+        console.log("response = ", response);
+
         console.log(response.data);
         return response.data;
       } else {
@@ -85,7 +99,7 @@ class ServerAPI {
       console.log(error);
       return false;
     }
-  }
+  };
 
   async loadPantryItems(emailAddress: string) {
     try {
@@ -272,4 +286,4 @@ class ServerAPI {
   }
 }
 
-export const server = new ServerAPI("http://192.168.0.7", "3001");
+export const server = new ServerAPI("http://192.168.0.7", "3001", 0);
