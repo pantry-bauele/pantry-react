@@ -1,3 +1,8 @@
+@media (hover: hover) and (pointer: fine) {
+  #header-site-details:hover {
+    filter: brightness(0%) saturate(100%) invert(86%) sepia(42%) saturate(5332%) hue-rotate(342deg) brightness(109%) contrast(103%);
+  }
+}
 #header-container {
   background: #fffde4;
   display: flex;
@@ -7,7 +12,6 @@
   height: 70px;
   padding-left: 10px;
   padding-right: 10px;
-  z-index: 1;
 }
 
 #header-site-details {
