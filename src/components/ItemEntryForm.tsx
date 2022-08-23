@@ -184,18 +184,16 @@ export const ItemEntryForm = ({
       });
 
       return (
-        <>
-          <label id="item-entry-form-vendor-heading">
-            <p>Vendors</p>
-            {vendorPriceElements}
-            <Button
-              className="brand-button-white button-small clickable-button"
-              id="item-entry-form-add-vendor-button"
-              click={(event) => addVendorPrice(event)}
-              text="+"
-            />
-          </label>
-        </>
+        <div id="item-entry-form-vendor-heading">
+          <p>Vendors</p>
+          {vendorPriceElements}
+          <Button
+            className="brand-button-white button-small clickable-button"
+            id="item-entry-form-add-vendor-button"
+            click={(event) => addVendorPrice(event)}
+            text="+"
+          />
+        </div>
       );
     }
   };
