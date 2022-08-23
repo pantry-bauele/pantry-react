@@ -12,6 +12,7 @@
   height: 70px;
   padding-left: 10px;
   padding-right: 10px;
+  z-index: 1;
 }
 
 #header-site-details {
