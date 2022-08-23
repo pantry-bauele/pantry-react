@@ -107,7 +107,7 @@ export const ViewItems = ({ accountEmail }: Props) => {
       {!finishedLoading && !loadingError && (
         <div id="view-items-loading-text">Loading your items...</div>
       )}
-      {finishedLoading && !loadingError && listItems.length === 0 && (
+      {finishedLoading && listItems.length === 0 && (
         <div id="view-items-no-items-text">
           You haven't added any items yet!
         </div>
