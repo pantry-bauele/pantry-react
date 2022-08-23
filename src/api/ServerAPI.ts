@@ -117,6 +117,7 @@ class ServerAPI {
       "get-all-pantry-items",
       {
         emailAddress: emailAddress,
+        idToken: await getAuth().currentUser?.getIdToken(),
       },
       this.timeout
     );
@@ -129,6 +130,7 @@ class ServerAPI {
       {
         emailAddress: emailAddress,
         itemId: itemId,
+        idToken: await getAuth().currentUser?.getIdToken(),
       },
       this.timeout
     );
@@ -141,6 +143,7 @@ class ServerAPI {
       {
         emailAddress: emailAddress,
         itemObject: item,
+        idToken: await getAuth().currentUser?.getIdToken(),
       },
       this.timeout
     );
@@ -156,6 +159,7 @@ class ServerAPI {
       {
         emailAddress: emailAddress,
         itemObject: pantryItem,
+        idToken: await getAuth().currentUser?.getIdToken(),
       },
       this.timeout
     );
@@ -168,6 +172,7 @@ class ServerAPI {
       {
         emailAddress: emailAddress,
         itemObject: item,
+        idToken: await getAuth().currentUser?.getIdToken(),
       },
       this.timeout
     );
@@ -183,6 +188,20 @@ class ServerAPI {
       {
         emailAddress: emailAddress,
         itemObject: pantryItem,
+        idToken: await getAuth().currentUser?.getIdToken(),
+      },
+      this.timeout
+    );
+  };
+
+  editItem = async (emailAddress: string, item: ItemObject) => {
+    return await this.serverRequest(
+      "post",
+      "edit-item",
+      {
+        emailAddress: emailAddress,
+        itemObject: item,
+        idToken: await getAuth().currentUser?.getIdToken(),
       },
       this.timeout
     );
@@ -198,18 +217,7 @@ class ServerAPI {
       {
         emailAddress: emailAddress,
         itemObject: pantryItem,
-      },
-      this.timeout
-    );
-  };
-
-  editItem = async (emailAddress: string, item: ItemObject) => {
-    return await this.serverRequest(
-      "post",
-      "edit-item",
-      {
-        emailAddress: emailAddress,
-        itemObject: item,
+        idToken: await getAuth().currentUser?.getIdToken(),
       },
       this.timeout
     );
