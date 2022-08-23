@@ -20,7 +20,15 @@
   justify-content: center;
   align-items: center;
 
+  padding: 4px;
+  border-radius: 8px;
+
+  width: 50px;
   cursor: pointer;
+}
+
+.navbar-item-selected {
+  background-color: rgba($color: base.$accent-color, $alpha: 0.7);
 }
 
 .navbar-item-icon {
@@ -55,4 +63,9 @@
 
   font-size: 40px;
   font-family: Arial;
+}
+
+#navbar-create-item:hover {
+  background-color: base.$interaction-color;
+  border-color: base.$interaction-color;
 }

@@ -13,7 +13,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 4px;
+  border-radius: 8px;
+  width: 50px;
   cursor: pointer;
+}
+
+.navbar-item-selected {
+  background-color: rgba(130, 189, 66, 0.7);
 }
 
 .navbar-item-icon {
@@ -44,6 +51,11 @@
   align-items: center;
   font-size: 40px;
   font-family: Arial;
+}
+
+#navbar-create-item:hover {
+  background-color: #ffb01f;
+  border-color: #ffb01f;
 }
 
 /*# sourceMappingURL=Navbar.css.map */
