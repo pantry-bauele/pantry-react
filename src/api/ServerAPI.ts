@@ -115,28 +115,26 @@ class ServerAPI {
     }
   };
 
-  async getItem(emailAddress: string, itemId: string) {
+  getItem = async (emailAddress: string, itemId: string) => {
     try {
       let response = await axios({
         method: "get",
         url: `${this.serverURL}/get-item`,
+        timeout: this.timeout,
         params: {
           emailAddress: emailAddress,
           itemId: itemId,
         },
       });
 
-      if (response.data) {
-        console.log(response.data);
+      if (response) {
         return response.data;
-      } else {
-        console.log("No response");
       }
     } catch (error) {
-      console.log("getItem() error");
       console.log(error);
+      return false;
     }
-  }
+  };
 
   async createItem(emailAddress: string, item: any) {
     try {

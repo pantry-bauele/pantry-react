@@ -12,7 +12,7 @@ interface Props {
 
 export const EditItem = ({ accountEmail }: Props) => {
   const [finishedLoading, setFinishedLoading] = useState(false);
-  const [serverError, setServerError] = useState(false);
+  const [loadingError, setLoadingError] = useState(false);
   const [itemDetails, setItemDetails] = useState(
     new Map<string, string | []>()
   );
@@ -47,7 +47,7 @@ export const EditItem = ({ accountEmail }: Props) => {
       let result = await loadItemDetails();
 
       if (!result) {
-        setServerError(true);
+        setLoadingError(true);
         return;
       }
 
@@ -72,11 +72,11 @@ export const EditItem = ({ accountEmail }: Props) => {
     <div id="edit-item-container">
       <div id="edit-item-form-container">
         <h1>Edit Item</h1>
-        {!finishedLoading && !serverError && <div>Loading item...</div>}
+        {!finishedLoading && !loadingError && <div>Loading item...</div>}
         {finishedLoading && itemDetails.size === 0 && (
           <div>Could not retrieve item details</div>
         )}
-        {serverError && (
+        {loadingError && (
           <div>
             There was an error processing your request. Please try again.
           </div>
