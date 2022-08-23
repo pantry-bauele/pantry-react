@@ -126,18 +126,26 @@ export const Pantry = ({ accountEmail }: Props) => {
 
     if (accountEmail) {
       if (newAmount <= 0) {
-        await server.deletePantryItem(accountEmail, modalTarget);
-        await loadItems(accountEmail);
-        alert("Item depleted.");
+        let result = await server.deletePantryItem(accountEmail, modalTarget);
+        if (result) {
+          alert("Item depleted!");
+          await loadItems(accountEmail);
+        } else {
+          alert("Something went wrong. Please try again.");
+        }
       } else {
         modalTarget.setAvailableQuantity(
           newAmount,
           modalTarget.availableQuantity.unit
         );
 
-        await server.editPantryItem(accountEmail, modalTarget);
-        await loadItems(accountEmail);
-        alert("Quantity has been adjusted.");
+        let result = await server.editPantryItem(accountEmail, modalTarget);
+        if (result) {
+          alert("Quantity has been adjusted!");
+          await loadItems(accountEmail);
+        } else {
+          alert("Something went wrong. Please try again.");
+        }
       }
     }
   };
@@ -156,9 +164,13 @@ export const Pantry = ({ accountEmail }: Props) => {
     );
 
     if (accountEmail) {
-      await server.editPantryItem(accountEmail, modalTarget);
-      await loadItems(accountEmail);
-      alert("Expiration date updated!");
+      let result = await server.editPantryItem(accountEmail, modalTarget);
+      if (result) {
+        alert("Expiration date updated!");
+        await loadItems(accountEmail);
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
     }
   };
 
