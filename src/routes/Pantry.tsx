@@ -7,6 +7,10 @@ import { Item as ItemObject } from "../pantry-shared/src/item";
 import { UsePantryItemModal } from "../components/modals/UsePantryItemModal";
 import { AddPantryItemModal } from "../components/modals/AddPantryItemModal";
 import { server } from "../api/ServerAPI";
+import {
+  getMeasurementType,
+  getMeasurementUnits,
+} from "../pantry-shared/src/measurementUnits";
 
 interface Props {
   accountEmail: string | null;
@@ -104,6 +108,16 @@ export const Pantry = ({ accountEmail }: Props) => {
 
     setShowUsePantryItemModal(true);
     setUsePantryItemModalUnits([pantryItem.getAvailableQuantity().unit]);
+
+    let pantryItemDefaultUnit = pantryItem.getAvailableQuantity().unit;
+    let defaultUnitType = getMeasurementType(pantryItemDefaultUnit);
+    if (defaultUnitType) {
+      let availableMeasurementUnits = getMeasurementUnits(defaultUnitType);
+      let availableMeasurementUnitLabels = availableMeasurementUnits.flatMap(
+        (unit) => unit.label
+      );
+      setUsePantryItemModalUnits(availableMeasurementUnitLabels);
+    }
     setModalTarget(pantryItem);
   };
 
