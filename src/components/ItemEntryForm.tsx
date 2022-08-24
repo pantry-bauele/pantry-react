@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { Item as ItemObject } from "../pantry-shared/src/item";
+import { getMeasurementUnits } from "../pantry-shared/src/measurementUnits";
 import { ItemEntryFormValidator } from "../api/ItemEntryFormValidator";
 import { FormField } from "./FormField";
 import { FormSelectField } from "./FormSelectField";
@@ -121,7 +122,7 @@ export const ItemEntryForm = ({
           ></FormField>
           <FormSelectField
             name="quantityUnit"
-            options={["g", "oz", "lb"]}
+            options={getMeasurementUnits("all").flatMap((unit) => unit.label)}
             onChange={handleChange}
             value={quantityUnit}
           />
@@ -144,7 +145,7 @@ export const ItemEntryForm = ({
           ></FormField>
           <FormSelectField
             name="servingUnit"
-            options={["g", "oz", "lb"]}
+            options={getMeasurementUnits("all").flatMap((unit) => unit.label)}
             onChange={handleChange}
             value={servingUnit}
           />
