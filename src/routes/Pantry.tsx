@@ -111,12 +111,16 @@ export const Pantry = ({ accountEmail }: Props) => {
 
     let pantryItemDefaultUnit = pantryItem.getAvailableQuantity().unit;
     let defaultUnitType = getMeasurementType(pantryItemDefaultUnit);
+
     if (defaultUnitType) {
       let availableMeasurementUnits = getMeasurementUnits(defaultUnitType);
-      let availableMeasurementUnitLabels = availableMeasurementUnits.flatMap(
+      let availableMeasurementUnitLabels = availableMeasurementUnits?.flatMap(
         (unit) => unit.label
       );
-      setUsePantryItemModalUnits(availableMeasurementUnitLabels);
+
+      if (availableMeasurementUnitLabels) {
+        setUsePantryItemModalUnits(availableMeasurementUnitLabels);
+      }
     }
     setModalTarget(pantryItem);
   };
