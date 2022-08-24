@@ -91,6 +91,15 @@ export const ItemEntryForm = ({
     }
   }, [prefill]);
 
+  const availableUnits = () => {
+    let units = getMeasurementUnits("all")?.flatMap((unit) => unit.label);
+    if (!units) {
+      return ["error"];
+    }
+
+    return units;
+  };
+
   const showCaloriesField = () => {
     if (showNutritionFields) {
       return (
@@ -122,7 +131,7 @@ export const ItemEntryForm = ({
           ></FormField>
           <FormSelectField
             name="quantityUnit"
-            options={getMeasurementUnits("all").flatMap((unit) => unit.label)}
+            options={availableUnits()}
             onChange={handleChange}
             value={quantityUnit}
           />
@@ -145,7 +154,7 @@ export const ItemEntryForm = ({
           ></FormField>
           <FormSelectField
             name="servingUnit"
-            options={getMeasurementUnits("all").flatMap((unit) => unit.label)}
+            options={availableUnits()}
             onChange={handleChange}
             value={servingUnit}
           />
