@@ -50,12 +50,6 @@ export const Item = ({ item, deleteItem, addItem }: Props) => {
                     item.getServingSize()?.amount
                   } ${item.getServingSize()?.unit}`
                 : ""}
-
-              {/*item.getCalories() && item.getCalories() < 0
-                ? ""
-                : item?.getCalories().toString() +
-                  " calories per " +
-              item.getServingSize().unit */}
             </div>
           </div>
           <div id="item-prices">{vendorPrices}</div>
