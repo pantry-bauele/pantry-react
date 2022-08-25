@@ -33,7 +33,7 @@ export const PantryItem = ({
 
       if (newUnit) {
         let convertedAmount = convertBaseUnitToOtherUnit(amount, newUnit);
-        return `${convertedAmount} ${newUnit} of product in stock`;
+        return `${convertedAmount?.toFixed(1)} ${newUnit} of product in stock`;
       }
     }
   };
