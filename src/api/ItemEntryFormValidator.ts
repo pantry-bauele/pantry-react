@@ -5,7 +5,7 @@ export class ItemEntryFormValidator {
   //later
   _validateNumber(number: string | number, name: string) {
     if (typeof number === "string") {
-      number = Number.parseInt(number);
+      number = Number.parseFloat(number);
 
       if (Number.isNaN(number)) {
         throw new Error(`${name} must be an integer value`);
