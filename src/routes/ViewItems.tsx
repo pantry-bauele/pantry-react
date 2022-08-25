@@ -82,9 +82,13 @@ export const ViewItems = ({ accountEmail }: Props) => {
       let pantryItem = new PantryItem(itemBeingAddedToPantry);
 
       let itemQuantity = itemBeingAddedToPantry.getTotalQuantity();
+
+      // TODO: CODE ERROR
+      /*
       if (itemQuantity.amount > 0) {
         pantryItem.setAvailableQuantity(itemQuantity.amount, itemQuantity.unit);
       }
+      */
 
       if (expirationDate !== 0) {
         let dateString = new Date(expirationDate);

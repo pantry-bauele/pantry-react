@@ -36,19 +36,26 @@ export const Item = ({ item, deleteItem, addItem }: Props) => {
         <div id="item-expanded-area">
           <div id="item-size">
             <div>
-              {isNaN(item.getTotalQuantity().amount)
-                ? ""
-                : item.getTotalQuantity().amount +
+              {item.getTotalQuantity()
+                ? item.getTotalQuantity()?.amount +
                   " " +
-                  item.getTotalQuantity().unit +
-                  " of product"}
+                  item.getTotalQuantity()?.unit +
+                  " of product"
+                : ""}
             </div>
             <div>
-              {item.getCalories() < 0
+              {/* Only show the calories field if not or if non-zero */}
+              {item.getCalories()
+                ? `${item.getCalories()} calories per  ${
+                    item.getServingSize()?.amount
+                  } ${item.getServingSize()?.unit}`
+                : ""}
+
+              {/*item.getCalories() && item.getCalories() < 0
                 ? ""
-                : item.getCalories() +
+                : item?.getCalories().toString() +
                   " calories per " +
-                  item.getServingSize().unit}
+              item.getServingSize().unit */}
             </div>
           </div>
           <div id="item-prices">{vendorPrices}</div>
