@@ -58,16 +58,14 @@ export const PantryItem = ({
       </div>
       <div id="item-stock">
         <div id="item-stock-text">
-          {item.getAvailableQuantity().amount > 0
-            ? item.getAvailableQuantity().amount +
-              " " +
-              item.getAvailableQuantity().unit +
-              " in stock "
+          {/*Only show if getAvailableBaseQuantity() is not null */}
+          {item.getAvailableBaseQuantity()
+            ? `${item.getAvailableBaseQuantity()?.amount.toFixed(0)} ${
+                item.getAvailableBaseQuantity()?.unit
+              } in stock`
             : ""}
         </div>
         <div id="item-expiration-text">
-          {/* 1969 is the year that is returned by default if the user has not
-           selected an expiration date, so it should not be shown */}
           {item.getExpirationDate().getFullYear() == 1969
             ? ""
             : "Expires on " + item.getExpirationDate().toLocaleDateString()}
@@ -77,4 +75,6 @@ export const PantryItem = ({
       <div id="item-border"></div>
     </div>
   );
+
+  return <div></div>;
 };
