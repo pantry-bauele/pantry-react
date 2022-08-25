@@ -10,6 +10,7 @@ import { server } from "../api/ServerAPI";
 import {
   getMeasurementType,
   getMeasurementUnits,
+  convertUnitToBaseUnit,
 } from "../pantry-shared/src/measurementUnits";
 
 interface Props {
@@ -96,7 +97,9 @@ export const Pantry = ({ accountEmail }: Props) => {
   // Function name here is a bit awkward due to React's useX naming conventing
   // for hooks. I was unable to name this function useItem() for such reasons.
   const utilizeItem = async (pantryItem: PantryItemObject) => {
-    if (pantryItem.getAvailableQuantity().amount <= 0) {
+    let availableBaseQuantity = pantryItem.getAvailableBaseQuantity()?.amount;
+    // If the availableBaseQuantity is null, just delete the item
+    if (!availableBaseQuantity) {
       if (accountEmail) {
         await server.deletePantryItem(accountEmail, pantryItem);
         await loadItems(accountEmail);
@@ -107,22 +110,22 @@ export const Pantry = ({ accountEmail }: Props) => {
     }
 
     setShowUsePantryItemModal(true);
-    setUsePantryItemModalUnits([pantryItem.getAvailableQuantity().unit]);
 
-    let pantryItemDefaultUnit = pantryItem.getAvailableQuantity().unit;
-    let defaultUnitType = getMeasurementType(pantryItemDefaultUnit);
+    let preferredUnit = pantryItem.getBaseItem().getTotalQuantity()?.unit;
+    if (preferredUnit) {
+      let defaultUnitType = getMeasurementType(preferredUnit);
+      if (defaultUnitType) {
+        let availableMeasurementUnits = getMeasurementUnits(defaultUnitType);
+        let availableMeasurementUnitLabels = availableMeasurementUnits?.flatMap(
+          (unit) => unit.label
+        );
 
-    if (defaultUnitType) {
-      let availableMeasurementUnits = getMeasurementUnits(defaultUnitType);
-      let availableMeasurementUnitLabels = availableMeasurementUnits?.flatMap(
-        (unit) => unit.label
-      );
-
-      if (availableMeasurementUnitLabels) {
-        setUsePantryItemModalUnits(availableMeasurementUnitLabels);
+        if (availableMeasurementUnitLabels) {
+          setUsePantryItemModalUnits(availableMeasurementUnitLabels);
+        }
       }
+      setModalTarget(pantryItem);
     }
-    setModalTarget(pantryItem);
   };
 
   const closeUseModal = () => {
@@ -134,35 +137,40 @@ export const Pantry = ({ accountEmail }: Props) => {
   };
 
   const submitUseModal = async (quantity: string, quantityUnit: string) => {
-    let previousAmount = modalTarget.getAvailableQuantity().amount;
-    let newAmount = previousAmount - Number.parseFloat(quantity);
+    let previousAmount = modalTarget.getAvailableBaseQuantity()?.amount;
+    let baseUnit = modalTarget.getAvailableBaseQuantity()?.unit;
 
-    if (isNaN(newAmount)) {
-      alert("Please try again!");
-      return;
-    }
+    if (previousAmount) {
+      let convertedModalAmount = convertUnitToBaseUnit(
+        Number.parseFloat(quantity),
+        quantityUnit
+      );
+      if (convertedModalAmount) {
+        let newAmount = previousAmount - convertedModalAmount;
 
-    if (accountEmail) {
-      if (newAmount <= 0) {
-        let result = await server.deletePantryItem(accountEmail, modalTarget);
-        if (result) {
-          alert("Item depleted!");
-          await loadItems(accountEmail);
-        } else {
-          alert("Something went wrong. Please try again.");
-        }
-      } else {
-        modalTarget.setAvailableQuantity(
-          newAmount,
-          modalTarget.availableQuantity.unit
-        );
+        if (accountEmail) {
+          if (newAmount <= 0) {
+            let result = await server.deletePantryItem(
+              accountEmail,
+              modalTarget
+            );
+            if (result) {
+              alert("Item depleted!");
+              await loadItems(accountEmail);
+            } else {
+              alert("Something went wrong. Please try again.");
+            }
+          } else {
+            modalTarget.setAvailableBaseQuantity(newAmount, baseUnit ?? "fup");
 
-        let result = await server.editPantryItem(accountEmail, modalTarget);
-        if (result) {
-          alert("Quantity has been adjusted!");
-          await loadItems(accountEmail);
-        } else {
-          alert("Something went wrong. Please try again.");
+            let result = await server.editPantryItem(accountEmail, modalTarget);
+            if (result) {
+              alert("Quantity has been adjusted!");
+              await loadItems(accountEmail);
+            } else {
+              alert("Something went wrong. Please try again.");
+            }
+          }
         }
       }
     }
