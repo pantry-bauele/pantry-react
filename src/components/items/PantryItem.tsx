@@ -32,8 +32,14 @@ export const PantryItem = ({
       let newUnit = item.getBaseItem().getTotalQuantity()?.unit;
 
       if (newUnit) {
-        let convertedAmount = convertBaseUnitToOtherUnit(amount, newUnit);
-        return `${convertedAmount?.toFixed(1)} ${newUnit} of product in stock`;
+        if (newUnit !== "serving(s)") {
+          let convertedAmount = convertBaseUnitToOtherUnit(amount, newUnit);
+          return `${convertedAmount?.toFixed(
+            1
+          )} ${newUnit} of product in stock`;
+        } else {
+          return `${amount?.toFixed(1)} ${newUnit} of product in stock`;
+        }
       }
     }
   };
