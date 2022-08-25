@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button } from "../Button";
 import { ItemHeading } from "../items/ItemHeading";
 import { PantryItem as PantryItemObject } from "../../pantry-shared/src/pantryItem";
+import { convertBaseUnitToOtherUnit } from "../../pantry-shared/src/measurementUnits";
 
 import "../../styles/sass/PantryItem.css";
 import "../../styles/sass/Item.css";
@@ -23,6 +24,19 @@ export const PantryItem = ({
   editItem,
 }: Props) => {
   const [expanded, setExpanded] = useState(false);
+
+  const showAvailableQuantity = () => {
+    let availableBaseQuantity = item.getAvailableBaseQuantity();
+    if (availableBaseQuantity) {
+      let amount = availableBaseQuantity.amount;
+      let newUnit = item.getBaseItem().getTotalQuantity()?.unit;
+
+      if (newUnit) {
+        let convertedAmount = convertBaseUnitToOtherUnit(amount, newUnit);
+        return `${convertedAmount} ${newUnit} of product in stock`;
+      }
+    }
+  };
 
   const renderExpandedContent = () => {
     if (expanded) {
@@ -57,14 +71,7 @@ export const PantryItem = ({
         />
       </div>
       <div id="item-stock">
-        <div id="item-stock-text">
-          {/*Only show if getAvailableBaseQuantity() is not null */}
-          {item.getAvailableBaseQuantity()
-            ? `${item.getAvailableBaseQuantity()?.amount.toFixed(0)} ${
-                item.getAvailableBaseQuantity()?.unit
-              } in stock`
-            : ""}
-        </div>
+        <div id="item-stock-text">{showAvailableQuantity()}</div>
         <div id="item-expiration-text">
           {item.getExpirationDate().getFullYear() == 1969
             ? ""
