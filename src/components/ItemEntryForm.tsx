@@ -404,8 +404,14 @@ export const ItemEntryForm = ({
 
       item.addVendorPrice(vendorPrice.name, financial);
     });
-    item.setTotalQuantity(Number.parseInt(quantity), quantityUnit);
-    item.setServingSize(Number.parseInt(serving), servingUnit);
+
+    if (quantity !== "") {
+      item.setTotalQuantity(Number.parseInt(quantity), quantityUnit);
+    }
+
+    if (serving !== "") {
+      item.setServingSize(Number.parseInt(serving), servingUnit);
+    }
 
     return item;
   };
