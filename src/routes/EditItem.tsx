@@ -14,7 +14,7 @@ export const EditItem = ({ accountEmail }: Props) => {
   const [finishedLoading, setFinishedLoading] = useState(false);
   const [loadingError, setLoadingError] = useState(false);
   const [itemDetails, setItemDetails] = useState(
-    new Map<string, string | []>()
+    new Map<string, string | [] | null>()
   );
 
   let { id } = useParams();
@@ -59,10 +59,10 @@ export const EditItem = ({ accountEmail }: Props) => {
       details.set("name", result.name);
       details.set("brand", result.brand);
       details.set("calories", result.calories);
-      details.set("totalQuantityAmount", result.totalQuantity.amount);
-      details.set("totalQuantityUnit", result.totalQuantity.unit);
-      details.set("servingSizeAmount", result.servingSize.amount);
-      details.set("servingSizeUnit", result.servingSize.unit);
+      details.set("totalQuantityAmount", result.totalQuantity?.amount);
+      details.set("totalQuantityUnit", result.totalQuantity?.unit);
+      details.set("servingSizeAmount", result.servingSize?.amount);
+      details.set("servingSizeUnit", result.servingSize?.unit);
       details.set("vendorPrices", result.vendorPrices);
 
       setItemDetails(details);

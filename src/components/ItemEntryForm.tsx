@@ -16,7 +16,7 @@ interface Props {
 
   submitForm: Function;
   onBack: Function;
-  prefill?: Map<string, string | number | []>;
+  prefill?: Map<string, string | number | [] | null>;
 }
 
 //Leaving until I am sure it works okay.
