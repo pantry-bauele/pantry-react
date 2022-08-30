@@ -6,7 +6,7 @@ import { FormSelectField } from "../FormSelectField";
 import { Button } from "../Button";
 import { ItemEntryFormValidator } from "../../api/ItemEntryFormValidator";
 
-import "../../styles/sass/AddPantryItemModal.css";
+import "../../styles/sass-built/AddPantryItemModal.css";
 
 interface Props {
   isOpen: boolean;

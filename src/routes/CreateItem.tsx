@@ -3,7 +3,7 @@ import { Item as ItemObject } from "../pantry-shared/src/item";
 import { ItemEntryForm } from "../components/ItemEntryForm";
 import { server } from "../api/ServerAPI";
 
-import "../styles/sass/CreateItem.css";
+import "../styles/sass-built/CreateItem.css";
 
 let itemDetailsDefault = new Map<string, boolean>();
 itemDetailsDefault.set("nutrition-button", false);

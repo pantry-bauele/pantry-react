@@ -1,6 +1,6 @@
 import React from "react";
 
-import "../styles/sass/Authentication.css";
+import "../styles/sass-built/Authentication.css";
 
 interface IAuthentication {
   emailAddress: string | null;

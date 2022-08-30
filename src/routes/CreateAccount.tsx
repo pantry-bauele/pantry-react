@@ -6,7 +6,7 @@ import { FormField } from "../components/FormField";
 import { Button } from "../components/Button";
 import "../api/AuthenticationService";
 
-import "../styles/sass/CreateAccount.css";
+import "../styles/sass-built/CreateAccount.css";
 
 export const CreateAccount = () => {
   const [firstName, setFirstName] = useState("");

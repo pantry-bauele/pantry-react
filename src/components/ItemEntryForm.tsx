@@ -7,7 +7,7 @@ import { FormField } from "./FormField";
 import { FormSelectField } from "./FormSelectField";
 import { Button } from "./Button";
 
-import "../styles/sass/ItemEntryForm.css";
+import "../styles/sass-built/ItemEntryForm.css";
 
 interface Props {
   showNutritionFields?: boolean;

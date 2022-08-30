@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "../Button";
 
-import "../../styles/sass/ItemHeading.css";
+import "../../styles/sass-built/ItemHeading.css";
 
 interface Props {
   name: string;

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "./Button";
 import { Link } from "react-router-dom";
 
-import "../styles/sass/Header.css";
+import "../styles/sass-built/Header.css";
 
 interface Props {
   siteName: string;

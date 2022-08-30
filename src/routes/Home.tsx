@@ -1,4 +1,4 @@
-import "../styles/sass/Home.css";
+import "../styles/sass-built/Home.css";
 
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/Button";

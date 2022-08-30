@@ -7,7 +7,7 @@ import { PantryItem } from "../pantry-shared/src/pantryItem";
 import { AddPantryItemModal } from "../components/modals/AddPantryItemModal";
 import { server } from "../api/ServerAPI";
 
-import "../styles/sass/ViewItems.css";
+import "../styles/sass-built/ViewItems.css";
 
 interface Props {
   accountEmail: string | null;

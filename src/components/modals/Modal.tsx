@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom";
-import "../../styles/sass/Modal.css";
+import "../../styles/sass-built/Modal.css";
 
 interface Props {
   isOpen: boolean;

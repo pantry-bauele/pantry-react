@@ -5,8 +5,8 @@ import { ItemHeading } from "../items/ItemHeading";
 import { PantryItem as PantryItemObject } from "../../pantry-shared/src/pantryItem";
 import { convertBaseUnitToOtherUnit } from "../../pantry-shared/src/measurementUnits";
 
-import "../../styles/sass/PantryItem.css";
-import "../../styles/sass/Item.css";
+import "../../styles/sass-built/PantryItem.css";
+import "../../styles/sass-built/Item.css";
 
 interface Props {
   item: PantryItemObject;

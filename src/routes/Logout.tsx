@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { logoutUser } from "../api/AuthenticationService";
-import "../styles/sass/Logout.css";
+import "../styles/sass-built/Logout.css";
 
 export const Logout = () => {
   let navigate = useNavigate();

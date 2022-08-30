@@ -1,5 +1,5 @@
 import { ChangeEventHandler } from "react";
-import "../styles/sass/FormSelectField.css";
+import "../styles/sass-built/FormSelectField.css";
 
 interface Props {
   onChange: ChangeEventHandler<HTMLSelectElement>;

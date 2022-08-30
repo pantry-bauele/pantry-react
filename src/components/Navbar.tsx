@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-import "../styles/sass/Navbar.css";
+import "../styles/sass-built/Navbar.css";
 
 export const Navbar = () => {
   let navigate = useNavigate();

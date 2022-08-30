@@ -4,7 +4,7 @@ import { ItemEntryForm } from "../components/ItemEntryForm";
 import { Item as ItemObject } from "../pantry-shared/src/item";
 import { server } from "../api/ServerAPI";
 
-import "../styles/sass/EditItem.css";
+import "../styles/sass-built/EditItem.css";
 
 interface Props {
   accountEmail: string | null;

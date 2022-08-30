@@ -1,5 +1,5 @@
 import { MouseEventHandler } from "react";
-import "../styles/sass/Button.css";
+import "../styles/sass-built/Button.css";
 
 interface Props {
   id?: string;

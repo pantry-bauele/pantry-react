@@ -5,7 +5,7 @@ import { Button } from "../Button";
 import { ItemHeading } from "../items/ItemHeading";
 import { Item as ItemObject, VendorPrice } from "../../pantry-shared/src/item";
 
-import "../../styles/sass/Item.css";
+import "../../styles/sass-built/Item.css";
 
 interface Props {
   item: ItemObject;

@@ -1,5 +1,5 @@
 import { ChangeEventHandler, FocusEventHandler } from "react";
-import "../styles/sass/FormField.css";
+import "../styles/sass-built/FormField.css";
 
 interface Props {
   label: string;
