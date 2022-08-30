@@ -1,0 +1,14 @@
+@use "base";
+
+#edit-item-container {
+  background-color: base.$background-color;
+}
+
+#edit-item-form-container {
+  margin-top: 3px;
+  display: flex;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

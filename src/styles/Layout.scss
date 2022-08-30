@@ -1,0 +1,28 @@
+@use "base";
+
+#layout-container {
+  display: flex;
+  background-color: base.$background-color;
+  flex-direction: column;
+  justify-content: space-between;
+
+  width: 100vw;
+  height: 100vh;
+}
+
+#layout-outlet {
+  flex-grow: 1;
+  background-color: base.$background-color;
+  padding-bottom: 50px;
+}
+
+#layout-navigation-bar {
+  background-color: #fffde4;
+
+  height: 60px;
+  padding: 5px;
+  box-shadow: 0px 0px 12px grey;
+
+  bottom: 0;
+  position: sticky;
+}

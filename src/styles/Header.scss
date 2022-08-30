@@ -1,0 +1,54 @@
+@use "base";
+
+@media (hover: hover) and (pointer: fine) {
+  #header-site-details:hover {
+    // Credit: https://codepen.io/sosuke/pen/Pjoqqp
+    // https://stackoverflow.com/questions/7415872/change-color-of-png-image-via-css
+    filter: brightness(0%) saturate(100%) invert(86%) sepia(42%) saturate(5332%)
+      hue-rotate(342deg) brightness(109%) contrast(103%);
+  }
+}
+
+#header-container {
+  background: base.$background-color;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0px 0px 12px grey;
+  min-height: 70px;
+  height: 70px;
+  padding-left: 10px;
+  padding-right: 10px;
+  z-index: 1;
+}
+
+#header-site-details {
+  display: flex;
+}
+
+#header-logo-link {
+  display: flex;
+  text-decoration: none;
+}
+
+#header-logo {
+  background-image: url("../../assets/pantry-logo.png");
+  background-size: cover;
+  width: 40px;
+  height: 40px;
+
+  align-self: center;
+}
+
+#header-site-name {
+  font-size: 32px;
+  font-weight: bold;
+  color: base.$brand-color;
+
+  align-self: center;
+  margin-left: 5px;
+}
+
+#header-navigation {
+  display: flex;
+  align-items: center;
+}

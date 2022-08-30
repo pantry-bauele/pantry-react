@@ -1,0 +1,25 @@
+@use "base";
+
+#view-items-heading {
+  text-align: center;
+}
+
+#view-items-container {
+  background-color: base.$background-color;
+
+  padding-top: 15px;
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  padding-bottom: 25px;
+}
+
+#view-items-elements {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: base.$background-color;
+  gap: 5px;
+}
