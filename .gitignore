@@ -6,7 +6,7 @@
 .pnp.js
 
 # css
-/styles/sass-built
+src/styles/sass-built
 
 # testing
 /coverage
