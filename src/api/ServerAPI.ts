@@ -10,7 +10,14 @@ class ServerAPI {
   serverURL: string;
   timeout = 5000;
 
-  constructor(ipAddress: string, port: string, timeout?: number) {
+  constructor() {
+    console.log(process.env.REACT_APP_SERVER_ADDRESS);
+    this.ipAddress = '';
+    this.port = '';
+    this.serverURL = '';
+  }
+
+  initialize(ipAddress: string, port: string, timeout?: number) {
     this.ipAddress = ipAddress;
     this.port = port;
     this.serverURL = ipAddress + ":" + port;
@@ -219,4 +226,10 @@ class ServerAPI {
   };
 }
 
-export const server = new ServerAPI("http://192.168.0.7", "3001");
+export const server = new ServerAPI();
+if (process.env.REACT_APP_SERVER_ADDRESS && process.env.REACT_APP_SERVER_PORT) {
+  server.initialize(process.env.REACT_APP_SERVER_ADDRESS, process.env.REACT_APP_SERVER_PORT);
+}
+else {
+  console.log("Error: cannot initialize server connection");
+}
